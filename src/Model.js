@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
 export default function Model() {
-  const { nodes, materials } = useGLTF("/3dModels/Medusa.glb");
+  const { nodes, materials } = useGLTF("/3dModels/MedusaOptimized.glb");
   return (
     <group scale={0.01} > 
       <mesh
