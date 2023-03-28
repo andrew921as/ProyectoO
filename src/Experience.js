@@ -4,6 +4,7 @@ import { Float } from '@react-three/drei'
 import {Perf} from 'r3f-perf'
 import FoxMo from './FoxMo'
 import Model from './Model'
+import Poseidon from './Poseidon'
 
 export default function Experience()
 {
@@ -15,7 +16,7 @@ export default function Experience()
         <directionalLight castShadow position={ [ 1, 2, 3 ] } intensity={ 1.5 } />
         <ambientLight intensity={ 0.5 } />
 
-        <Model/>
+        <Poseidon/>
         <Float>
             <Text
                 font="/Fuentes/gelio/GelioFi.ttf"
