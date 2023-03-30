@@ -5,6 +5,7 @@ import {Perf} from 'r3f-perf';
 import FoxMo from './FoxMo';
 import Model from './Model';
 import Poseidon from './Poseidon';
+import Cerberus from './Cerberus';
 import Temple from './Temple';
 
 export default function Experience() {
@@ -18,10 +19,11 @@ export default function Experience() {
 			<ambientLight intensity={0.5} />
 
 			{/* <Poseidon/> */}
-			<Temple />
-			<Float>
+			{/* <Temple/> */}
+			<Cerberus/>
+			<Float speed={10}>
 				<Text font="/Fuentes/gelio/GelioFi.ttf" fontSize={2} color="LightYellow" position-y={8} maxWidth={15} textAlign="center">
-					QUE ESTAS HACIENDO VE!
+					WHO LET THE DOGS OUT!!!
 				</Text>
 			</Float>
 
