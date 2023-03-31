@@ -8,9 +8,14 @@ title: A3 Greek Parthenon
 
 import React, {useRef} from 'react';
 import {useGLTF} from '@react-three/drei';
+import {TextureLoader} from 'three';
 
-export default function Temple(props) {
+export default function Temple() {
 	const {nodes, materials} = useGLTF('/3dModels/Temple.glb');
+	const texture = new TextureLoader().load('/textures/white-stone.jpeg'); // Add texture
+
+	materials.lambert1.map = texture; // Change model texture to the new one
+
 	return (
 		<group scale={10} position={[3, 0, -2.2]} dispose={null}>
 			<group rotation={[-Math.PI / 2, 0, 0]}>
