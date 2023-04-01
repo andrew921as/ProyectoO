@@ -22,3 +22,7 @@ yarn-error.log*
 
 # firebase
 .firebase
+
+#vs
+.vs/*
+.vs

@@ -4,34 +4,29 @@ import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
+import { MeshStandardMaterial } from "three";
 
 
 
 
 export default function Cerberus() {
-    const { nodes, materials } = useGLTF("/3dModels/CerberusTextured.glb");
-    const [diffuseMap, normalMap] = useLoader(TextureLoader, [
-        '/3dModels/Diffuse_Cerberus.png',
-        '/3dModels/Normal_Cerberus.png'
-    ]);
+    const { nodes, materials } = useGLTF("/3dModels/CerberusOptimized.glb");
 
   return (
     <group scale={1.5} > 
       <mesh
-              position-y={-0.7}
-              rotation-x={4.71239}
-              rotation-z={3.14159}
               castShadow
               receiveShadow
               geometry={nodes["16792_Cerberus_v2"].geometry}
-              material={materials["CrackedConcrete.001"]}
+              material={materials.CrackedConcrete}
+              position={[-0.01, 1.5, 1]}
+              rotation={[-Math.PI / 2, 0, Math.PI]}
         
           >
-          
           </mesh>
     </group>
   );
 }
 
-useGLTF.preload("/3dModels/CerberusTextured.glb");
+useGLTF.preload("/3dModels/CerberusOptimized.glb");
 

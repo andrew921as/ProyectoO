@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\public",
+    "\\public\\3dModels",
+    "\\src"
   ],
+  "SelectedNode": "\\src\\Cerberus.js",
   "PreviewInSolutionExplorer": false
 }
