@@ -1,34 +1,47 @@
 {
-  "name": "first-app-react",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+  "name": "react-three-next",
+  "version": "2.0.0",
+  "authors": [
+    "Renaud ROHLINGER <https://twitter.com/onirenaud>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=14"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "lint": "next lint --fix --dir app",
+    "dev": "next dev",
+    "build": "next build",
+    "analyze": "ANALYZE=true next build",
+    "start": "next start"
+  },
   "dependencies": {
-    "@react-three/drei": "^9.58.5",
+    "@ducanh2912/next-pwa": "^8.2.0",
+    "@react-three/drei": "^9.65.3",
     "@react-three/fiber": "^8.12.0",
-    "r3f-perf": "^7.1.2",
+    "glsl-random": "^0.0.5",
+    "next": "^13.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
-    "three": "^0.150.1"
+    "three": "^0.151.3",
+    "three-stdlib": "^2.21.8",
+    "tunnel-rat": "^0.1.2"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@next/bundle-analyzer": "^13.3.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.38.0",
+    "eslint-config-next": "^13.3.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-tailwindcss": "^3.11.0",
+    "file-loader": "^6.2.0",
+    "glslify": "^7.1.1",
+    "glslify-loader": "^2.0.0",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.7",
+    "raw-loader": "^4.0.2",
+    "tailwindcss": "^3.3.1",
+    "url-loader": "^4.1.1"
   }
 }
