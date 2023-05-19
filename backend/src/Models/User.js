@@ -27,6 +27,12 @@ const userSchema = new mongoose.Schema({
 		required: false,
 		default: 'https://res.cloudinary.com/dy1xcx7kw/image/upload/v1623687229/olimpo/avatar-default.png',
 	},
+	keys: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Key',
+		},
+	],
 });
 
 const User = mongoose.model('User', userSchema);
