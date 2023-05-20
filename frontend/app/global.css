@@ -17,3 +17,10 @@
     overflow: hidden;
   }
 }
+
+@font-face {
+  font-family: "Gelio";
+  src: url('../public/fonts/gelio/GelioPasteli.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
