@@ -1,6 +1,7 @@
 'use client'
 import styles from './page.module.css'
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from "framer-motion";
 
 //Images
@@ -61,18 +62,18 @@ export default function Page() {
         </motion.div>
       <h1 id={styles.title} className="text-7xl mt-10 md:text-9xl "> OLIMPOCRAFT</h1>
       <div className='flex h-1/6 inset-x-0 bottom-0 absolute justify-center'>
-        <a className='relative md:scale-9 lg:scale-75'>
+        <Link href="/login" className='relative md:scale-9 lg:scale-75'>
           <Image 
             src={registrarseButton} 
             alt='registartse Button' 
           />
-        </a>    
-        <a className='relative md:scale-9 lg:scale-75'>
+        </Link>    
+        <Link href="/register" className='relative md:scale-9 lg:scale-75'>
           <Image 
             src={iniciarSButton} 
             alt='Iniciar Sesion Button' 
           />
-        </a>
+        </Link>
       </div>
     </div>
   )

@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link';
 import axios from 'axios'
 import { apiUrl } from '@/config';
 
@@ -129,12 +130,11 @@ const Resgiter = () => {
                     </div>
                 </section>
 
-
                 {/* Botones volver e ingresar */}
                 <div className='flex font-texto text-3xl mt-4'>
-                    <button className='relative'>
+                    <Link href="/" className='relative'>
                         <img src='icons/login/back_button.svg' alt='Volver button' />
-                    </button>
+                    </Link>
                     <button type='submit' className='relative'>
                         <img src='icons/login/login_button.svg' alt='continuar button' />
                     </button>
