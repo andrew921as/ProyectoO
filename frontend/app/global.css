@@ -29,4 +29,7 @@
     /* font-family: 'gelio', 'Inter', Arial, sans-serif; */
     font-family: 'jeju', sans-serif;
   }
+  input {
+    outline: none;
+  }
 }

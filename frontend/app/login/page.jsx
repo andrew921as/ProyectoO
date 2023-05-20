@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { GrMailOption } from 'react-icons/Gr'
 import { AiFillUnlock } from 'react-icons/Ai'
+import { IoMailSharp } from 'react-icons/io5'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -33,25 +34,34 @@ const Login = () => {
   }
 
   return (
-    <div className='flex  items-center w-full h-screen bg-[url("/img/login/login.png")] bg-no-repeat bg-cover bg-center'>
+    <div
+      className='flex items-center w-full h-screen'
+      style={{
+        backgroundImage: `url("/img/login/login.png")`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       {/* <img src='/img/login/login.png' alt='Fondo De Inicio de Sesión' /> */}
       <form
         onSubmit={handleSubmit}
-        className='w-full max-w-xl flex justify-center flex-col h-[800px] p-8 ml-20 bg-sin_derechos bg-opacity-75 text-amarillito text-left rounded shadow-lg'
+        className='w-full sm:w-1/2 max-w-[1000px] flex justify-center flex-col h-[800px] p-8 sm:ml-20 bg-sin_derechos bg-opacity-75 text-amarillito text-left rounded shadow-lg'
       >
-        <h2 className='text-7xl font-bold mb-6 text-center font-texto'>Iniciar sesión</h2>
+        <h2 className='text-7xl font-bold mb-11 text-left font-texto'>Iniciar sesión</h2>
         <div className='flex mb-4'>
           {/* <label htmlFor='email' className='block mb-2 font-semibold'>
             Email
           </label> */}
-          <GrMailOption className='w-10 h-10 mr-2 mt-2 text-amarillito' />
+          <IoMailSharp className=' w-20 h-20 mr-2 mt-2 text-amarillito' />
+
           <input
             type='email'
             id='email'
-            placeholder='Email'
+            placeholder='Correo electrónico'
             value={email}
             onChange={handleEmailChange}
-            className='w-full bg-transparent border-b-4 p-4 border-amarillito placeholder:text-caca_clara rounded placeholder:text-3xl placeholder:font-light'
+            className='text-3xl w-full bg-transparent border-b-4 p-4 border-amarillito placeholder:text-caca_clara rounded placeholder:text-3xl placeholder:font-light'
             required
           />
         </div>
@@ -59,29 +69,26 @@ const Login = () => {
           {/* <label htmlFor='password' className='block mb-2 font-semibold'>
             Contraseña
           </label> */}
-          <AiFillUnlock className='w-10 h-10 mr-2 mt-2 text-amarillito' />
+          <AiFillUnlock className='w-20 h-20 mr-2 mt-2  text-amarillito' />
+
           <input
             type='password'
             id='password'
             placeholder='Contraseña'
             value={password}
             onChange={handlePasswordChange}
-            className='w-full bg-transparent border-b-4 p-4 border-amarillito placeholder:text-caca_clara rounded placeholder:text-3xl placeholder:font-light'
+            className='text-3xl w-full bg-transparent border-b-4 p-4 border-amarillito placeholder:text-caca_clara rounded placeholder:text-3xl placeholder:font-light '
             required
           />
         </div>
-        <div className='flex'>
-          <button
-            type='submit'
-            className='w-1/2 p-2 bg-caca_clara text-amarillito border-2 border-amarillito rounded hover:opacity-50'
-          >
-            Volver
+        <div className='flex font-texto text-3xl mt-[300px]'>
+          <button type='submit' className='relative'>
+            <img src='icons/login/volver_button.svg' alt='Volver button' />
+            <p className='absolute inset-0 flex items-center justify-center'>Volver</p>
           </button>
-          <button
-            type='submit'
-            className='w-1/2 p-2 bg-moradito_palido text-amarillito border-2 border-amarillito rounded hover:opacity-50'
-          >
-            Ingresar
+          <button type='submit' className='relative'>
+            <img src='icons/login/continuar_button.svg' alt='continuar button' />
+            <p className='absolute inset-0 flex items-center justify-center '>Ingresa</p>
           </button>
         </div>
       </form>
