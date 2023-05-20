@@ -4,21 +4,20 @@
   color: white;
 }
 
-.box {
-  width: 200px;
-  height: 100px;
-  background-image: url(/img/CloudL.jpg);
-  background-repeat: no-repeat;
+#mainHome{
+  background-image: url(/img/home.jpg);
   background-position: center;
   background-size: cover;
 }
 
+.box {
+  position:absolute;
+  width: 50vw;
+  height: 100vh; 
+}
+
 .box2 {
   position: absolute;
-  width: 200px;
-  height: 100px;
-  background-image: url(/img/CloudR.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  width: 50vw;
+  height: 100vh;
 }
