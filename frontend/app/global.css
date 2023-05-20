@@ -7,6 +7,17 @@
     box-sizing: border-box;
   }
 
+  /* Fonts */
+  /* @font-face {
+    font-family: 'jeju';
+    src: url('../public/fonts/jeju.ttf') format('ttf');
+  }
+
+  @font-face {
+    font-family: 'gelio';
+    src: url('../public/fonts/gelio.ttf') format('ttf');
+  } */
+
   html,
   body,
   #root {
@@ -15,6 +26,11 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    /* font-family: 'gelio', 'Inter', Arial, sans-serif; */
+    font-family: 'jeju', sans-serif;
+  }
+  input {
+    outline: none;
   }
 }
 

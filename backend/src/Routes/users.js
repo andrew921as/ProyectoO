@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 const User = require('../Models/User');
 
@@ -23,23 +24,92 @@ router.get('/:userId', async (req, res) => {
 	}
 });
 
-// Ruta para crear un usuario
-router.post('/', async (req, res) => {
-	const user = new User({
-		name: req.body.name,
-		last_name: req.body.last_name,
-		email: req.body.email,
-		password: req.body.password,
-		token: req.body.token,
-		avatar: req.body.avatar,
+// Ruta para hacer login
+router.post('/login', (req, res) => {
+	const { email, password } = req.body;
+  
+	// Busca un usuario en la base de datos con el email proporcionado
+	User.findOne({ email }, (err, user) => {
+	  if (err) {
+		console.error('Error al buscar el usuario en la base de datos:', err);
+		res.status(500).json({ message: 'Error del servidor' });
+		return;
+	  }
+  
+	  if (!user) {
+		// Usuario no encontrado
+		res.status(401).json({ message: 'Credenciales inválidas' });
+		return;
+	  }
+  
+	  // Compara la contraseña ingresada con la contraseña almacenada en la base de datos
+	  bcrypt.compare(password, user.password, (err, result) => {
+		if (err) {
+		  console.error('Error al comparar contraseñas:', err);
+		  res.status(500).json({ message: 'Error del servidor' });
+		  return;
+		}
+  
+		if (result) {
+		  // Inicio de sesión válido
+		  res.status(200).json({ message: 'Inicio de sesión exitoso' });
+		} else {
+		  // Credenciales inválidas
+		  res.status(401).json({ message: 'Credenciales inválidas' });
+		}
+	  });
 	});
-	try {
-		const savedUser = await user.save();
-		res.json(savedUser);
-	} catch (error) {
-		res.json({message: error});
-	}
-});
+  });
+
+  //Ruta para registar un usuario
+  router.post('/register', (req, res) => {
+	const { name, last_name, email, password, avatar, token } = req.body;
+  
+	// Verifica si ya existe un usuario con el mismo correo electrónico
+	User.findOne({ email }, (err, existingUser) => {
+	  if (err) {
+		console.error('Error al buscar el usuario en la base de datos:', err);
+		res.status(500).json({ message: 'Error del servidor' });
+		return;
+	  }
+  
+	  if (existingUser) {
+		// Ya existe un usuario con el mismo correo electrónico
+		res.status(400).json({ message: 'Ya existe un usuario con ese correo electrónico' });
+		return;
+	  }
+  
+	  // Aplica hashing a la contraseña antes de guardarla en la base de datos
+	  bcrypt.hash(password, 10, (err, hashedPassword) => {
+		if (err) {
+		  console.error('Error al encriptar la contraseña:', err);
+		  res.status(500).json({ message: 'Error del servidor' });
+		  return;
+		}
+  
+		// Crea un nuevo usuario con los atributos proporcionados
+		const newUser = new User({
+		  name,
+		  last_name,
+		  email,
+		  password: hashedPassword,
+		  avatar,
+		  token
+		});
+  
+		// Guarda el usuario en la base de datos
+		newUser.save((err) => {
+		  if (err) {
+			console.error('Error al guardar el usuario en la base de datos:', err);
+			res.status(500).json({ message: 'Error del servidor' });
+			return;
+		  }
+  
+		  res.status(201).json({ message: 'Usuario creado exitosamente' });
+		});
+	  });
+	});
+  });
 
 // Ruta para eliminar un usuario por su ID
 router.delete('/:userId', async (req, res) => {
