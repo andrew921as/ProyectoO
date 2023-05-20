@@ -22,6 +22,7 @@
     "@react-three/drei": "^9.65.3",
     "@react-three/fiber": "^8.12.0",
     "axios": "^1.4.0",
+    "framer-motion": "^10.12.12",
     "glsl-random": "^0.0.5",
     "next": "^13.4.2",
     "react": "^18.2.0",
