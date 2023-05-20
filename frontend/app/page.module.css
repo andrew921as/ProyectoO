@@ -1,0 +1,23 @@
+#title {
+  font-family: 'Gelio', sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+#mainHome{
+  background-image: url(/img/home.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+.box {
+  position:absolute;
+  width: 50vw;
+  height: 100vh; 
+}
+
+.box2 {
+  position: absolute;
+  width: 50vw;
+  height: 100vh;
+}
