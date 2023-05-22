@@ -6,8 +6,7 @@ import Link from 'next/link'
 import { apiUrl } from '@/config'
 
 // Icons
-import { GrMailOption } from 'react-icons/Gr'
-import { AiFillUnlock } from 'react-icons/Ai'
+import { AiFillUnlock } from 'react-icons/ai'
 import { IoMailSharp } from 'react-icons/io5'
 
 const Login = () => {

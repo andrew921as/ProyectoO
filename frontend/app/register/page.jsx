@@ -6,7 +6,7 @@ import { apiUrl } from '@/config';
 
 // Icons
 import { FaUserAlt,  } from "react-icons/fa";
-import { AiFillUnlock } from 'react-icons/Ai'
+import { AiFillUnlock } from 'react-icons/ai'
 import { IoMailSharp } from 'react-icons/io5'
 
 const Resgiter = () => {
