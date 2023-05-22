@@ -62,13 +62,13 @@ export default function Page() {
         </motion.div>
       <h1 id={styles.title} className="text-7xl mt-10 md:text-9xl "> OLIMPOCRAFT</h1>
       <div className='flex h-1/6 inset-x-0 bottom-0 absolute justify-center'>
-        <Link href="/login" className='relative md:scale-9 lg:scale-75'>
+        <Link href="/register" className='relative md:scale-9 lg:scale-75'>
           <Image 
             src={registrarseButton} 
             alt='registartse Button' 
           />
         </Link>    
-        <Link href="/register" className='relative md:scale-9 lg:scale-75'>
+        <Link href="/login" className='relative md:scale-9 lg:scale-75'>
           <Image 
             src={iniciarSButton} 
             alt='Iniciar Sesion Button' 
