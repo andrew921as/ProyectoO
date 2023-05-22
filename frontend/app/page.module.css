@@ -12,12 +12,14 @@
 
 .box {
   position:absolute;
-  width: 50vw;
-  height: 100vh; 
+  width: 78vw;
+  height: 105vh;
+  z-index: 20; 
 }
 
 .box2 {
   position: absolute;
-  width: 50vw;
-  height: 100vh;
+  width: 78vw;
+  height: 105vh;
+  z-index: 20;
 }

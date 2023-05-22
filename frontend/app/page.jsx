@@ -30,16 +30,17 @@ export default function Page() {
       <motion.div
         className={styles.box}
         initial={{
+          x:"-25vw",
           y: 0,
           opacity: 1
         }}
         animate={{
-          x: "-50vw",
+          x: "-95vw",
           y: [0, -300],
           opacity: [1, 0]
         }}
         transition={{
-          duration: 10,
+          duration: 7,
           ease: "easeInOut"
         }}
       >
@@ -72,21 +73,21 @@ export default function Page() {
           duration: 10,
           ease: "easeInOut",
         }} 
-      > Listo para una aventura?</motion.h2>
+      > ¿Listo para una aventura?</motion.h2>
       <motion.div
         className={styles.box2}
         initial={{
           y: 0,
-          x: "50vw",
+          x: "45vw",
           opacity: 1
         }}
         animate={{
-          x: "100vw",
+          x: "110vw",
           y: [0, -300],
           opacity: [1, 0]
         }}
         transition={{
-          duration: 10,
+          duration: 7,
           ease: "easeInOut"
         }}
       >
