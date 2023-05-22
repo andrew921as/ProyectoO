@@ -1,11 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { apiUrl } from '@/config'
 import Link from 'next/link'
 
-import { apiUrl } from '@/config'
-
 // Icons
+import { GrMailOption } from 'react-icons/gr'
 import { AiFillUnlock } from 'react-icons/ai'
 import { IoMailSharp } from 'react-icons/io5'
 
@@ -13,6 +14,7 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [formHeight, setFormHeight] = useState(0);
+  const router = useRouter()
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
@@ -32,6 +34,7 @@ const Login = () => {
       .post(`${apiUrl}/users/login`, data)
       .then((response) => {
         console.log(response.data) // Maneja la respuesta del servidor según tus necesidades
+        router.push('/world')
       })
       .catch((error) => {
         console.error(error)
@@ -88,9 +91,12 @@ const Login = () => {
           />
         </div>
         <div className='flex font-texto text-3xl mt-4 md:mt-[100px] xl:mt-[200px] xxl:mt-[300px]'>
-          <Link href="/" className='relative'>
-            <img src='icons/login/back_button.svg' alt='Volver button' />
-          </Link>
+          <button className='relative'>
+              <Link href="/">
+              <img src='icons/login/back_button.svg' alt='Volver button' />
+              
+              </Link>
+          </button>
           <button type='submit' className='relative'>
             <img src='icons/login/login_button.svg' alt='continuar button' />
           </button>
