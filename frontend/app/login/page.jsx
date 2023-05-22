@@ -48,7 +48,7 @@ const Login = () => {
     <div
       className='flex items-center w-full h-screen'
       style={{
-        backgroundImage: `url("/img/login/login.png")`,
+        backgroundImage: `url("/img/login/login.jpg")`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
