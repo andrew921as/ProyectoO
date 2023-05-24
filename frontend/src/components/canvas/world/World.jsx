@@ -14,876 +14,876 @@ export function ModelWorld(props) {
   {/* <Perf position="top-left" /> */}
     <Sky sunPosition={[7, 60, 1]} rayleigh={0.4}/>
     <Suspense fallback={null}>
-    <group {...props} dispose={null}>
-      <group rotation={[Math.PI / 2, 0, 0]}>
+     <group {...props} dispose={null}>
+      <group position={[-239.12, 0, -186.14]} scale={0.03}>
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_1"].geometry}
+          geometry={nodes.mesh_0.geometry}
           material={materials.stone}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_2"].geometry}
+          geometry={nodes.mesh_0_1.geometry}
           material={materials.grass_block_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_3"].geometry}
+          geometry={nodes.mesh_0_2.geometry}
           material={materials.dirt}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_4"].geometry}
+          geometry={nodes.mesh_0_3.geometry}
           material={materials.grass_block_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_5"].geometry}
+          geometry={nodes.mesh_0_4.geometry}
           material={materials.cobblestone}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_6"].geometry}
+          geometry={nodes.mesh_0_5.geometry}
           material={materials.oak_planks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_7"].geometry}
+          geometry={nodes.mesh_0_6.geometry}
           material={materials.spruce_planks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_8"].geometry}
+          geometry={nodes.mesh_0_7.geometry}
           material={materials.jungle_planks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_9"].geometry}
+          geometry={nodes.mesh_0_8.geometry}
           material={materials.birch_sapling}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_10"].geometry}
+          geometry={nodes.mesh_0_9.geometry}
           material={materials.water_still}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_11"].geometry}
+          geometry={nodes.mesh_0_10.geometry}
           material={materials.water_flow}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_12"].geometry}
+          geometry={nodes.mesh_0_11.geometry}
           material={materials.lava_still}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_13"].geometry}
+          geometry={nodes.mesh_0_12.geometry}
           material={materials.sand}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_14"].geometry}
+          geometry={nodes.mesh_0_13.geometry}
           material={materials.gravel}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_15"].geometry}
+          geometry={nodes.mesh_0_14.geometry}
           material={materials.iron_ore}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_16"].geometry}
+          geometry={nodes.mesh_0_15.geometry}
           material={materials.coal_ore}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_17"].geometry}
+          geometry={nodes.mesh_0_16.geometry}
           material={materials.oak_log}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_18"].geometry}
+          geometry={nodes.mesh_0_17.geometry}
           material={materials.oak_log_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_19"].geometry}
+          geometry={nodes.mesh_0_18.geometry}
           material={materials.spruce_log}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_20"].geometry}
+          geometry={nodes.mesh_0_19.geometry}
           material={materials.spruce_log_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_21"].geometry}
+          geometry={nodes.mesh_0_20.geometry}
           material={materials.birch_log}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_22"].geometry}
+          geometry={nodes.mesh_0_21.geometry}
           material={materials.birch_log_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_23"].geometry}
+          geometry={nodes.mesh_0_22.geometry}
           material={materials.oak_leaves}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_24"].geometry}
+          geometry={nodes.mesh_0_23.geometry}
           material={materials.spruce_leaves}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_25"].geometry}
+          geometry={nodes.mesh_0_24.geometry}
           material={materials.birch_leaves}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_26"].geometry}
+          geometry={nodes.mesh_0_25.geometry}
           material={materials.sandstone_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_27"].geometry}
+          geometry={nodes.mesh_0_26.geometry}
           material={materials.sandstone}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_28"].geometry}
+          geometry={nodes.mesh_0_27.geometry}
           material={materials.sandstone_bottom}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_29"].geometry}
+          geometry={nodes.mesh_0_28.geometry}
           material={materials.chiseled_sandstone}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_30"].geometry}
+          geometry={nodes.mesh_0_29.geometry}
           material={materials.cut_sandstone}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_31"].geometry}
+          geometry={nodes.mesh_0_30.geometry}
           material={materials.MW_bed_feet_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_32"].geometry}
+          geometry={nodes.mesh_0_31.geometry}
           material={materials.MW_bed_head_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_33"].geometry}
+          geometry={nodes.mesh_0_32.geometry}
           material={materials.MW_bed_feet_end}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_34"].geometry}
+          geometry={nodes.mesh_0_33.geometry}
           material={materials.MW_bed_feet_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_35"].geometry}
+          geometry={nodes.mesh_0_34.geometry}
           material={materials.MW_bed_head_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_36"].geometry}
+          geometry={nodes.mesh_0_35.geometry}
           material={materials.MW_bed_head_end}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_37"].geometry}
+          geometry={nodes.mesh_0_36.geometry}
           material={materials.piston_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_38"].geometry}
+          geometry={nodes.mesh_0_37.geometry}
           material={materials.piston_bottom}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_39"].geometry}
+          geometry={nodes.mesh_0_38.geometry}
           material={materials.piston_inner}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_40"].geometry}
+          geometry={nodes.mesh_0_39.geometry}
           material={materials.grass}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_41"].geometry}
+          geometry={nodes.mesh_0_40.geometry}
           material={materials.fern}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_42"].geometry}
+          geometry={nodes.mesh_0_41.geometry}
           material={materials.dead_bush}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_43"].geometry}
+          geometry={nodes.mesh_0_42.geometry}
           material={materials.piston_top_sticky}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_44"].geometry}
+          geometry={nodes.mesh_0_43.geometry}
           material={materials.piston_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_45"].geometry}
+          geometry={nodes.mesh_0_44.geometry}
           material={materials.white_wool}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_46"].geometry}
+          geometry={nodes.mesh_0_45.geometry}
           material={materials.lime_wool}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_47"].geometry}
+          geometry={nodes.mesh_0_46.geometry}
           material={materials.gray_wool}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_48"].geometry}
+          geometry={nodes.mesh_0_47.geometry}
           material={materials.purple_wool}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_49"].geometry}
+          geometry={nodes.mesh_0_48.geometry}
           material={materials.dandelion}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_50"].geometry}
+          geometry={nodes.mesh_0_49.geometry}
           material={materials.poppy}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_51"].geometry}
+          geometry={nodes.mesh_0_50.geometry}
           material={materials.brown_mushroom}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_52"].geometry}
+          geometry={nodes.mesh_0_51.geometry}
           material={materials.red_mushroom}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_53"].geometry}
+          geometry={nodes.mesh_0_52.geometry}
           material={materials.gold_block}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_54"].geometry}
+          geometry={nodes.mesh_0_53.geometry}
           material={materials.smooth_stone}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_55"].geometry}
+          geometry={nodes.mesh_0_54.geometry}
           material={materials.smooth_stone_slab_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_56"].geometry}
+          geometry={nodes.mesh_0_55.geometry}
           material={materials.bricks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_57"].geometry}
+          geometry={nodes.mesh_0_56.geometry}
           material={materials.stone_bricks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_58"].geometry}
+          geometry={nodes.mesh_0_57.geometry}
           material={materials.quartz_block_bottom}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_59"].geometry}
+          geometry={nodes.mesh_0_58.geometry}
           material={materials.quartz_block_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_60"].geometry}
+          geometry={nodes.mesh_0_59.geometry}
           material={materials.quartz_block_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_61"].geometry}
+          geometry={nodes.mesh_0_60.geometry}
           material={materials.tnt_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_62"].geometry}
+          geometry={nodes.mesh_0_61.geometry}
           material={materials.tnt_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_63"].geometry}
+          geometry={nodes.mesh_0_62.geometry}
           material={materials.tnt_bottom}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_64"].geometry}
+          geometry={nodes.mesh_0_63.geometry}
           material={materials.bookshelf}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_65"].geometry}
+          geometry={nodes.mesh_0_64.geometry}
           material={materials.mossy_cobblestone}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_66"].geometry}
+          geometry={nodes.mesh_0_65.geometry}
           material={materials.obsidian}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_67"].geometry}
+          geometry={nodes.mesh_0_66.geometry}
           material={materials.torch}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_68"].geometry}
+          geometry={nodes.mesh_0_67.geometry}
           material={materials.fire_0}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_69"].geometry}
+          geometry={nodes.mesh_0_68.geometry}
           material={materials.MWO_chest_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_70"].geometry}
+          geometry={nodes.mesh_0_69.geometry}
           material={materials.MWO_chest_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_71"].geometry}
+          geometry={nodes.mesh_0_70.geometry}
           material={materials.MWO_chest_front}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_72"].geometry}
+          geometry={nodes.mesh_0_71.geometry}
           material={materials.MWO_double_chest_front_left}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_73"].geometry}
+          geometry={nodes.mesh_0_72.geometry}
           material={materials.MWO_double_chest_front_right}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_74"].geometry}
+          geometry={nodes.mesh_0_73.geometry}
           material={materials.MWO_double_chest_back_left}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_75"].geometry}
+          geometry={nodes.mesh_0_74.geometry}
           material={materials.MWO_double_chest_back_right}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_76"].geometry}
+          geometry={nodes.mesh_0_75.geometry}
           material={materials.MWO_double_chest_top_left}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_77"].geometry}
+          geometry={nodes.mesh_0_76.geometry}
           material={materials.MWO_double_chest_top_right}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_78"].geometry}
+          geometry={nodes.mesh_0_77.geometry}
           material={materials.MWO_chest_latch}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_79"].geometry}
+          geometry={nodes.mesh_0_78.geometry}
           material={materials.redstone_dust_line1}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_80"].geometry}
+          geometry={nodes.mesh_0_79.geometry}
           material={materials.MWO_redstone_dust_angled}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_81"].geometry}
+          geometry={nodes.mesh_0_80.geometry}
           material={materials.redstone_dust_line0}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_82"].geometry}
+          geometry={nodes.mesh_0_81.geometry}
           material={materials.MWO_redstone_dust_three_way}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_83"].geometry}
+          geometry={nodes.mesh_0_82.geometry}
           material={materials.crafting_table_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_84"].geometry}
+          geometry={nodes.mesh_0_83.geometry}
           material={materials.crafting_table_front}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_85"].geometry}
+          geometry={nodes.mesh_0_84.geometry}
           material={materials.wheat_stage7}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_86"].geometry}
+          geometry={nodes.mesh_0_85.geometry}
           material={materials.farmland_moist}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_87"].geometry}
+          geometry={nodes.mesh_0_86.geometry}
           material={materials.furnace_front}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_88"].geometry}
+          geometry={nodes.mesh_0_87.geometry}
           material={materials.furnace_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_89"].geometry}
+          geometry={nodes.mesh_0_88.geometry}
           material={materials.furnace_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_90"].geometry}
+          geometry={nodes.mesh_0_89.geometry}
           material={materials.oak_door_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_91"].geometry}
+          geometry={nodes.mesh_0_90.geometry}
           material={materials.oak_door_bottom}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_92"].geometry}
+          geometry={nodes.mesh_0_91.geometry}
           material={materials.ladder}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_93"].geometry}
+          geometry={nodes.mesh_0_92.geometry}
           material={materials.lever}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_94"].geometry}
+          geometry={nodes.mesh_0_93.geometry}
           material={materials.iron_door_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_95"].geometry}
+          geometry={nodes.mesh_0_94.geometry}
           material={materials.iron_door_bottom}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_96"].geometry}
+          geometry={nodes.mesh_0_95.geometry}
           material={materials.redstone_torch_off}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_97"].geometry}
+          geometry={nodes.mesh_0_96.geometry}
           material={materials.snow}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_98"].geometry}
+          geometry={nodes.mesh_0_97.geometry}
           material={materials.cactus_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_99"].geometry}
+          geometry={nodes.mesh_0_98.geometry}
           material={materials.cactus_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_100"].geometry}
+          geometry={nodes.mesh_0_99.geometry}
           material={materials.clay}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_101"].geometry}
+          geometry={nodes.mesh_0_100.geometry}
           material={materials.sugar_cane}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_102"].geometry}
+          geometry={nodes.mesh_0_101.geometry}
           material={materials.pumpkin_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_103"].geometry}
+          geometry={nodes.mesh_0_102.geometry}
           material={materials.pumpkin_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_104"].geometry}
+          geometry={nodes.mesh_0_103.geometry}
           material={materials.carved_pumpkin}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_105"].geometry}
+          geometry={nodes.mesh_0_104.geometry}
           material={materials.netherrack}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_106"].geometry}
+          geometry={nodes.mesh_0_105.geometry}
           material={materials.glowstone}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_107"].geometry}
+          geometry={nodes.mesh_0_106.geometry}
           material={materials.jack_o_lantern}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_108"].geometry}
+          geometry={nodes.mesh_0_107.geometry}
           material={materials.oak_trapdoor}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_109"].geometry}
+          geometry={nodes.mesh_0_108.geometry}
           material={materials.mossy_stone_bricks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_110"].geometry}
+          geometry={nodes.mesh_0_109.geometry}
           material={materials.cracked_stone_bricks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_111"].geometry}
+          geometry={nodes.mesh_0_110.geometry}
           material={materials.chiseled_stone_bricks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_112"].geometry}
+          geometry={nodes.mesh_0_111.geometry}
           material={materials.iron_bars}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_113"].geometry}
+          geometry={nodes.mesh_0_112.geometry}
           material={materials.glass}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_114"].geometry}
+          geometry={nodes.mesh_0_113.geometry}
           material={materials.glass_pane_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_115"].geometry}
+          geometry={nodes.mesh_0_114.geometry}
           material={materials.vine}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_116"].geometry}
+          geometry={nodes.mesh_0_115.geometry}
           material={materials.lily_pad}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_117"].geometry}
+          geometry={nodes.mesh_0_116.geometry}
           material={materials.nether_bricks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_118"].geometry}
+          geometry={nodes.mesh_0_117.geometry}
           material={materials.cauldron_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_119"].geometry}
+          geometry={nodes.mesh_0_118.geometry}
           material={materials.cauldron_inner}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_120"].geometry}
+          geometry={nodes.mesh_0_119.geometry}
           material={materials.cauldron_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_121"].geometry}
+          geometry={nodes.mesh_0_120.geometry}
           material={materials.birch_planks}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_122"].geometry}
+          geometry={nodes.mesh_0_121.geometry}
           material={materials.flower_pot}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_123"].geometry}
+          geometry={nodes.mesh_0_122.geometry}
           material={materials.potatoes_stage3}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_124"].geometry}
+          geometry={nodes.mesh_0_123.geometry}
           material={materials.anvil}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_125"].geometry}
+          geometry={nodes.mesh_0_124.geometry}
           material={materials.anvil_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_126"].geometry}
+          geometry={nodes.mesh_0_125.geometry}
           material={materials.hopper_inside}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_127"].geometry}
+          geometry={nodes.mesh_0_126.geometry}
           material={materials.hopper_outside}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_128"].geometry}
+          geometry={nodes.mesh_0_127.geometry}
           material={materials.hopper_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_129"].geometry}
+          geometry={nodes.mesh_0_128.geometry}
           material={materials.quartz_pillar_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_130"].geometry}
+          geometry={nodes.mesh_0_129.geometry}
           material={materials.quartz_pillar}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_131"].geometry}
+          geometry={nodes.mesh_0_130.geometry}
           material={materials.chiseled_quartz_block_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_132"].geometry}
+          geometry={nodes.mesh_0_131.geometry}
           material={materials.chiseled_quartz_block}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_133"].geometry}
+          geometry={nodes.mesh_0_132.geometry}
           material={materials.magenta_terracotta}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_134"].geometry}
+          geometry={nodes.mesh_0_133.geometry}
           material={materials.light_blue_terracotta}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_135"].geometry}
+          geometry={nodes.mesh_0_134.geometry}
           material={materials.pink_terracotta}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_136"].geometry}
+          geometry={nodes.mesh_0_135.geometry}
           material={materials.gray_terracotta}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_137"].geometry}
+          geometry={nodes.mesh_0_136.geometry}
           material={materials.light_gray_terracotta}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_138"].geometry}
+          geometry={nodes.mesh_0_137.geometry}
           material={materials.cyan_terracotta}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_139"].geometry}
+          geometry={nodes.mesh_0_138.geometry}
           material={materials.purple_terracotta}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_140"].geometry}
+          geometry={nodes.mesh_0_139.geometry}
           material={materials.brown_terracotta}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_141"].geometry}
+          geometry={nodes.mesh_0_140.geometry}
           material={materials.black_terracotta}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_142"].geometry}
+          geometry={nodes.mesh_0_141.geometry}
           material={materials.hay_block_side}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_143"].geometry}
+          geometry={nodes.mesh_0_142.geometry}
           material={materials.hay_block_top}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_144"].geometry}
+          geometry={nodes.mesh_0_143.geometry}
           material={materials.blue_wool}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["OLIMPOCRAFT__-89_63_10_to_389_255_381_145"].geometry}
+          geometry={nodes.mesh_0_144.geometry}
           material={materials.red_wool}
         />
       </group>
