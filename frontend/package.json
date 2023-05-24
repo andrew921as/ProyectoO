@@ -11,16 +11,17 @@
   },
   "scripts": {
     "lint": "next lint --fix --dir app",
-    "dev": "next dev",
-    "build": "next build",
-    "analyze": "ANALYZE=true next build",
-    "start": "next start"
+    "dev": "node unzip.js | next dev",
+    "build": "node unzip.js | next build",
+    "analyze": "node unzip.js | ANALYZE=true next build",
+    "start": "node unzip.js | next start"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^8.2.0",
     "@next/font": "^13.4.3",
     "@react-three/drei": "^9.65.3",
     "@react-three/fiber": "^8.12.0",
+    "adm-zip": "^0.5.10",
     "axios": "^1.4.0",
     "framer-motion": "^10.12.12",
     "glsl-random": "^0.0.5",
