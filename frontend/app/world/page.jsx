@@ -10,9 +10,7 @@ import { Modal } from '../../src/components/elements/Modal';
 import { Book } from '../../src/components/elements/Book';
 
 // React Three Fiber Components
-const Logo = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
-const Dog = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Dog), { ssr: false })
-const Duck = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
+const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
     ssr: false,
     loading: () => (
@@ -29,7 +27,7 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
     ),
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
-
+// cambio para el commit 
 export default function Page() {
 
     const [windowSize, setWindowSize] = useState({
@@ -73,7 +71,8 @@ export default function Page() {
                         </Html>
 
 
-                        <Logo route='/blob' scale={0.6} position={[0, 0, 0]} />
+                        {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
+                        <World />
                         <Common />
                    
                 </View>
