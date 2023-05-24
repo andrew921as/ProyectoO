@@ -25,9 +25,11 @@
     "framer-motion": "^10.12.12",
     "glsl-random": "^0.0.5",
     "next": "^13.4.2",
+    "r3f-perf": "^7.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "sweetalert2": "^11.7.5",
     "three": "^0.151.3",
     "three-stdlib": "^2.21.8",
     "tunnel-rat": "^0.1.2"

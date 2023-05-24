@@ -2,7 +2,12 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { apiUrl } from '@/config';
+import Swal from 'sweetalert2'
+
+// COMPONENTS
+import Loading from '@/components/elements/Loading'
 
 // Icons
 import { FaUserAlt,  } from "react-icons/fa";
@@ -15,6 +20,8 @@ const Resgiter = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [formHeight, setFormHeight] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter()
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -32,6 +39,7 @@ const Resgiter = () => {
     }
 
     const handleSubmit = (e) => {
+        setIsLoading(true);
         e.preventDefault()
         const data = {
             name,
@@ -42,10 +50,35 @@ const Resgiter = () => {
         axios
             .post(`${apiUrl}/users/register`, data)
             .then((response) => {
-                console.log(response.data) // Maneja la respuesta del servidor según tus necesidades
+                // Detiene el loading
+                setIsLoading(false);
+
+                // Envía al usuario a la página de inicio
+                router.push('/world')
             })
             .catch((error) => {
-                console.error(error)
+                // console.error(error)
+
+                // Detiene el loading
+                setIsLoading(false);
+
+                // Alerta de error
+                Swal.fire({
+                    title: 'Error!',
+                    text: `Ocurrió un error al registrarse. Verifica tus credenciales. ${error}`,
+                    confirmButtonText: 'Aceptar',
+                    buttonsStyling: false,
+                    color: '#F4DFB0',
+                    iconColor: '#F4DFB0',
+                    background: '#8C6F4D',
+                    iconHtml: '<img src="/icons/login/advertencia.svg" alt="error" class="w-20 h-20">',
+                    customClass: {
+                        popup: 'rounded-xl',
+                      title: 'text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
+                      htmlContainer: 'text-amarillito text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
+                      confirmButton: 'bg-moradito_palido text-amarillito font-texto text-xl p-4 rounded',
+                    }
+                })
             })
     }
 
@@ -129,6 +162,12 @@ const Resgiter = () => {
                         />
                     </div>
                 </section>
+
+                {isLoading ? (
+                    <div className="flex w-full justify-center mt-4">
+                        <Loading />
+                    </div>
+                ) : null}
 
                 {/* Botones volver e ingresar */}
                 <div className='flex font-texto text-3xl mt-4'>
