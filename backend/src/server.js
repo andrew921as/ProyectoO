@@ -14,6 +14,8 @@ mongoose
 
 // Middleware para aceptar datos en formato JSON
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 // Habilitar CORS
 app.use(cors());
 
@@ -26,8 +28,14 @@ app.get('/', (req, res) => {
 const usersRoutes = require('./Routes/users');
 app.use('/users', usersRoutes);
 
+// Rutas de modelos
+const modelsRoutes = require('./Routes/models');
+app.use('/models', modelsRoutes);
+
 // Iniciar el servidor
 const port = 3001;
 app.listen(port, () => {
 	console.log(`Servidor Express escuchando en el puerto ${port}`);
 });
+
+console.log("HOLA MUNDO")

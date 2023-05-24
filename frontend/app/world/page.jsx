@@ -73,6 +73,7 @@ export default function Page() {
 
                         {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
                         <World />
+
                         <Common />
                    
                 </View>

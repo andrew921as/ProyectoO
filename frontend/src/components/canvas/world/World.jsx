@@ -2,11 +2,17 @@
 
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
+import {Perf} from 'r3f-perf';
+
+import Water from "./Water";
+import { GLTFLoader } from "three-stdlib";
+
 
 export function ModelWorld(props) {
-  const { nodes, materials } = useGLTF("/models/world/world.glb");
-  return (
-    <group {...props} dispose={null}>
+  // const { nodes, materials } = useGLTF("/models/world/world.glb");
+  return (<>
+  <Perf position="top-left" />
+    {/* <group {...props} dispose={null}>
       <group position={[-270.14, -1, -241.12]} scale={0.03}>
         <mesh
           castShadow
@@ -963,8 +969,10 @@ export function ModelWorld(props) {
           material={materials.Material}
         />
       </group>
-    </group>
+    </group> */}
+    <Water/>
+    </>
   );
 }
 
-useGLTF.preload("/models/world/world.glb");
+// useGLTF.preload("/models/world/world.glb");
