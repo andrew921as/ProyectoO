@@ -1,8 +1,9 @@
 'use client'
 
-import {  useFrame } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react';
 import * as THREE from 'three'
+import { Sky } from "@react-three/drei";
 
 const WaveShader = {
     uniforms: {
@@ -12,7 +13,7 @@ const WaveShader = {
         uBigWavesFrequency: { value: new THREE.Vector2(0.047, 0.01) },
         uBigWavesSpeed: { value: 0.75 },
 
-        uSmallWavesElevation: { value: 0.368},
+        uSmallWavesElevation: { value: 0.368 },
         uSmallWavesFrequency: { value: 0.71 },
         uSmallWavesSpeed: { value: 0.235 },
         uSmallIterations: { value: 4 },
@@ -170,10 +171,13 @@ export default function Water() {
 
 
     return (
-        <mesh position={[-40,1,-10]} rotation-x = {- Math.PI * 0.5}>
-            <planeGeometry args={[450, 450, 512, 512]} />
-            <shaderMaterial ref={shaderMaterial} args={[WaveShader]} />
-        </mesh>
+        <>
+            <mesh position={[0, 0, 0]} rotation-x={- Math.PI * 0.5}>
+                <planeGeometry args={[500, 400, 512, 512]} />
+                <shaderMaterial ref={shaderMaterial} args={[WaveShader]} />
+            </mesh>
+        </>
+
     )
 
 }

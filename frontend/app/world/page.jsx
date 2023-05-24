@@ -5,6 +5,7 @@ import { Suspense, useState, useEffect } from 'react'
 import { Html } from '@react-three/drei'
 
 
+
 // React Components
 import { Modal } from '../../src/components/elements/Modal';
 import { Book } from '../../src/components/elements/Book';
@@ -73,7 +74,7 @@ export default function Page() {
         <>
             <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
 
-                <View orbit className='relative flex h-full w-full flex-col items-center justify-center bg-red-500 bg-opacity-50'>
+                <View orbit className='relative flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'>
 
                     <Html as="div"
                         style={
@@ -85,7 +86,6 @@ export default function Page() {
                                 left: -windowSize.width / 2,
                             }
                         }>
-
                         <Modal />
                         <Book />
                     </Html>
