@@ -29,23 +29,43 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 // cambio para el commit 
 export default function Page() {
-
-    const [windowSize, setWindowSize] = useState({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
+    const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
-        function handleResize() {
+        const handleResize = () => {
             setWindowSize({
                 width: window.innerWidth,
                 height: window.innerHeight
             });
+        };
+
+        if (typeof window !== 'undefined') {
+            handleResize(); // Obtener el tamaño de la ventana inicial
+            window.addEventListener('resize', handleResize); // Actualizar el tamaño de la ventana al cambiar su tamaño
         }
-    
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('resize', handleResize); // Eliminar el evento de cambio de tamaño al desmontar el componente
+            }
+        };
     }, []);
+    // const [windowSize, setWindowSize] = useState({
+    //     width: window.innerWidth,
+    //     height: window.innerHeight
+    //   });
+
+    // useEffect(() => {
+    //     function handleResize() {
+    //         setWindowSize({
+    //             width: window.innerWidth,
+    //             height: window.innerHeight
+    //         });
+    //     }
+
+    //     window.addEventListener("resize", handleResize);
+    //     return () => window.removeEventListener("resize", handleResize);
+    // }, []);
 
 
 
@@ -54,33 +74,33 @@ export default function Page() {
             <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
 
                 <View orbit className='relative flex h-full w-full flex-col items-center justify-center bg-red-500 bg-opacity-50'>
-                    
-                        <Html as="div"
-                         style={
+
+                    <Html as="div"
+                        style={
                             {
                                 width: '100vw',
                                 height: '100vh',
                                 position: 'relative',
-                                top: -windowSize.height/2,
-                                left: -windowSize.width/2,
+                                top: -windowSize.height / 2,
+                                left: -windowSize.width / 2,
                             }
                         }>
-                            
-                            <Modal />
-                            <Book />
-                        </Html>
+
+                        <Modal />
+                        <Book />
+                    </Html>
 
 
-                        {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
-                        <World />
+                    {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
+                    <World />
 
-                        <Common />
-                   
+                    <Common />
+
                 </View>
                 {/* </div> */}
             </div>
 
-            
+
         </>
     )
 }
