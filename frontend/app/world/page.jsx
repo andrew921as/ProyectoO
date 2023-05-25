@@ -28,6 +28,7 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
     ),
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
+const Sticker = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), {ssr:false})
 // cambio para el commit 
 export default function Page() {
     const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
@@ -93,6 +94,7 @@ export default function Page() {
 
                     {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
                     <World />
+                    <Sticker />
 
                     <Common />
 

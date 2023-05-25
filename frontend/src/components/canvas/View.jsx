@@ -11,7 +11,7 @@ export const Common = ({ color }) => (
     {color && <color attach='background' args={[color]} />}
     <ambientLight intensity={0.2} /> 
     <pointLight position={[7, 60, 1]} intensity={0.8} />
-    <PerspectiveCamera makeDefault fov={40} position={[0, 0, 6]} />
+    <PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} />
   </Suspense>
 )
 
