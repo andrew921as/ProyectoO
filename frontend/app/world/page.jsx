@@ -68,12 +68,18 @@ export default function Page() {
 
   return (
     <>
+      <div className='absolute z-20 top-0 right-0'>
+        <Modal />
+      </div >
+      <div className='absolute z-20 bottom-0 right-0'>
+        <Book />
+      </div>
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
         <View
           orbit
-          className='relative flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
+          className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
         >
-          <Html
+          {/* <Html
             as='div'
             style={{
               width: '100vw',
@@ -85,7 +91,7 @@ export default function Page() {
           >
             <Modal />
             <Book />
-          </Html>
+          </Html> */}
 
           {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
           <World />
