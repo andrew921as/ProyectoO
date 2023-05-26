@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import ReactAudioPlayer from 'react-audio-player'
 
 
 //Images
@@ -13,22 +14,24 @@ import iniciarSButton from '/public/icons/home/iniciarSButton.svg'
 import song from '/public/music/intro.mp3'
 
 export default function Page() {
-  const [audio] = useState(()=>new Audio(song))
 
 
   useEffect(() => {
-      audio.currentTime = 0
-      audio.volume = 0.5; // Ajusta el volumen del audio si lo deseas
-      audio.play();
   
       return () => {
         // Detener la reproducción al desmontar el componente
-        audio.pause();
-        audio.currentTime = 0;
+        // audio.pause();
+        // audio.currentTime = 0;
       };
     }, []);
   return (
     <div className='w-full h-full relative grid text-center justify-center overflow-hidden'>
+      <ReactAudioPlayer
+        src={song}
+        autoPlay
+        controls
+        className='hidden'
+      />
       <motion.div
         id={styles.mainHome}
         className='absolute w-full h-full z-0'
