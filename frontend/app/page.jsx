@@ -3,7 +3,7 @@ import styles from './page.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
 //Images
@@ -13,9 +13,11 @@ import iniciarSButton from '/public/icons/home/iniciarSButton.svg'
 import song from '/public/music/intro.mp3'
 
 export default function Page() {
-  const audio = new Audio(song);
+  const [audio] = useState(()=>new Audio(song))
+
 
   useEffect(() => {
+      audio.currentTime = 0
       audio.volume = 0.5; // Ajusta el volumen del audio si lo deseas
       audio.play();
   
