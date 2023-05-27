@@ -4,22 +4,3 @@
   color: white;
 }
 
-#mainHome{
-  background-image: url(/img/home.jpg);
-  background-position: center;
-  background-size: cover;
-}
-
-.box {
-  position:absolute;
-  width: 78vw;
-  height: 105vh;
-  z-index: 20; 
-}
-
-.box2 {
-  position: absolute;
-  width: 78vw;
-  height: 105vh;
-  z-index: 20;
-}
