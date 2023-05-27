@@ -28,7 +28,7 @@ export default function Page() {
         }}
       >
         <p className='text-neutral-50 text-5xl m-auto font-texto md:text-8xl'>
-          Bienvenido a una nueva aventura
+          CONOCE UN NUEVO MUNDO
         </p>
         <motion.div
           initial={{

@@ -66,7 +66,7 @@ export default function Page() {
         <Image alt='Cloud' src={cloudImg} fill />
       </motion.div>
       <motion.h2
-        className='z-10 absolute top-1/2 right-0 bottom-0 left-0 m-auto font-texto text-center text-4xl text-sin_derechos md:text-6xl md:w-1/3'
+        className='z-10 absolute h-fit top-0 right-0 bottom-0 left-0 m-auto font-texto text-center text-4xl text-white bg-sin_derechos bg-opacity-75 p-2 rounded-lg md:text-6xl md:w-1/3'
         initial={{ opacity: 0 }}
         animate={{
           scale: [0, 1, 1, 1, 0],
@@ -78,10 +78,11 @@ export default function Page() {
         }}
       >
         {' '}
-        Bienvenido a la antigua grecia
+        Bienvenido a la antigua grecia  
+
       </motion.h2>
       <motion.h2
-        className='z-10 absolute top-1/2 right-0 bottom-0 left-0 m-auto font-texto text-center text-4xl text-sin_derechos md:text-6xl md:w-1/3'
+        className='z-10 absolute h-fit top-0 right-0 bottom-0 left-0 m-auto font-texto text-center text-4xl text-white bg-sin_derechos bg-opacity-75 p-2 rounded-lg md:text-6xl md:w-1/3'
         initial={{ opacity: 0 }}
         animate={{
           scale: [0, 0, 1, 1, 0],
