@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense, useState, useEffect } from 'react'
-import { Html } from '@react-three/drei'
+import { Html, KeyboardControls } from '@react-three/drei'
 
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
@@ -28,9 +28,15 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
   ),
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
-// const Sticker = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
+const Player = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Player), { ssr: false })
+const keyboardControls = [
+  { name: "forward", keys: ["ArrowUp", "w", "W"] },
+  { name: "backward", keys: ["ArrowDown", "s", "S"] },
+  { name: "left", keys: ["ArrowLeft", "a", "A"] },
+  { name: "right", keys: ["ArrowRight", "d", "D"] },
+]
+// cambio para el commit
 
-// cambio para el commit 
 export default function Page() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isBookOpen, setIsBookOpen] = useState(false);
@@ -94,31 +100,13 @@ export default function Page() {
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
         >
-          {/* <Html
-            as='div'
-            style={{
-              width: '100vw',
-              height: '100vh',
-              position: 'relative',
-              top: -windowSize.height / 2,
-              left: -windowSize.width / 2,
-            }}
-          >
-            <Modal />
-            <Book />
-          </Html> */}
-
-          {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
-          <World />
-          {isBookOpen && <BookModel/>}
-          {isImgOpen && <ImageWall/>}
-          {/* <mesh {...props} visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
-            <planeGeometry args={[1,1]} />
-            <meshStandardMaterial map={currentTexture} color="whitered" side={DoubleSide}/>
-          </mesh>
-          <ImageWall visible={isWallVisible} onClick={() => {setWallVisibility(false); setText(""); setImgVisibility(true)}} texture={currentTexture} text={text} /> */}
-
-          <Common />
+          <KeyboardControls map={keyboardControls}>
+            <World />
+            <Player/>
+            {isBookOpen && <BookModel/>}
+            {isImgOpen && <ImageWall/>}
+            <Common />
+          </KeyboardControls>
         </View>
         {/* </div> */}
       </div>
