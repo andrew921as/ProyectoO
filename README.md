@@ -20,7 +20,7 @@ El objetivo de este proyecto es ofrecer una experiencia interactiva y educativa 
 
 En el siguiente enlace puedes encontrar el repositorio de este proyecto:
 
-[Enlace al repositorio](https://github.com/tu-usuario/tu-repositorio)
+[Enlace al repositorio](https://github.com/andrew921as/ProyectoO/)
 
 ## Página desplegada
 
