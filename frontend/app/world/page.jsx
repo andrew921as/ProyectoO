@@ -10,6 +10,7 @@ import { Book } from '../../src/components/elements/Book'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
+const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), { ssr: false })
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -27,10 +28,19 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
   ),
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
-// cambio para el commit
+// const Sticker = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
+
+// cambio para el commit 
 export default function Page() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isBookOpen, setIsBookOpen] = useState(false);
+  const [isImgOpen, setIsImgOpen] = useState(false);
+
+  const handleshowImg = () => {
+    setIsBookOpen(!isBookOpen);
+    !isImgOpen? setTimeout(()=>{setIsImgOpen(!isImgOpen)},3000) : setIsImgOpen(!isImgOpen)
+    
+  } 
 
   useEffect(() => {
     const handleResize = () => {
@@ -77,7 +87,7 @@ export default function Page() {
         <Modal />
       </div >
       <div className='absolute z-20 bottom-0 right-0'>
-        <Book onClick={() => {setIsBookOpen(!isBookOpen)} } />
+        <Book onClick={() => {handleshowImg()} } />
       </div>
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
         <View
@@ -101,7 +111,13 @@ export default function Page() {
           {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
           <World />
           {isBookOpen && <BookModel/>}
-          
+          {isImgOpen && <ImageWall/>}
+          {/* <mesh {...props} visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
+            <planeGeometry args={[1,1]} />
+            <meshStandardMaterial map={currentTexture} color="whitered" side={DoubleSide}/>
+          </mesh>
+          <ImageWall visible={isWallVisible} onClick={() => {setWallVisibility(false); setText(""); setImgVisibility(true)}} texture={currentTexture} text={text} /> */}
+
           <Common />
         </View>
         {/* </div> */}
