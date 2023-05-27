@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense, useState, useEffect } from 'react'
-import { Html } from '@react-three/drei'
+import { Html, KeyboardControls } from '@react-three/drei'
 
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
@@ -26,6 +26,13 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
   ),
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
+const Player = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Player), { ssr: false })
+const keyboardControls = [
+  { name: "forward", keys: ["ArrowUp", "w", "W"] },
+  { name: "backward", keys: ["ArrowDown", "s", "S"] },
+  { name: "left", keys: ["ArrowLeft", "a", "A"] },
+  { name: "right", keys: ["ArrowRight", "d", "D"] },
+]
 // cambio para el commit
 export default function Page() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
@@ -79,24 +86,11 @@ export default function Page() {
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
         >
-          {/* <Html
-            as='div'
-            style={{
-              width: '100vw',
-              height: '100vh',
-              position: 'relative',
-              top: -windowSize.height / 2,
-              left: -windowSize.width / 2,
-            }}
-          >
-            <Modal />
-            <Book />
-          </Html> */}
-
-          {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
-          <World />
-
-          <Common />
+          <KeyboardControls map={keyboardControls}>
+            <World />
+            <Player/>
+            <Common />
+          </KeyboardControls>
         </View>
         {/* </div> */}
       </div>
