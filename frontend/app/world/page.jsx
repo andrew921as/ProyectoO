@@ -9,6 +9,8 @@ import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
 
 // React Three Fiber Components
+const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
+const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), { ssr: false })
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -34,8 +36,17 @@ const keyboardControls = [
   { name: "right", keys: ["ArrowRight", "d", "D"] },
 ]
 // cambio para el commit
+
 export default function Page() {
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [isBookOpen, setIsBookOpen] = useState(false);
+  const [isImgOpen, setIsImgOpen] = useState(false);
+
+  const handleshowImg = () => {
+    setIsBookOpen(!isBookOpen);
+    !isImgOpen? setTimeout(()=>{setIsImgOpen(!isImgOpen)},3000) : setIsImgOpen(!isImgOpen)
+    
+  } 
 
   useEffect(() => {
     const handleResize = () => {
@@ -75,11 +86,14 @@ export default function Page() {
 
   return (
     <>
+      {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
+        <div className='bg-red-500 w-32 h-32'></div>
+      </div > */}
       <div className='absolute z-20 top-0 right-0'>
         <Modal />
       </div >
       <div className='absolute z-20 bottom-0 right-0'>
-        <Book />
+        <Book onClick={() => {handleshowImg()} } />
       </div>
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
         <View
@@ -89,6 +103,8 @@ export default function Page() {
           <KeyboardControls map={keyboardControls}>
             <World />
             <Player/>
+            {isBookOpen && <BookModel/>}
+            {isImgOpen && <ImageWall/>}
             <Common />
           </KeyboardControls>
         </View>

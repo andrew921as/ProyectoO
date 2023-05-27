@@ -171,7 +171,7 @@ const Resgiter = () => {
 
                 {/* Botones volver e ingresar */}
                 <div className='flex font-texto text-3xl mt-4'>
-                    <Link href="/" className='relative'>
+                    <Link href="/initialS" className='relative'>
                         <img src='icons/login/back_button.svg' alt='Volver button' />
                     </Link>
                     <button type='submit' className='relative'>

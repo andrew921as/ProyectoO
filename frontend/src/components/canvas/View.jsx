@@ -21,7 +21,9 @@ export const Common = ({ color }) => (
     {color && <color attach='background' args={[color]} />}
     <ambientLight intensity={0.2} />
     <pointLight position={[7, 60, 1]} intensity={0.8} />
-    {/* <PerspectiveCamera fov={40} position={[20, 20, 60]} /> */}
+
+    {/*<PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} />
+    <OrbitControls fov={40} position={[20, 20, 60]} />*/}
   </Suspense>
 )
 
@@ -110,4 +112,3 @@ export function Player() {
   })
 
 }
-
