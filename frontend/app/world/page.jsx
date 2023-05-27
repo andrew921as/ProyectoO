@@ -9,6 +9,7 @@ import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
 
 // React Three Fiber Components
+const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -28,7 +29,8 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 // cambio para el commit
 export default function Page() {
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [isBookOpen, setIsBookOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,11 +70,14 @@ export default function Page() {
 
   return (
     <>
+      {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
+        <div className='bg-red-500 w-32 h-32'></div>
+      </div > */}
       <div className='absolute z-20 top-0 right-0'>
         <Modal />
       </div >
       <div className='absolute z-20 bottom-0 right-0'>
-        <Book />
+        <Book onClick={() => {setIsBookOpen(!isBookOpen)} } />
       </div>
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
         <View
@@ -95,7 +100,8 @@ export default function Page() {
 
           {/* <Logo route='/blob' scale={0.6} position={[0, 0, 0]} /> */}
           <World />
-
+          {isBookOpen && <BookModel/>}
+          
           <Common />
         </View>
         {/* </div> */}

@@ -17,7 +17,7 @@ export const Common = ({ color }) => (
     {color && <color attach='background' args={[color]} />}
     <ambientLight intensity={0.2} />
     <pointLight position={[7, 60, 1]} intensity={0.8} />
-    <PerspectiveCamera fov={40} position={[20, 20, 60]} />
+    <OrbitControls fov={40} position={[20, 20, 60]} />
   </Suspense>
 )
 
@@ -36,14 +36,14 @@ const View = forwardRef(({ children, orbit, ...props }, ref) => {
             <>
               {/* <OrbitControls enablePan={false} /> */}
               {/* <PointerLockControls /> */}
-              <FirstPersonControls
+              {/* <FirstPersonControls
                 heightSpeed={5}
                 movementSpeed={8}
                 lookSpeed={0.1}
                 makeDefault
                 fov={40}
                 position={[20, 20, 60]}
-              />
+              /> */}
             </>
           )}
         </ViewImpl>
