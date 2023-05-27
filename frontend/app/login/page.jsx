@@ -132,7 +132,7 @@ const Login = () => {
         
         <div className='flex font-texto text-3xl mt-4 md:mt-[100px] xl:mt-[200px] xxl:mt-[300px]'>
           <button className='relative'>
-              <Link href="/">
+              <Link href="/initialS">
               <img src='icons/login/back_button.svg' alt='Volver button' />
               
               </Link>
