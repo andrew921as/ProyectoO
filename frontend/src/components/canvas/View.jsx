@@ -8,24 +8,32 @@ import {
   OrbitControls,
   PerspectiveCamera,
   PointerLockControls,
+  useHelper,
   View as ViewImpl,
 } from '@react-three/drei'
 import { Three } from '@/helpers/components/Three'
-import * as THREE from "three"
-import { useKeyboardControls } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
-import { CuboidCollider, RigidBody } from "@react-three/rapier"
+import * as THREE from 'three'
+import { useKeyboardControls } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { CuboidCollider, RigidBody } from '@react-three/rapier'
 
-export const Common = ({ color }) => (
+export const Common = ({ color }) => {
+  const pLHelper = useRef();
+  
+  useHelper(pLHelper, THREE.PointLightHelper, 1, 'hotpink');
+
+  return (
+  
   <Suspense fallback={null}>
     {color && <color attach='background' args={[color]} />}
+    
     <ambientLight intensity={0.2} />
-    <pointLight position={[7, 60, 1]} intensity={0.8} />
+    <pointLight ref={pLHelper} position={[7, 60, 1]} intensity={0.8} />
 
-    {/*<PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} />
-    <OrbitControls fov={40} position={[20, 20, 60]} />*/}
+    {/* <PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} /> */}
+    {/* <OrbitControls fov={40} position={[20, 20, 60]} /> */}
   </Suspense>
-)
+)}
 
 const View = forwardRef(({ children, orbit, ...props }, ref) => {
   const localRef = useRef(null)
@@ -40,8 +48,8 @@ const View = forwardRef(({ children, orbit, ...props }, ref) => {
           {children}
           {orbit && (
             <>
-              {/* <OrbitControls enablePan={false} /> */}
-              <PointerLockControls />
+              <OrbitControls makeDefault enablePan={true} />
+              {/* <PointerLockControls /> */}
               {/* <FirstPersonControls
                 heightSpeed={5}
                 movementSpeed={8}
@@ -68,47 +76,47 @@ export function Player() {
 
   // Constants
   const walkVelocity = 5
-  let moveX, moveY, moveZ = 0
+  let moveX,
+    moveY,
+    moveZ = 0
   const moveCamera = 0.5
 
   // Diagonal movement angle offset
   const directionOffset = (forward, backward, left, right) => {
-      if (forward) {
-          return 0
-      } else if (backward) {
-          return Math.PI
-      } else if (left) {
-          return Math.PI / 2
-      } else if (right) {
-          return -Math.PI / 2
-      }
+    if (forward) {
+      return 0
+    } else if (backward) {
+      return Math.PI
+    } else if (left) {
+      return Math.PI / 2
+    } else if (right) {
+      return -Math.PI / 2
+    }
   }
 
   const [sub, get] = useKeyboardControls()
 
   useFrame((state, delta) => {
-      const { forward, backward, left, right } = get()
-      const initialPosition = new THREE.Vector3(-52.5, 10, -40)
-      const cameraPosition = state.camera.position;
-      if (cameraPosition.x == 0 && cameraPosition.y == 0 && cameraPosition.z == 5){
-        state.camera.position.copy(initialPosition)
-      }
-      if (forward || backward || left || right) {
-          state.camera.getWorldDirection(walkDirection)
-          walkDirection.normalize()
-          walkDirection.applyAxisAngle(rotateAngle, directionOffset(forward, backward, left, right))
+    const { forward, backward, left, right } = get()
+    const initialPosition = new THREE.Vector3(-52.5, 10, -40)
+    const cameraPosition = state.camera.position
+    if (cameraPosition.x == 0 && cameraPosition.y == 0 && cameraPosition.z == 5) {
+      state.camera.position.copy(initialPosition)
+    }
+    if (forward || backward || left || right) {
+      state.camera.getWorldDirection(walkDirection)
+      walkDirection.normalize()
+      walkDirection.applyAxisAngle(rotateAngle, directionOffset(forward, backward, left, right))
 
-          const velocity = walkVelocity
+      const velocity = walkVelocity
 
-          moveX = walkDirection.x * velocity * delta
-          moveY = walkDirection.y * velocity * delta
-          moveZ = walkDirection.z * velocity * delta
+      moveX = walkDirection.x * velocity * delta
+      moveY = walkDirection.y * velocity * delta
+      moveZ = walkDirection.z * velocity * delta
 
-          state.camera.position.x += moveX
-          state.camera.position.y += moveY
-          state.camera.position.z += moveZ
-
-      } 
+      state.camera.position.x += moveX
+      state.camera.position.y += moveY
+      state.camera.position.z += moveZ
+    }
   })
-
 }

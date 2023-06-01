@@ -1,4 +1,5 @@
 import { Layout } from '@/components/dom/Layout'
+import { UserProvider } from '@/context/UserProvider'
 import '@/global.css'
 
 import localFont from '@next/font/local'
@@ -28,7 +29,9 @@ export default function RootLayout({ children }) {
       <head />
       <body>
         {/* To avoid FOUT with styled-components wrap Layout with StyledComponentsRegistry https://beta.nextjs.org/docs/styling/css-in-js#styled-components */}
-        <Layout>{children}</Layout>
+        <UserProvider>
+          <Layout>{children}</Layout>
+        </UserProvider>
       </body>
     </html>
   )
