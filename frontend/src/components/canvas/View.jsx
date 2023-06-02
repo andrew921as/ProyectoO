@@ -8,32 +8,36 @@ import {
   OrbitControls,
   PerspectiveCamera,
   PointerLockControls,
+  useCubeTexture,
   useHelper,
   View as ViewImpl,
 } from '@react-three/drei'
 import { Three } from '@/helpers/components/Three'
 import * as THREE from 'three'
 import { useKeyboardControls } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { CuboidCollider, RigidBody } from '@react-three/rapier'
 
 export const Common = ({ color }) => {
-  const pLHelper = useRef();
-  
-  useHelper(pLHelper, THREE.PointLightHelper, 1, 'hotpink');
+  const pLHelper = useRef()
+  useHelper(pLHelper, THREE.PointLightHelper, 1, 'hotpink')
 
+  const envMap = useCubeTexture(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'], { path: '/img/world/sky/' })
+  const { scene } = useThree();
+  scene.background = envMap;
+  scene.environment = envMap;
   return (
-  
-  <Suspense fallback={null}>
-    {color && <color attach='background' args={[color]} />}
-    
-    <ambientLight intensity={0.2} />
-    <pointLight ref={pLHelper} position={[7, 60, 1]} intensity={0.8} />
+    <Suspense fallback={null}>
+      {color && <color attach='background' args={[color]} />}
 
-    {/* <PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} /> */}
-    {/* <OrbitControls fov={40} position={[20, 20, 60]} /> */}
-  </Suspense>
-)}
+      <ambientLight intensity={0.2} />
+      <pointLight ref={pLHelper} position={[7, 60, 1]} intensity={0.8} />
+
+      {/* <PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} /> */}
+      {/* <OrbitControls fov={40} position={[20, 20, 60]} /> */}
+    </Suspense>
+  )
+}
 
 const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
   const localRef = useRef(null)
@@ -51,7 +55,7 @@ const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
               <OrbitControls makeDefault enablePan={true} />
               {/* <PointerLockControls /> */}
               {/* <OrbitControls enablePan={false} /> */}
-              {!isBookOpen && <PointerLockControls  />}  
+              {/* {!isBookOpen && <PointerLockControls />} */}
               {/* <FirstPersonControls
                 heightSpeed={5}
                 movementSpeed={8}
@@ -71,14 +75,16 @@ View.displayName = 'View'
 
 export { View }
 
-export function Player({walkVelocity = 5}) {
+export function Player({ walkVelocity = 5 }) {
   // Temporary data
   let walkDirection = new THREE.Vector3()
   let rotateAngle = new THREE.Vector3(0, 1, 0)
 
   // Constants
-  const walkVelocity = 5
-  let moveX, moveY, moveZ = 0
+  // const walkVelocity = 5
+  let moveX,
+    moveY,
+    moveZ = 0
   const moveCamera = 0.5
 
   // Diagonal movement angle offset

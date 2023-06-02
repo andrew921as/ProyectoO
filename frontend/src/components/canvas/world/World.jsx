@@ -17,7 +17,7 @@ export function ModelWorld(props) {
 
   return (
     <>
-      <Sky sunPosition={[7, 60, 1]} rayleigh={0.4} />
+      {/* <Sky sunPosition={[7, 60, 1]} rayleigh={0.4} /> */}
       <Suspense fallback={null}>
         <primitive object={scene} {...props} />
       </Suspense>
