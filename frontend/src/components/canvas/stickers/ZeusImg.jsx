@@ -35,16 +35,11 @@ export function ZeusWall(props){
 
     useFrame(()=>{
         const distanceFromCamera = 3.1; // Distancia deseada del libro a la cámara
-    
+
         const cameraDirection = camera.getWorldDirection(new Vector3());
-        const targetPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera));
+        const offSet = cameraDirection.multiplyScalar(distanceFromCamera)
+        const targetPosition = camera.position.clone().add(offSet);
         imgWallRef.current.position.copy(targetPosition);
-        // const stickerOffsetX = 1; // Offset horizontal hacia la derecha
-        // const stickerOffsetY = 0.5; // Offset vertical hacia arriba
-        //const stickerOffsetZ = 3; // Offset vertical hacia arriba
-        // imgWallRef.current.position.x = targetPosition.x + stickerOffsetX;
-        // imgWallRef.current.position.y = targetPosition.y + stickerOffsetY;
-        //imgWallRef.current.position.z = targetPosition.z + stickerOffsetZ;
         imgWallRef.current.lookAt(camera.position);
       }, [])
 

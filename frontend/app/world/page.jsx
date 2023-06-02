@@ -11,6 +11,7 @@ import { Book } from '../../src/components/elements/Book'
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
 const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), { ssr: false })
+const VideoWall = dynamic(() => import('@/components/canvas/videos/AphroditeVid').then((mod) => mod.AphroditeWall), { ssr: false })
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -41,11 +42,12 @@ export default function Page() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isBookOpen, setIsBookOpen] = useState(false);
   const [isImgOpen, setIsImgOpen] = useState(false);
+  const [isVidOpen, setIsVidOpen] = useState(false);
 
   const handleshowImg = () => {
     setIsBookOpen(!isBookOpen);
     !isImgOpen? setTimeout(()=>{setIsImgOpen(!isImgOpen)},3000) : setIsImgOpen(!isImgOpen)
-    
+    !isVidOpen? setTimeout(()=>{setIsVidOpen(!isVidOpen)},3000) : setIsVidOpen(!isVidOpen)    
   } 
 
   useEffect(() => {
@@ -114,7 +116,8 @@ export default function Page() {
             <World />
             <Player walkVelocity={isShiftPressed ? 15 : 5}/>
             {isBookOpen && <BookModel/>}
-            {isImgOpen && <ImageWall/>}
+            {/* {isImgOpen && <ImageWall/>} */}
+            {isVidOpen && <VideoWall/>}
             <Common />
           </KeyboardControls>
         </View>
