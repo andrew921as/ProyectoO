@@ -67,22 +67,31 @@ export default function Page() {
       }
     }
   }, [])
-  // const [windowSize, setWindowSize] = useState({
-  //     width: window.innerWidth,
-  //     height: window.innerHeight
-  //   });
 
-  // useEffect(() => {
-  //     function handleResize() {
-  //         setWindowSize({
-  //             width: window.innerWidth,
-  //             height: window.innerHeight
-  //         });
-  //     }
+  const [isShiftPressed, setIsShiftPressed] = useState(false);
 
-  //     window.addEventListener("resize", handleResize);
-  //     return () => window.removeEventListener("resize", handleResize);
-  // }, []);
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Shift') {
+        setIsShiftPressed(true);
+      }
+    };
+
+    const handleKeyUp = (event) => {
+      if (event.key === 'Shift') {
+        setIsShiftPressed(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+
+    // Limpia los listeners al desmontar el componente
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
+    };
+  }, []);
 
   return (
     <>
@@ -99,10 +108,11 @@ export default function Page() {
         <View
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
+          isBookOpen={isBookOpen}
         >
           <KeyboardControls map={keyboardControls}>
             <World />
-            <Player/>
+            <Player walkVelocity={isShiftPressed ? 15 : 5}/>
             {isBookOpen && <BookModel/>}
             {isImgOpen && <ImageWall/>}
             <Common />
