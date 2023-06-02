@@ -35,7 +35,7 @@ export const Common = ({ color }) => {
   </Suspense>
 )}
 
-const View = forwardRef(({ children, orbit, ...props }, ref) => {
+const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
   const localRef = useRef(null)
   useImperativeHandle(ref, () => localRef.current)
 
@@ -50,6 +50,8 @@ const View = forwardRef(({ children, orbit, ...props }, ref) => {
             <>
               <OrbitControls makeDefault enablePan={true} />
               {/* <PointerLockControls /> */}
+              {/* <OrbitControls enablePan={false} /> */}
+              {!isBookOpen && <PointerLockControls  />}  
               {/* <FirstPersonControls
                 heightSpeed={5}
                 movementSpeed={8}
@@ -69,16 +71,14 @@ View.displayName = 'View'
 
 export { View }
 
-export function Player() {
+export function Player({walkVelocity = 5}) {
   // Temporary data
   let walkDirection = new THREE.Vector3()
   let rotateAngle = new THREE.Vector3(0, 1, 0)
 
   // Constants
   const walkVelocity = 5
-  let moveX,
-    moveY,
-    moveZ = 0
+  let moveX, moveY, moveZ = 0
   const moveCamera = 0.5
 
   // Diagonal movement angle offset
