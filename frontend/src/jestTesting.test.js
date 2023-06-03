@@ -1,4 +1,4 @@
-var axios = require("axios");
+cons axios = require("axios");
 
 
 jest.mock("axios");
