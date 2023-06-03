@@ -1,11 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { UserContext } from '@/context/UserProvider'
 import { useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
 export const Modal = () => {
+  const { user, setUser } = useContext(UserContext)
   const [isOpen, setIsOpen] = useState(false)
 
   const handleToggleMenu = () => {
@@ -32,7 +34,7 @@ export const Modal = () => {
       {isOpen && (
         <div className='absolute right-4 top-28'>
           <ul className='font-texto shadow-lg rounded-lg py-2 bg-sin_derechos bg-opacity-75'>
-            <li className='px-4 py-2 text-amarillito'>Conocimiento: 150</li>
+            <li className='px-4 py-2 text-amarillito'>Conocimiento: {user ? user.points : 0}</li>
             <div className='w-full h-[2px] bg-amarillito' />
             <li>
               <Link
@@ -44,7 +46,11 @@ export const Modal = () => {
               </Link>
             </li>
             <li>
-              <Link href='/' className='block px-4 py-2 text-con_derechos hover:bg-gray-200' onClick={handleCloseMenu}>
+              <Link
+                href='/initialS'
+                className='block px-4 py-2 text-con_derechos hover:bg-gray-200'
+                onClick={handleCloseMenu}
+              >
                 Cerrar sesión
               </Link>
             </li>

@@ -1,5 +1,6 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { UserContext } from '@/context/UserProvider'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { apiUrl } from '@/config'
@@ -15,10 +16,11 @@ import { AiFillUnlock } from 'react-icons/ai'
 import { IoMailSharp } from 'react-icons/io5'
 
 const Login = () => {
+  const { user, setUser } = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [formHeight, setFormHeight] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [formHeight, setFormHeight] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   const handleEmailChange = (e) => {
@@ -30,7 +32,7 @@ const Login = () => {
   }
 
   const handleSubmit = (e) => {
-    setIsLoading(true);
+    setIsLoading(true)
     e.preventDefault()
     const data = {
       email,
@@ -42,16 +44,19 @@ const Login = () => {
         console.log(response.data) // Maneja la respuesta del servidor según tus necesidades
 
         // Detiene el loading
-        setIsLoading(false);
+        setIsLoading(false)
+
+        // Guarda el usuario en el localStorage
+        localStorage.setItem('user', JSON.stringify(response.data.user))
 
         // Envía al usuario a la página de inicio
         router.push('/world')
       })
       .catch((error) => {
         // console.error(error)
-        
+
         // Detiene el loading
-        setIsLoading(false);
+        setIsLoading(false)
 
         // Alerta de error
         Swal.fire({
@@ -69,16 +74,16 @@ const Login = () => {
             title: 'text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
             htmlContainer: 'text-amarillito text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
             confirmButton: 'bg-moradito_palido text-amarillito font-texto text-xl p-4 rounded',
-          }
+          },
         })
       })
   }
 
   useEffect(() => {
-    const screenHeight = window.innerHeight;
-    const calculatedHeight = screenHeight * 0.96;
-    setFormHeight(calculatedHeight);
-  }, []);
+    const screenHeight = window.innerHeight
+    const calculatedHeight = screenHeight * 0.96
+    setFormHeight(calculatedHeight)
+  }, [])
 
   return (
     <div
@@ -125,17 +130,16 @@ const Login = () => {
         </div>
 
         {isLoading ? (
-          <div className="flex w-full justify-center mt-4">
+          <div className='flex w-full justify-center mt-4'>
             <Loading />
           </div>
         ) : null}
-        
+
         <div className='flex font-texto text-3xl mt-4 md:mt-[100px] xl:mt-[200px] xxl:mt-[300px]'>
           <button className='relative'>
-              <Link href="/initialS">
+            <Link href='/initialS'>
               <img src='icons/login/back_button.svg' alt='Volver button' />
-              
-              </Link>
+            </Link>
           </button>
           <button type='submit' className='relative'>
             <img src='icons/login/login_button.svg' alt='continuar button' />

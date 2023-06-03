@@ -1,8 +1,10 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Suspense, useState, useEffect } from 'react'
-import { Html, KeyboardControls } from '@react-three/drei'
+import { Suspense, useState, useEffect, useContext } from 'react'
+import { useRouter } from 'next/navigation'
+import { UserContext } from '@/context/UserProvider'
+import { Environment, Html, KeyboardControls } from '@react-three/drei'
 
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
@@ -10,7 +12,10 @@ import { Book } from '../../src/components/elements/Book'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
-const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), { ssr: false })
+const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
+const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), {
+  ssr: false,
+})
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -30,23 +35,29 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 const Player = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Player), { ssr: false })
 const keyboardControls = [
-  { name: "forward", keys: ["ArrowUp", "w", "W"] },
-  { name: "backward", keys: ["ArrowDown", "s", "S"] },
-  { name: "left", keys: ["ArrowLeft", "a", "A"] },
-  { name: "right", keys: ["ArrowRight", "d", "D"] },
+  { name: 'forward', keys: ['ArrowUp', 'w', 'W'] },
+  { name: 'backward', keys: ['ArrowDown', 's', 'S'] },
+  { name: 'left', keys: ['ArrowLeft', 'a', 'A'] },
+  { name: 'right', keys: ['ArrowRight', 'd', 'D'] },
 ]
 // cambio para el commit
 
 export default function Page() {
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-  const [isBookOpen, setIsBookOpen] = useState(false);
-  const [isImgOpen, setIsImgOpen] = useState(false);
+  const { user, setUser } = useContext(UserContext)
+  const router = useRouter()
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
+  const [isBookOpen, setIsBookOpen] = useState(false)
+  const [isImgOpen, setIsImgOpen] = useState(false)
+  const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
 
   const handleshowImg = () => {
-    setIsBookOpen(!isBookOpen);
-    !isImgOpen? setTimeout(()=>{setIsImgOpen(!isImgOpen)},3000) : setIsImgOpen(!isImgOpen)
-    
-  } 
+    setIsBookOpen(!isBookOpen)
+    !isImgOpen
+      ? setTimeout(() => {
+          setIsImgOpen(!isImgOpen)
+        }, 3000)
+      : setIsImgOpen(!isImgOpen)
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,30 +79,43 @@ export default function Page() {
     }
   }, [])
 
-  const [isShiftPressed, setIsShiftPressed] = useState(false);
+  //Verifica que haya un usuario en el localstorage
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
+    }
+
+    // else {
+    //   //Si no hay usuario en el localstorage, lo redirige al login
+    //   router.push('/login')
+    // }
+  }, [])
+
+  const [isShiftPressed, setIsShiftPressed] = useState(false)
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Shift') {
-        setIsShiftPressed(true);
+        setIsShiftPressed(true)
       }
-    };
+    }
 
     const handleKeyUp = (event) => {
       if (event.key === 'Shift') {
-        setIsShiftPressed(false);
+        setIsShiftPressed(false)
       }
-    };
+    }
 
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keyup', handleKeyUp);
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keyup', handleKeyUp)
 
     // Limpia los listeners al desmontar el componente
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('keyup', handleKeyUp);
-    };
-  }, []);
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keyup', handleKeyUp)
+    }
+  }, [])
 
   return (
     <>
@@ -100,9 +124,13 @@ export default function Page() {
       </div > */}
       <div className='absolute z-20 top-0 right-0'>
         <Modal />
-      </div >
+      </div>
       <div className='absolute z-20 bottom-0 right-0'>
-        <Book onClick={() => {handleshowImg()} } />
+        <Book
+          onClick={() => {
+            handleshowImg()
+          }}
+        />
       </div>
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
         <View
@@ -110,11 +138,15 @@ export default function Page() {
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
           isBookOpen={isBookOpen}
         >
+          <Environment files={env} ground={{ height: 5, radius: 4096, scale:400 }} />
           <KeyboardControls map={keyboardControls}>
             <World />
-            <Player walkVelocity={isShiftPressed ? 15 : 5}/>
-            {isBookOpen && <BookModel/>}
-            {isImgOpen && <ImageWall/>}
+            <KeysModels scale={0.01} position-y={4} />
+            {isBookOpen && <BookModel />}
+            {isImgOpen && <ImageWall />}
+            <Player walkVelocity={isShiftPressed ? 15 : 5} />
+            {isBookOpen && <BookModel />}
+            {isImgOpen && <ImageWall />}
             <Common />
           </KeyboardControls>
         </View>
