@@ -24,7 +24,9 @@ export const Book = ({ onClick }) => {
               className='rounded-lg mt-4 bg-neutral-600 p-0.5 text-center text-sm font-texto leading-none text-sin_derechos h-6'
               style={{ width: `100%` }}
             ></div>
-            <span>{user ? user.progress : 0}%</span>
+            <div className='flex justify-center'>
+              <span className='absolute top-0 font-texto text-md'>{user ? user.progress : 0}%</span>
+            </div>
           </>
         ) : (
           <>

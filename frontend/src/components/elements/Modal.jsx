@@ -46,7 +46,11 @@ export const Modal = () => {
               </Link>
             </li>
             <li>
-              <Link href='/' className='block px-4 py-2 text-con_derechos hover:bg-gray-200' onClick={handleCloseMenu}>
+              <Link
+                href='/initialS'
+                className='block px-4 py-2 text-con_derechos hover:bg-gray-200'
+                onClick={handleCloseMenu}
+              >
                 Cerrar sesión
               </Link>
             </li>

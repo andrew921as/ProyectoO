@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { Suspense, useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/UserProvider'
-import { Html, KeyboardControls } from '@react-three/drei'
+import { Environment, Html, KeyboardControls } from '@react-three/drei'
 
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
@@ -48,6 +48,7 @@ export default function Page() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
   const [isBookOpen, setIsBookOpen] = useState(false)
   const [isImgOpen, setIsImgOpen] = useState(false)
+  const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
 
   const handleshowImg = () => {
     setIsBookOpen(!isBookOpen)
@@ -91,30 +92,30 @@ export default function Page() {
     // }
   }, [])
 
-  const [isShiftPressed, setIsShiftPressed] = useState(false);
+  const [isShiftPressed, setIsShiftPressed] = useState(false)
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Shift') {
-        setIsShiftPressed(true);
+        setIsShiftPressed(true)
       }
-    };
+    }
 
     const handleKeyUp = (event) => {
       if (event.key === 'Shift') {
-        setIsShiftPressed(false);
+        setIsShiftPressed(false)
       }
-    };
+    }
 
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keyup', handleKeyUp);
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keyup', handleKeyUp)
 
     // Limpia los listeners al desmontar el componente
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('keyup', handleKeyUp);
-    };
-  }, []);
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keyup', handleKeyUp)
+    }
+  }, [])
 
   return (
     <>
@@ -137,15 +138,15 @@ export default function Page() {
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
           isBookOpen={isBookOpen}
         >
+          <Environment files={env} ground={{ height: 5, radius: 4096, scale:400 }} />
           <KeyboardControls map={keyboardControls}>
             <World />
             <KeysModels scale={0.01} position-y={4} />
-
             {isBookOpen && <BookModel />}
             {isImgOpen && <ImageWall />}
-            <Player walkVelocity={isShiftPressed ? 15 : 5}/>
-            {isBookOpen && <BookModel/>}
-            {isImgOpen && <ImageWall/>}
+            <Player walkVelocity={isShiftPressed ? 15 : 5} />
+            {isBookOpen && <BookModel />}
+            {isImgOpen && <ImageWall />}
             <Common />
           </KeyboardControls>
         </View>
