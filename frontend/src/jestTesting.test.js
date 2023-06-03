@@ -1,7 +1,7 @@
-cons axios = require("axios");
+const axios = require("axios")
 
 
-jest.mock("axios");
+jest.mock("axios")
 
 const userDataLogin =
     [
@@ -23,16 +23,16 @@ const userDataRegister =
 
 
 test("post Login", async () => {
-    axios.post.mockResolvedValue(`http://localhost:3001/users/login`,{ data: userDataLogin });
+    axios.post.mockResolvedValue(`http://localhost:3001/users/login`,{ data: userDataLogin })
     //render(<Todos />);
 
     //const todoList = await waitFor(() => screen.findAllByTestId("todo"));
 
     //expect(todoList).toHaveLength(3);
-});
+})
 test("post new user", async () => {
-    axios.post.mockResolvedValue(`http://localhost:3001/users/register`,{ data: userDataRegister });
-});
+    axios.post.mockResolvedValue(`http://localhost:3001/users/register`,{ data: userDataRegister })
+})
 
 //const fizz_buzz = require('./jestTesting.js');
 
