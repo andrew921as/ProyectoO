@@ -116,7 +116,7 @@ export default function Page() {
             <World />
             <Player walkVelocity={isShiftPressed ? 15 : 5}/>
             {isBookOpen && <BookModel/>}
-            {/* {isImgOpen && <ImageWall/>} */}
+            {isImgOpen && <ImageWall/>}
             {isVidOpen && <VideoWall/>}
             <Common />
           </KeyboardControls>

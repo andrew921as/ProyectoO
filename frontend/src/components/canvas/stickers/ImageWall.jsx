@@ -14,8 +14,8 @@ export default function ImageWall({visible, onClick, texture, text}){
     }, [])
 
     useFrame(()=>{
-      const distanceFromCamera = 3; // Distancia deseada del libro a la cámara
-      const distanceFromCamera2 = 1;
+      const distanceFromCamera = 2.5; // Distancia deseada del libro a la cámara
+      const distanceFromCamera2 = 0.5;
       const cameraDirection = camera.getWorldDirection(new Vector3());
       const targetPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera));
       const targetWordsPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera2));
