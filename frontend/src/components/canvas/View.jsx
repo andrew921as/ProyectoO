@@ -22,11 +22,10 @@ import { CuboidCollider, RigidBody } from '@react-three/rapier'
 
 export const Common = ({ color }) => {
   const pLHelper = useRef()
-  useHelper(pLHelper, THREE.PointLightHelper, 1, 'hotpink')
-  // const envMap = useCubeTexture(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'], { path: '/img/world/sky/' })
-  // const { scene } = useThree();
-  // scene.background = envMap;
-  // scene.environment = envMap;
+
+  // Helper para luz
+  // useHelper(pLHelper, THREE.PointLightHelper, 1, 'hotpink')
+
   return (
     <>
       <Suspense fallback={null}>
@@ -53,18 +52,8 @@ const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
           {children}
           {orbit && (
             <>
-              {/* <OrbitControls makeDefault enablePan={true} /> */}
-              <PointerLockControls />
               {/* <OrbitControls enablePan={false} /> */}
-              {/* {!isBookOpen && <PointerLockControls />} */}
-              {/* <FirstPersonControls
-                heightSpeed={5}
-                movementSpeed={8}
-                lookSpeed={0.1}
-                makeDefault
-                fov={40}
-                position={[20, 20, 60]}
-              /> */}
+              {!isBookOpen && <PointerLockControls />}
             </>
           )}
         </ViewImpl>
@@ -77,13 +66,11 @@ View.displayName = 'View'
 export { View }
 
 export function Player({ walkVelocity = 5 }) {
-
   // Temporary data
   let walkDirection = new THREE.Vector3()
   let rotateAngle = new THREE.Vector3(0, 1, 0)
 
   // Constants
-  // const walkVelocity = 5
   let moveX,
     moveY,
     moveZ = 0
@@ -105,26 +92,26 @@ export function Player({ walkVelocity = 5 }) {
   const [sub, get] = useKeyboardControls()
 
   useFrame((state, delta) => {
-      const { forward, backward, left, right } = get()
-      const initialPosition = new THREE.Vector3(-52.5, 10, -40)
-      const cameraPosition = state.camera.position
-      if (cameraPosition.x == 0 && cameraPosition.y == 0 && cameraPosition.z == 5) {
-        state.camera.position.copy(initialPosition)
-      }
-      if (forward || backward || left || right) {
-        state.camera.getWorldDirection(walkDirection)
-        walkDirection.normalize()
-        walkDirection.applyAxisAngle(rotateAngle, directionOffset(forward, backward, left, right))
+    const { forward, backward, left, right } = get()
+    const initialPosition = new THREE.Vector3(-52.5, 10, -40)
+    const cameraPosition = state.camera.position
+    if (cameraPosition.x == 0 && cameraPosition.y == 0 && cameraPosition.z == 5) {
+      state.camera.position.copy(initialPosition)
+    }
+    if (forward || backward || left || right) {
+      state.camera.getWorldDirection(walkDirection)
+      walkDirection.normalize()
+      walkDirection.applyAxisAngle(rotateAngle, directionOffset(forward, backward, left, right))
 
-        const velocity = walkVelocity
+      const velocity = walkVelocity
 
-        moveX = walkDirection.x * velocity * delta
-        moveY = walkDirection.y * velocity * delta
-        moveZ = walkDirection.z * velocity * delta
+      moveX = walkDirection.x * velocity * delta
+      moveY = walkDirection.y * velocity * delta
+      moveZ = walkDirection.z * velocity * delta
 
-        state.camera.position.x += moveX
-        state.camera.position.y += moveY
-        state.camera.position.z += moveZ
+      state.camera.position.x += moveX
+      state.camera.position.y += moveY
+      state.camera.position.z += moveZ
     }
   })
 }

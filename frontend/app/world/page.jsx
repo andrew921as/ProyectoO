@@ -10,6 +10,9 @@ import { Environment, Html, KeyboardControls } from '@react-three/drei'
 import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
 
+// Data
+import { labels } from 'public/data/labels'
+
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
 const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
@@ -138,9 +141,12 @@ export default function Page() {
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
           isBookOpen={isBookOpen}
         >
-          <Environment files={env} ground={{ height: 5, radius: 4096, scale:400 }} />
+          <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
-            <World />
+            <World
+              isBookOpen={isBookOpen}
+              labels={labels}
+            />
             <KeysModels scale={0.01} position-y={4} />
             {isBookOpen && <BookModel />}
             {isImgOpen && <ImageWall />}
