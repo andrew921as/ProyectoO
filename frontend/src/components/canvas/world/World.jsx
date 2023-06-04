@@ -65,7 +65,7 @@ export function ModelWorld(props) {
                     className='cursor-pointer bg-sin_derechos bg-opacity-75 rounded-lg p-2 text-md text-con_derechos font-texto'
                     onClick={() => handleLabelClick(index)}
                   >
-                    {label.text} <span style={{ fontSize: '1.5em' }}>🏛️</span>
+                    {label.text} <span style={{ fontSize: '1.5em' }}></span>
                   </div>
                 </Html>
               )
