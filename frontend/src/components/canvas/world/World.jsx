@@ -59,7 +59,7 @@ export function ModelWorld(props) {
           {props.labels.map((label, index) => {
             if (selectedLabel?.id != label.id) {
               return (
-                <Html key={index} rotation={[0, 0, 0]} position={label.position} transform>
+                <Html key={index} rotation={label.rotation} position={label.position} transform>
                   <div
                     ref={(ref) => (labelRefs.current[index] = ref)}
                     className='cursor-pointer bg-sin_derechos bg-opacity-75 rounded-lg p-2 text-md text-con_derechos font-texto'
@@ -74,7 +74,7 @@ export function ModelWorld(props) {
 
           {/* Modal */}
           {selectedLabel && (
-            <Html rotation={[0, 0, 0]} position={selectedLabel.position} transform>
+            <Html rotation={selectedLabel.rotation} position={selectedLabel.position} transform>
               <div
                 ref={labelModalRef}
                 className='bg-caca_clara  rounded-lg p-2 border-2 border-amarillito text-amarillito font-texto max-w-sm'
