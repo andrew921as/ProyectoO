@@ -1,8 +1,8 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Suspense, useState, useEffect } from 'react'
-import { Html, KeyboardControls } from '@react-three/drei'
+import { Suspense, useState, useEffect, useRef} from 'react'
+import { Html, KeyboardControls, Loader } from '@react-three/drei'
 
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
@@ -41,8 +41,13 @@ export default function Page() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isBookOpen, setIsBookOpen] = useState(false);
   const [isImgOpen, setIsImgOpen] = useState(false);
+  const [isLoadingBook, setIsLoadingBook] = useState(false);
+  
+  const loaderRef = useRef()
+
 
   const handleshowImg = () => {
+    setIsLoadingBook(true)
     setIsBookOpen(!isBookOpen);
     !isImgOpen? setTimeout(()=>{setIsImgOpen(!isImgOpen)},3000) : setIsImgOpen(!isImgOpen)
     
@@ -76,6 +81,7 @@ export default function Page() {
         setIsShiftPressed(true);
       }
     };
+    /**Saber la posicion de la camara */
 
     const handleKeyUp = (event) => {
       if (event.key === 'Shift') {
@@ -93,8 +99,9 @@ export default function Page() {
     };
   }, []);
 
+
   return (
-    <>
+    <Suspense fallback={<Loader/>}>
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
@@ -104,6 +111,7 @@ export default function Page() {
       <div className='absolute z-20 bottom-0 right-0'>
         <Book onClick={() => {handleshowImg()} } />
       </div>
+      {isLoadingBook && <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>}
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
         <View
           orbit
@@ -111,8 +119,10 @@ export default function Page() {
           isBookOpen={isBookOpen}
         >
           <KeyboardControls map={keyboardControls}>
-            <World />
+            
+              <World />
             <Player walkVelocity={isShiftPressed ? 15 : 5}/>
+            {isLoadingBook && <Html ref={loaderRef}> <Loader/> </Html>}
             {isBookOpen && <BookModel/>}
             {isImgOpen && <ImageWall/>}
             <Common />
@@ -120,6 +130,6 @@ export default function Page() {
         </View>
         {/* </div> */}
       </div>
-    </>
+    </Suspense>
   )
 }
