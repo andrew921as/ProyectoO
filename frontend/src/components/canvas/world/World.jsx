@@ -3,7 +3,7 @@
 import React, { useRef, Suspense } from 'react'
 import { useLoader, useThree } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { Sky } from '@react-three/drei'
+import { Sky, Loader } from '@react-three/drei'
 import Water from './Water'
 import * as THREE from 'three'
 
@@ -16,12 +16,10 @@ export function ModelWorld(props) {
   gl.outputEncoding = THREE.sRGBEncoding
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <Sky sunPosition={[7, 60, 1]} rayleigh={0.4} />
-      <Suspense fallback={null}>
-        <primitive object={scene} {...props} />
-      </Suspense>
+      <primitive object={scene} {...props} />
       <Water />
-    </>
+    </Suspense>
   )
 }

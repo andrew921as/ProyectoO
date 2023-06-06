@@ -12,7 +12,7 @@ import {
 } from '@react-three/drei'
 import { Three } from '@/helpers/components/Three'
 import * as THREE from "three"
-import { useKeyboardControls } from "@react-three/drei"
+import { useKeyboardControls, Loader } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { CuboidCollider, RigidBody } from "@react-three/rapier"
 
@@ -33,6 +33,7 @@ const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
 
   return (
     <>
+   
       <div ref={localRef} {...props} />
 
       <Three>

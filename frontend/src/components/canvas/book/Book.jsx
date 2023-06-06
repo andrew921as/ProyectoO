@@ -71,11 +71,6 @@ export function Book(props) {
   }, [])
 
   return (<>
-    {isLoading ?
-      <Html>
-        <Loader/>
-      </Html>
-      :
       <group ref={group} {...props} dispose={null}>
       <mesh {...props} visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
         <planeGeometry args={[1, 1]} />
@@ -145,7 +140,6 @@ export function Book(props) {
         </group>
       </group>
     </group>
-    }
     
   </>);
 }

@@ -2,8 +2,9 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense, useState, useEffect, useRef} from 'react'
+import { Color, MeshStandardMaterial } from 'three';
 import { Html, KeyboardControls, Loader } from '@react-three/drei'
-
+import { useLoader } from '@react-three/fiber';
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
@@ -37,6 +38,15 @@ const keyboardControls = [
 ]
 // cambio para el commit
 
+function CustomLoader() {
+  const color = new Color('#FF0000'); // Reemplaza con el color deseado
+
+  return (
+    <Html center>
+      <Loader color={color} />
+    </Html>
+  );
+}
 export default function Page() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isBookOpen, setIsBookOpen] = useState(false);
@@ -101,7 +111,7 @@ export default function Page() {
 
 
   return (
-    <Suspense fallback={<Loader/>}>
+    <Suspense fallback={<CustomLoader />}>
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
@@ -113,23 +123,26 @@ export default function Page() {
       </div>
       {isLoadingBook && <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>}
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
+        
         <View
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
           isBookOpen={isBookOpen}
         >
           <KeyboardControls map={keyboardControls}>
-            
+            <Suspense fallback={<Loader/>}>
               <World />
             <Player walkVelocity={isShiftPressed ? 15 : 5}/>
-            {isLoadingBook && <Html ref={loaderRef}> <Loader/> </Html>}
             {isBookOpen && <BookModel/>}
             {isImgOpen && <ImageWall/>}
             <Common />
+            </Suspense>
           </KeyboardControls>
         </View>
+        
         {/* </div> */}
       </div>
     </Suspense>
   )
 }
+
