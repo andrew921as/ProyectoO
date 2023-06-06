@@ -17,15 +17,15 @@ const labels = [
   },
   {
     id: 3,
-    position: [60, 15,-10],
-    rotation: [0, Math.PI/2, 0],
+    position: [60, 15, 0],
+    rotation: [0, 0, 0],
     text: 'Estatua de Apolo 🗿',
     description:
       'Una de las estatuas más conocidas en la antigua Grecia, era tan reverenciada que se creía que tenía la capacidad de predecir el futuro a través de sus sutiles cambios de sombra y luz durante el día.',
   },
   {
     id: 4,
-    position: [-70, 40,-100],
+    position: [-70, 40, -100],
     rotation: [0, 0, 0],
     text: 'Partenon 🏛️',
     description:
@@ -33,7 +33,7 @@ const labels = [
   },
   {
     id: 5,
-    position: [-140, 10,60],
+    position: [-140, 10, 60],
     rotation: [0, 0, 0],
     text: 'Pireo 🚢',
     description:
@@ -41,14 +41,12 @@ const labels = [
   },
   {
     id: 6,
-    position: [-235, 18,115],
+    position: [-235, 18, 115],
     rotation: [0, 0, 0],
     text: 'Atalaya 🔥',
     description:
       'torres de vigilancia estratégicamente ubicadas, eran un elemento clave en la defensa de las ciudades antiguas. Su diseño incluía un sistema de espejos que permitía la comunicación óptica a larga distancia, transmitiendo mensajes entre atalayas a través de destellos de luz.',
   },
-
-
 ]
 
 export { labels }

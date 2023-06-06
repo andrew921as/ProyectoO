@@ -62,7 +62,7 @@ export function ModelWorld(props) {
                 <Html key={index} rotation={label.rotation} position={label.position} transform>
                   <div
                     ref={(ref) => (labelRefs.current[index] = ref)}
-                    className='cursor-pointer bg-sin_derechos bg-opacity-75 rounded-lg p-2 text-md text-con_derechos font-texto'
+                    className='cursor-pointer bg-sin_derechos bg-opacity-75 rounded-lg p-6 text-3xl text-con_derechos font-texto'
                     onClick={() => handleLabelClick(index)}
                   >
                     {label.text} <span style={{ fontSize: '1.5em' }}></span>
@@ -77,13 +77,16 @@ export function ModelWorld(props) {
             <Html rotation={selectedLabel.rotation} position={selectedLabel.position} transform>
               <div
                 ref={labelModalRef}
-                className='bg-caca_clara  rounded-lg p-2 border-2 border-amarillito text-amarillito font-texto max-w-sm'
+                className='bg-caca_clara  rounded-lg p-4 border-2 border-amarillito text-amarillito font-texto max-w-sm'
                 // onClick={() => setSelectedLabel(null)}
               >
                 <div className='relative p-2'>
-                  <h2 className='font-bold text-xl'>{selectedLabel.text}</h2>
-                  <p>{selectedLabel.description}</p>
-                  <button className='absolute top-2 right-2 cursor-pointer' onClick={() => setSelectedLabel(null)}>
+                  <h2 className='font-bold text-3xl'>{selectedLabel.text}</h2>
+                  <p className='text-lg'>{selectedLabel.description}</p>
+                  <button
+                    className='absolute top-2 right-2 cursor-pointer text-lg'
+                    onClick={() => setSelectedLabel(null)}
+                  >
                     X
                   </button>
                 </div>
