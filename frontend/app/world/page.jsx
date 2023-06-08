@@ -38,15 +38,6 @@ const keyboardControls = [
 ]
 // cambio para el commit
 
-function CustomLoader() {
-  const color = new Color('#FF0000'); // Reemplaza con el color deseado
-
-  return (
-    <Html center>
-      <Loader color={color} />
-    </Html>
-  );
-}
 export default function Page() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isBookOpen, setIsBookOpen] = useState(false);
@@ -111,7 +102,7 @@ export default function Page() {
 
 
   return (
-    <Suspense fallback={<CustomLoader />}>
+    <Suspense fallback={<Loader/>}>
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
@@ -121,7 +112,7 @@ export default function Page() {
       <div className='absolute z-20 bottom-0 right-0'>
         <Book onClick={() => {handleshowImg()} } />
       </div>
-      {isLoadingBook && <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>}
+      {/* {isLoadingBook && <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>} */}
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
         
         <View
@@ -139,6 +130,8 @@ export default function Page() {
             </Suspense>
           </KeyboardControls>
         </View>
+        <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>
+        
         
         {/* </div> */}
       </div>
