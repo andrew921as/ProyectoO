@@ -46,8 +46,10 @@ const Login = () => {
         // Detiene el loading
         setIsLoading(false)
 
-        // Guarda el usuario en el localStorage
-        localStorage.setItem('user', JSON.stringify(response.data.user))
+        if (response.data.user) {
+          // Guarda el usuario en el localStorage
+          localStorage.setItem('user', JSON.stringify(response.data.user))
+        }
 
         // Envía al usuario a la página de inicio
         router.push('/world')
