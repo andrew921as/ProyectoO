@@ -3,9 +3,10 @@ import React, {useRef, useEffect, useState} from 'react';
 import { DoubleSide, Vector3} from 'three';
 import {useFrame, useThree} from '@react-three/fiber';
 import { VideoTexture } from 'three/src/textures/VideoTexture';
+import { apiUrl } from '@/config';
 
 export default function VideoWall({visible, onContextMenu, url}){
-    const expressUrl = "http://localhost:3001/";
+    const expressUrl = apiUrl;
     const videoUrl = url
     const videoRef = useRef()
     const {camera} = useThree()
