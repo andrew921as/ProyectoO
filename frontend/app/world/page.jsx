@@ -15,10 +15,14 @@ import { labels } from 'public/data/labels'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
-const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
 const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), {
   ssr: false,
 })
+const VideoWall = dynamic(() => import('@/components/canvas/videos/AphroditeVid').then((mod) => mod.AphroditeWall), {
+  ssr: false,
+})
+const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
+
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -46,11 +50,12 @@ const keyboardControls = [
 // cambio para el commit
 
 export default function Page() {
-  const { user, setUser } = useContext(UserContext)
-  const router = useRouter()
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
   const [isBookOpen, setIsBookOpen] = useState(false)
   const [isImgOpen, setIsImgOpen] = useState(false)
+  const [isVidOpen, setIsVidOpen] = useState(false)
+  const router = useRouter()
+  const { user, setUser } = useContext(UserContext)
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
 
   const handleshowImg = () => {
@@ -60,8 +65,14 @@ export default function Page() {
           setIsImgOpen(!isImgOpen)
         }, 3000)
       : setIsImgOpen(!isImgOpen)
+    !isVidOpen
+      ? setTimeout(() => {
+          setIsVidOpen(!isVidOpen)
+        }, 3000)
+      : setIsVidOpen(!isVidOpen)
   }
 
+  //Obtener el tamaño de la ventana
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -70,6 +81,7 @@ export default function Page() {
       })
     }
 
+    // Agregar un listener para actualizar el tamaño de la ventana
     if (typeof window !== 'undefined') {
       handleResize() // Obtener el tamaño de la ventana inicial
       window.addEventListener('resize', handleResize) // Actualizar el tamaño de la ventana al cambiar su tamaño
@@ -143,16 +155,12 @@ export default function Page() {
         >
           <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
-            <World
-              isBookOpen={isBookOpen}
-              labels={labels}
-            />
+            <World isBookOpen={isBookOpen} labels={labels} /> 
             <KeysModels scale={0.01} position-y={4} />
-            {isBookOpen && <BookModel />}
-            {isImgOpen && <ImageWall />}
             <Player walkVelocity={isShiftPressed ? 15 : 5} />
             {isBookOpen && <BookModel />}
             {isImgOpen && <ImageWall />}
+            {isVidOpen && <VideoWall />}
             <Common />
           </KeyboardControls>
         </View>

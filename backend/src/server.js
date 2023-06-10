@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const ytdl = require('ytdl-core');
 const cors = require('cors');
 
 // Crear una instancia de la aplicación Express
@@ -18,6 +19,15 @@ app.use(express.urlencoded({extended: true}));
 
 // Habilitar CORS
 app.use(cors());
+
+app.get('/video', function(req, res) {
+    var url = req.query.url;
+    ytdl(url, {
+        format: 'mp4',
+        filter: 'audioandvideo',
+        quality: 'highest'
+    }).pipe(res);
+});
 
 // Rutas
 app.get('/', (req, res) => {

@@ -8,37 +8,37 @@ import ImageWall from "../stickers/ImageWall";
 
 export function Book(props) {
   const group = useRef();
-  const sticker = useRef();
+  // const sticker = useRef();
   const { nodes, materials, animations } = useGLTF("/models/book/book.glb");
   const { actions } = useAnimations(animations, group);
-  const zeus_img = '/img/world/zeus.jpeg';
-  const texture_zeus = useLoader(TextureLoader, zeus_img);
-  const lore = "Zeus, ruler of all Gods"
+  // const zeus_img = '/img/world/zeus.jpeg';
+  // const texture_zeus = useLoader(TextureLoader, zeus_img);
+  // const lore = "Zeus, ruler of all Gods"
 
-  const [currentTexture, setCurrentTexture] = useState(texture_zeus);
-  const [isWallVisible, setWallVisibility] = useState(false);
-  const [isImgVisible, setImgVisibility] = useState(true);
-  const [text, setText] = useState("");
+  // const [currentTexture, setCurrentTexture] = useState(texture_zeus);
+  // const [isWallVisible, setWallVisibility] = useState(false);
+  // const [isImgVisible, setImgVisibility] = useState(true);
+  // const [text, setText] = useState("");
 
   const {camera} = useThree()
 
-  const handleImage = (event) => {
-    event.stopPropagation();
-    if(isWallVisible == false){
-        // setCurrentTexture(texture_flash);
-        setWallVisibility(true);
-        setImgVisibility(false);
-        setText(lore);
+  // const handleImage = (event) => {
+  //   event.stopPropagation();
+  //   if(isWallVisible == false){
+  //       // setCurrentTexture(texture_flash);
+  //       setWallVisibility(true);
+  //       setImgVisibility(false);
+  //       setText(lore);
 
-    }
-  };
+  //   }
+  // };
 
   useEffect(() => {
     actions["ArmatureAction"].repetitions = 1; // Repetir animación una vez
     actions["ArmatureAction"].clampWhenFinished = true; // Detener la animación en el último frame
     actions["ArmatureAction"].play(); // Reproducir animación si hay una definida en el modelo
     group.current.rotation.z += Math.PI / 2; // Rotación de 90 grados alrededor del eje Y
-    sticker.current.rotation.x -= Math.PI /2;
+    //sticker.current.rotation.x -= Math.PI /2;
   }, []);
 
   useFrame(()=>{
@@ -61,11 +61,6 @@ export function Book(props) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <mesh {...props} visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
-        <planeGeometry args={[1,1]} />
-        <meshStandardMaterial map={currentTexture} color="whitered" side={DoubleSide}/>
-      </mesh>
-      <ImageWall visible={isWallVisible} onClick={() => {setWallVisibility(false); setText(""); setImgVisibility(true)}} texture={currentTexture} text={text} />
     <group rotation-x={Math.PI/2} name="Scene">
       <group name="Armature">
         <primitive object={nodes.Base} />
