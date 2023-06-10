@@ -33,25 +33,38 @@ export function ZeusWall(props){
         imgWallRef.current.rotation.x -= Math.PI/2;
     }, [])
 
-    useFrame(()=>{
+    useFrame(() => {
         const distanceFromCamera = 3.1; // Distancia deseada del libro a la cámara
-    
+        const offsetX = 0.8; // Desplazamiento hacia la derecha en el eje X
+        const offsetY = -0.5; // Desplazamiento hacia arriba
+        const offsetZ = -0.25; // Desplazamiento hacia adelante
+      
         const cameraDirection = camera.getWorldDirection(new Vector3());
-        const targetPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera));
+        const offset = cameraDirection.clone().multiplyScalar(distanceFromCamera);
+      
+        // Aplicar desplazamiento hacia adelante
+        const offsetForward = cameraDirection.clone().multiplyScalar(offsetZ);
+        offset.add(offsetForward);
+      
+        // Aplicar desplazamiento hacia la derecha solo en X y Z
+        const cameraRight = new Vector3(cameraDirection.z, 0, -cameraDirection.x).normalize();
+        offset.add(cameraRight.clone().multiplyScalar(offsetX));
+      
+        // Calcular la dirección hacia arriba relativa
+        const cameraUp = new Vector3().crossVectors(cameraRight, cameraDirection).normalize();
+        offset.add(cameraUp.clone().multiplyScalar(offsetY));
+      
+        const targetPosition = camera.position.clone().add(offset);
         imgWallRef.current.position.copy(targetPosition);
-        // const stickerOffsetX = 1; // Offset horizontal hacia la derecha
-        // const stickerOffsetY = 0.5; // Offset vertical hacia arriba
-        //const stickerOffsetZ = 3; // Offset vertical hacia arriba
-        // imgWallRef.current.position.x = targetPosition.x + stickerOffsetX;
-        // imgWallRef.current.position.y = targetPosition.y + stickerOffsetY;
-        //imgWallRef.current.position.z = targetPosition.z + stickerOffsetZ;
-        imgWallRef.current.lookAt(camera.position);
-      }, [])
-
+      
+        // Ajustar la rotación para mantener la imagen recta
+        const targetRotation = cameraDirection.clone().multiplyScalar(-1);
+        imgWallRef.current.lookAt(targetRotation.add(imgWallRef.current.position));
+      }, []);
     return (
         <>
         <mesh {...props} visible={isImgVisible} ref={imgWallRef} receiveShadow dispose={null} onClick={handleImage}>
-                <planeGeometry args={[1,1]} />
+                <planeGeometry args={[0.8,0.8]} />
                 <meshStandardMaterial map={currentTexture} color="whitered" side={DoubleSide}/>
         </mesh>
         <ImageWall visible={isWallVisible} onClick={() => {setWallVisibility(false); setText(""); setImgVisibility(true)}} texture={currentTexture} text={text} />
