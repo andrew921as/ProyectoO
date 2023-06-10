@@ -12,32 +12,24 @@ import {
   PointerLockControls,
   useCubeTexture,
   useHelper,
+  useKeyboardControls,
   View as ViewImpl,
 } from '@react-three/drei'
 import { Three } from '@/helpers/components/Three'
 import * as THREE from 'three'
-import { useKeyboardControls } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { CuboidCollider, RigidBody } from '@react-three/rapier'
 
-export const Common = ({ color }) => {
-  const pLHelper = useRef()
+export const Common = ({ color }) => (
+  <Suspense fallback={null}>
+    {color && <color attach='background' args={[color]} />}
+    <ambientLight intensity={0.2} />
+    <pointLight position={[7, 60, 1]} intensity={0.8} />
 
-  // Helper para luz
-  // useHelper(pLHelper, THREE.PointLightHelper, 1, 'hotpink')
-
-  return (
-    <>
-      <Suspense fallback={null}>
-        <ambientLight intensity={0.2} />
-        <pointLight ref={pLHelper} position={[7, 60, 1]} intensity={0.8} />
-
-        {/* <PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} /> */}
-        {/* <OrbitControls fov={40} position={[20, 20, 60]} /> */}
-      </Suspense>
-    </>
-  )
-}
+    {/*<PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} />
+    <OrbitControls fov={40} position={[20, 20, 60]} />*/}
+  </Suspense>
+)
 
 const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
   const localRef = useRef(null)

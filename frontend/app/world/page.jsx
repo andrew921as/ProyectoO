@@ -1,11 +1,12 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Suspense, useState, useEffect, useContext } from 'react'
+import { Suspense, useState, useEffect, useRef, useContext} from 'react'
+import { Color, MeshStandardMaterial } from 'three';
+import { Html, KeyboardControls, Loader, Environment } from '@react-three/drei'
+import { useLoader } from '@react-three/fiber';
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/UserProvider'
-import { Environment, Html, KeyboardControls } from '@react-three/drei'
-
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
@@ -50,11 +51,15 @@ const keyboardControls = [
 // cambio para el commit
 
 export default function Page() {
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
-  const [isBookOpen, setIsBookOpen] = useState(false)
-  const [isImgOpen, setIsImgOpen] = useState(false)
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [isBookOpen, setIsBookOpen] = useState(false);
+  const [isImgOpen, setIsImgOpen] = useState(false);
   const [isVidOpen, setIsVidOpen] = useState(false)
+  const [isLoadingBook, setIsLoadingBook] = useState(false);
+  
   const router = useRouter()
+  const loaderRef = useRef()
+  
   const { user, setUser } = useContext(UserContext)
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
 
@@ -114,7 +119,7 @@ export default function Page() {
       if (event.key === 'Shift') {
         setIsShiftPressed(true)
       }
-    }
+    };
 
     const handleKeyUp = (event) => {
       if (event.key === 'Shift') {
@@ -132,8 +137,9 @@ export default function Page() {
     }
   }, [])
 
+
   return (
-    <>
+    <Suspense fallback={<Loader/>}>
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
@@ -147,7 +153,9 @@ export default function Page() {
           }}
         />
       </div>
+      {/* {isLoadingBook && <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>} */}
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
+        
         <View
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
@@ -155,6 +163,7 @@ export default function Page() {
         >
           <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
+            <Suspense fallback={<Loader/>}>
             <World isBookOpen={isBookOpen} labels={labels} /> 
             <KeysModels scale={0.01} position-y={4} />
             <Player walkVelocity={isShiftPressed ? 15 : 5} />
@@ -162,10 +171,15 @@ export default function Page() {
             {isImgOpen && <ImageWall />}
             {isVidOpen && <VideoWall />}
             <Common />
+            </Suspense>
           </KeyboardControls>
         </View>
+        <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>
+        
+        
         {/* </div> */}
       </div>
-    </>
+    </Suspense>
   )
 }
+

@@ -52,7 +52,7 @@ export function ModelWorld(props) {
   // console.log(labelRefs.current)
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       {/* Etiquetas del mundo */}
       {!props.isBookOpen && (
         <>
@@ -123,6 +123,6 @@ export function ModelWorld(props) {
 
       {/* Agua 3D */}
       <Water />
-    </>
+    </Suspense>
   )
 }
