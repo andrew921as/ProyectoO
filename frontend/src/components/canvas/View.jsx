@@ -12,13 +12,13 @@ import {
   PointerLockControls,
   useCubeTexture,
   useHelper,
+  useKeyboardControls,
   View as ViewImpl,
 } from '@react-three/drei'
 import { Three } from '@/helpers/components/Three'
-import * as THREE from "three"
-import { useKeyboardControls, Loader } from "@react-three/drei"
-import { useFrame, useThree } from "@react-three/fiber"
-import { CuboidCollider, RigidBody } from "@react-three/rapier"
+import * as THREE from 'three'
+import { useFrame, useThree } from '@react-three/fiber'
+import { CuboidCollider, RigidBody } from '@react-three/rapier'
 
 export const Common = ({ color }) => (
   <Suspense fallback={null}>
@@ -31,14 +31,12 @@ export const Common = ({ color }) => (
   </Suspense>
 )
 
-
 const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
   const localRef = useRef(null)
   useImperativeHandle(ref, () => localRef.current)
 
   return (
     <>
-   
       <div ref={localRef} {...props} />
 
       <Three>

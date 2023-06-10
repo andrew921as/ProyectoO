@@ -3,7 +3,7 @@
 import React, { useRef, Suspense, useEffect, useState } from 'react'
 import { useFrame, useLoader, useThree } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { Environment, Html, Loader, Sky, Loader } from '@react-three/drei'
+import { Environment, Html, Loader, Sky } from '@react-three/drei'
 import Water from './Water'
 import * as THREE from 'three'
 
