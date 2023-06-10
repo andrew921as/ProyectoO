@@ -63,13 +63,29 @@ export default function Page() {
   const { user, setUser } = useContext(UserContext)
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
 
+  const [flagPageBookState, setFlagPageBookState] = useState(false)
+
+  const updateState = (newValue) => {
+    setFlagPageBookState(newValue);
+  };
+
+  const book = <BookModel updateState={updateState} flagPageBookState={flagPageBookState} setIsImgOpen={setIsImgOpen} setIsVidOpen={setIsVidOpen} />
+
+  const pageCounter= useRef(0)
+ 
   const handleshowImg = () => {
+    if(!isBookOpen){
+      setFlagPageBookState(false)
+    }
     setIsBookOpen(!isBookOpen)
-    !isImgOpen
-      ? setTimeout(() => {
+    if(!isImgOpen){
+       setTimeout(() => {
           setIsImgOpen(!isImgOpen)
         }, 3000)
-      : setIsImgOpen(!isImgOpen)
+      }
+    else{ 
+        setIsImgOpen(!isImgOpen)
+      }
     !isVidOpen
       ? setTimeout(() => {
           setIsVidOpen(!isVidOpen)
@@ -167,7 +183,7 @@ export default function Page() {
             <World isBookOpen={isBookOpen} labels={labels} /> 
             <KeysModels scale={0.01} position-y={4} />
             <Player walkVelocity={isShiftPressed ? 15 : 5} />
-            {isBookOpen && <BookModel />}
+            {isBookOpen && book}
             {isImgOpen && <ImageWall />}
             {isVidOpen && <VideoWall />}
             <Common />
