@@ -121,11 +121,10 @@ export default function Page() {
     if (storedUser) {
       setUser(JSON.parse(storedUser))
     }
-
-    // else {
-    //   //Si no hay usuario en el localstorage, lo redirige al login
-    //   router.push('/login')
-    // }
+     else {
+       //Si no hay usuario en el localstorage, lo redirige al login
+       router.push('/login')
+     }
   }, [])
 
   const [isShiftPressed, setIsShiftPressed] = useState(false)
