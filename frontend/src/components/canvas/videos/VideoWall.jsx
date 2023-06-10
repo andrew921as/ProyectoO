@@ -13,7 +13,7 @@ export default function VideoWall({visible, onContextMenu, url}){
 
     const [video] = useState(() => {
         const vid = document.createElement('video');
-        vid.src = `${expressUrl}video?url=${videoUrl}`;;
+        vid.src = `${expressUrl}/video?url=${videoUrl}`;;
         vid.loop = true;
         vid.muted = true;
         vid.crossOrigin = 'anonymous';
