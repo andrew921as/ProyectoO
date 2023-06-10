@@ -6,8 +6,9 @@ import { useLoader,useFrame, useThree } from "@react-three/fiber";
 import { Vector3, TextureLoader, DoubleSide } from "three";
 import dynamic from 'next/dynamic'
 import ImageWall from "../stickers/ImageWall";
+import { GLTFLoader } from 'three-stdlib'
 
-export function Book({updateState, flagPageBookState}) {
+export function Book({updateState, flagPageBookState, setIsImgOpen, setIsVidOpen}) {
   
   const group = useRef();
   const sticker = useRef();
@@ -22,6 +23,8 @@ export function Book({updateState, flagPageBookState}) {
   const [isReproduceAnimation, setReproduceAnimation] = useState(false);
   const [isImgVisible, setImgVisibility] = useState(true);
   const [text, setText] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false)
 
 
   const {camera} = useThree()
@@ -39,16 +42,17 @@ export function Book({updateState, flagPageBookState}) {
   };
  
   const nextPage = () => {
-    console.log("AAA", isReproduceAnimation);
+    // console.log("AAA", isReproduceAnimation);
       actions["NextPage"].repetitions = 1; // Repetir animación una vez
       actions["NextPage"].reset(); // Detener la animación en el último frame
       actions["NextPage"].play(); // Reproducir animación si hay una definida en el modelo
-
+      setIsImgOpen(false);
+      setIsVidOpen(false);
   };
   
 
   useEffect(() => {
-    console.log("aaa",isReproduceAnimation);
+    // console.log("aaa",isReproduceAnimation);
     if (isReproduceAnimation) {
       const action = actions["NextPage"]
       action
@@ -66,11 +70,19 @@ export function Book({updateState, flagPageBookState}) {
   }, [])
 
   useEffect(() => { 
+    setIsLoading(true)
+    const loader = new GLTFLoader()
+    loader.load('/models/book/book.glb', (gltf) => {
+      // Aquí puedes realizar cualquier operación adicional en el modelo cargado
+
+      // Desactiva el estado de carga cuando el modelo esté completamente cargado
+      setIsLoading(false)
+    })
     actions["ArmatureAction"].repetitions = 1; // Repetir animación una vez
     actions["ArmatureAction"].clampWhenFinished = true; // Detener la animación en el último frame
     actions["ArmatureAction"].play(); // Reproducir animación si hay una definida en el modelo
     group.current.rotation.z += Math.PI / 2; // Rotación de 90 grados alrededor del eje Y
-    sticker.current.rotation.x -= Math.PI /2;
+    // sticker.current.rotation.x -= Math.PI /2;
 
     // actions["ArmatureAction"].isRunning() ? funtionsS : null
     // actions["ArmatureAction"].isRunning()? updateState(true) : null
@@ -81,14 +93,14 @@ export function Book({updateState, flagPageBookState}) {
     }, 3000);
   }, [updateState]);
 
-  useFrame(()=>{
-    const distanceFromCamera = 3.5; // Distancia deseada del libro a la cámara
+  useFrame(() => {
+    const distanceFromCamera = 3.5 // Distancia deseada del libro a la cámara
 
-    const cameraDirection = camera.getWorldDirection(new Vector3());
-    const targetPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera));
+    const cameraDirection = camera.getWorldDirection(new Vector3())
+    const targetPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera))
     // const targetImgPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera-0.5));
-    group.current.position.copy(targetPosition);
-    group.current.lookAt(camera.position);
+    group.current.position.copy(targetPosition)
+    group.current.lookAt(camera.position)
     // const stickerOffsetX = 1; // Offset horizontal hacia la derecha
     // const stickerOffsetY = 0.5; // Offset vertical hacia arriba
     // const stickerOffsetZ = 3; // Offset vertical hacia arriba
@@ -187,4 +199,4 @@ export function Book({updateState, flagPageBookState}) {
   );
 }
 
-useGLTF.preload("/book.glb");
+useGLTF.preload('/book.glb')

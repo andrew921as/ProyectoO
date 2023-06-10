@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 // COMPONENTS
 import Loading from '@/components/elements/Loading'
 
-// Icons
+// Iconos
 import { FaUserAlt } from 'react-icons/fa'
 import { AiFillUnlock } from 'react-icons/ai'
 import { IoMailSharp } from 'react-icons/io5'
@@ -58,8 +58,10 @@ const Resgiter = () => {
         // // Guarda el usuario en el contexto
         // setUser(response.data.user)
 
-        // Guarda el usuario en el localStorage
-        localStorage.setItem('user', JSON.stringify(response.data.user))
+        if (response.data.user) {
+          // Guarda el usuario en el localStorage
+          localStorage.setItem('user', JSON.stringify(response.data.user))
+        }
 
         // Envía al usuario a la página de inicio
         router.push('/world')

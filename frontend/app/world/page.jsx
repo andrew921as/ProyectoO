@@ -1,20 +1,29 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Suspense, useState, useEffect, useContext, useRef} from 'react'
+import { Suspense, useState, useEffect, useRef, useContext} from 'react'
+import { Color, MeshStandardMaterial } from 'three';
+import { Html, KeyboardControls, Loader, Environment } from '@react-three/drei'
+import { useLoader } from '@react-three/fiber';
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/UserProvider'
-import { Environment, Html, KeyboardControls } from '@react-three/drei'
-
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
 
+// Data
+import { labels } from 'public/data/labels'
+
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
-
+const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), {
+  ssr: false,
+})
+const VideoWall = dynamic(() => import('@/components/canvas/videos/AphroditeVid').then((mod) => mod.AphroditeWall), {
+  ssr: false,
+})
 const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
-const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), { ssr: false })
+
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -42,11 +51,16 @@ const keyboardControls = [
 // cambio para el commit
 
 export default function Page() {
-  const { user, setUser } = useContext(UserContext)
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [isBookOpen, setIsBookOpen] = useState(false);
+  const [isImgOpen, setIsImgOpen] = useState(false);
+  const [isVidOpen, setIsVidOpen] = useState(false)
+  const [isLoadingBook, setIsLoadingBook] = useState(false);
+  
   const router = useRouter()
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
-  const [isBookOpen, setIsBookOpen] = useState(false)
-  const [isImgOpen, setIsImgOpen] = useState(false)
+  const loaderRef = useRef()
+  
+  const { user, setUser } = useContext(UserContext)
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
 
   const [flagPageBookState, setFlagPageBookState] = useState(false)
@@ -55,7 +69,7 @@ export default function Page() {
     setFlagPageBookState(newValue);
   };
 
-  const book = <BookModel updateState={updateState} flagPageBookState={flagPageBookState} />
+  const book = <BookModel updateState={updateState} flagPageBookState={flagPageBookState} setIsImgOpen={setIsImgOpen} setIsVidOpen={setIsVidOpen} />
 
   const pageCounter= useRef(0)
  
@@ -69,10 +83,17 @@ export default function Page() {
           setIsImgOpen(!isImgOpen)
         }, 3000)
       }
-      else{ 
-        setIsImgOpen(!isImgOpen)}
+    else{ 
+        setIsImgOpen(!isImgOpen)
+      }
+    !isVidOpen
+      ? setTimeout(() => {
+          setIsVidOpen(!isVidOpen)
+        }, 3000)
+      : setIsVidOpen(!isVidOpen)
   }
 
+  //Obtener el tamaño de la ventana
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -81,6 +102,7 @@ export default function Page() {
       })
     }
 
+    // Agregar un listener para actualizar el tamaño de la ventana
     if (typeof window !== 'undefined') {
       handleResize() // Obtener el tamaño de la ventana inicial
       window.addEventListener('resize', handleResize) // Actualizar el tamaño de la ventana al cambiar su tamaño
@@ -113,7 +135,7 @@ export default function Page() {
       if (event.key === 'Shift') {
         setIsShiftPressed(true)
       }
-    }
+    };
 
     const handleKeyUp = (event) => {
       if (event.key === 'Shift') {
@@ -131,8 +153,9 @@ export default function Page() {
     }
   }, [])
 
+
   return (
-    <>
+    <Suspense fallback={<Loader/>}>
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
@@ -146,30 +169,33 @@ export default function Page() {
           }}
         />
       </div>
+      {/* {isLoadingBook && <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>} */}
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
+        
         <View
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
           isBookOpen={isBookOpen}
         >
-          <Environment files={env} ground={{ height: 5, radius: 4096, scale:400 }} />
+          <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
-            <World />
+            <Suspense fallback={<Loader/>}>
+            <World isBookOpen={isBookOpen} labels={labels} /> 
             <KeysModels scale={0.01} position-y={4} />
-            
-            {isBookOpen && book}
-            {isImgOpen &&
-              <ImageWall />
-              
-            }
             <Player walkVelocity={isShiftPressed ? 15 : 5} />
             {isBookOpen && book}
             {isImgOpen && <ImageWall />}
+            {isVidOpen && <VideoWall />}
             <Common />
+            </Suspense>
           </KeyboardControls>
         </View>
+        <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>
+        
+        
         {/* </div> */}
       </div>
-    </>
+    </Suspense>
   )
 }
+

@@ -173,7 +173,7 @@ export default function Water() {
     return (
         <>
             <mesh position={[0, 0, 0]} rotation-x={- Math.PI * 0.5}>
-                <planeGeometry args={[2000, 2000, 512, 512]} />
+                <planeGeometry args={[1000, 1000, 512, 512]} />
                 <shaderMaterial ref={shaderMaterial} args={[WaveShader]} />
             </mesh>
         </>
