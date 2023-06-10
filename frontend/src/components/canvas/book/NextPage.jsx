@@ -6,10 +6,10 @@ import ImageWall from '../stickers/ImageWall';
 import { Vector3 } from "three";
 
 
-export function NextPage({ animationUseEffect } ) {
+export function NextPage({ flagPageBookState } ) {
   const imgWallRef = useRef();
   const { camera } = useThree()
-  const zeus_img = '/img/world/arrow.png';
+  const zeus_img = '/img/world/arrow2.png';
   const texture_zeus = useLoader(TextureLoader, zeus_img);
   const lore = "Zeus, dios supremo del cielo, el trueno y el rayo,  padre de los dioses y los hombres.  Posee gran poder y es representado como un hombre barbudo con una poderosa figura."
 
@@ -81,11 +81,9 @@ export function NextPage({ animationUseEffect } ) {
 
   return (
     <>
-      <mesh visible={isImgVisible} ref={imgWallRef} receiveShadow dispose={null} onClick={() => {
-        animationUseEffect(true)
-      }}>
+      <mesh visible={flagPageBookState} ref={imgWallRef} receiveShadow dispose={null}>
         <planeGeometry args={[0.5, 0.5]} />
-        <meshStandardMaterial map={currentTexture} color="whitered" side={DoubleSide} />
+        <meshStandardMaterial map={currentTexture} side={DoubleSide} transparent />
       </mesh>
       <ImageWall visible={isWallVisible} onClick={() => { setWallVisibility(false); setText(""); setImgVisibility(true) }} texture={currentTexture} text={text} />
     </>

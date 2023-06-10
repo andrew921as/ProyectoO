@@ -7,7 +7,7 @@ import { Vector3, TextureLoader, DoubleSide } from "three";
 import dynamic from 'next/dynamic'
 import ImageWall from "../stickers/ImageWall";
 
-export function Book(props) {
+export function Book({updateState, flagPageBookState}) {
   
   const group = useRef();
   const sticker = useRef();
@@ -22,6 +22,7 @@ export function Book(props) {
   const [isReproduceAnimation, setReproduceAnimation] = useState(false);
   const [isImgVisible, setImgVisibility] = useState(true);
   const [text, setText] = useState("");
+
 
   const {camera} = useThree()
 
@@ -64,13 +65,21 @@ export function Book(props) {
     
   }, [])
 
-  useEffect(() => {
+  useEffect(() => { 
     actions["ArmatureAction"].repetitions = 1; // Repetir animación una vez
     actions["ArmatureAction"].clampWhenFinished = true; // Detener la animación en el último frame
     actions["ArmatureAction"].play(); // Reproducir animación si hay una definida en el modelo
     group.current.rotation.z += Math.PI / 2; // Rotación de 90 grados alrededor del eje Y
     sticker.current.rotation.x -= Math.PI /2;
-  }, []);
+
+    // actions["ArmatureAction"].isRunning() ? funtionsS : null
+    // actions["ArmatureAction"].isRunning()? updateState(true) : null
+    // updateState(true)
+
+    setTimeout(() => {
+      updateState(true)
+    }, 3000);
+  }, [updateState]);
 
   useFrame(()=>{
     const distanceFromCamera = 3.5; // Distancia deseada del libro a la cámara
@@ -92,11 +101,11 @@ export function Book(props) {
 
   return (
     <>
-      <NextPage animationUseEffect={setReproduceAnimation} />
+      <NextPage flagPageBookState={flagPageBookState} />
     
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} dispose={null}>
       
-      <mesh {...props} visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
+      <mesh visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
         <planeGeometry args={[1,1]} />
         <meshStandardMaterial map={currentTexture} color="whitered" side={DoubleSide}/>
       </mesh>
@@ -164,6 +173,7 @@ export function Book(props) {
         </group>
         <mesh
           name="Plano002"
+          visible={flagPageBookState}
           castShadow
           receiveShadow
           geometry={nodes.Plano002.geometry}

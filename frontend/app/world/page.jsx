@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Suspense, useState, useEffect, useContext } from 'react'
+import { Suspense, useState, useEffect, useContext, useRef} from 'react'
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/UserProvider'
 import { Environment, Html, KeyboardControls } from '@react-three/drei'
@@ -48,15 +48,29 @@ export default function Page() {
   const [isBookOpen, setIsBookOpen] = useState(false)
   const [isImgOpen, setIsImgOpen] = useState(false)
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
-  const book = <BookModel />
+
+  const [flagPageBookState, setFlagPageBookState] = useState(false)
+
+  const updateState = (newValue) => {
+    setFlagPageBookState(newValue);
+  };
+
+  const book = <BookModel updateState={updateState} flagPageBookState={flagPageBookState} />
+
+  const pageCounter= useRef(0)
  
   const handleshowImg = () => {
+    if(!isBookOpen){
+      setFlagPageBookState(false)
+    }
     setIsBookOpen(!isBookOpen)
-    !isImgOpen
-      ? setTimeout(() => {
+    if(!isImgOpen){
+       setTimeout(() => {
           setIsImgOpen(!isImgOpen)
         }, 3000)
-      : setIsImgOpen(!isImgOpen)
+      }
+      else{ 
+        setIsImgOpen(!isImgOpen)}
   }
 
   useEffect(() => {
