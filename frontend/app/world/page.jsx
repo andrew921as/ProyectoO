@@ -12,10 +12,9 @@ import { Book } from '../../src/components/elements/Book'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
+
 const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
-const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), {
-  ssr: false,
-})
+const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), { ssr: false })
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -49,7 +48,8 @@ export default function Page() {
   const [isBookOpen, setIsBookOpen] = useState(false)
   const [isImgOpen, setIsImgOpen] = useState(false)
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
-
+  const book = <BookModel />
+ 
   const handleshowImg = () => {
     setIsBookOpen(!isBookOpen)
     !isImgOpen
@@ -142,10 +142,14 @@ export default function Page() {
           <KeyboardControls map={keyboardControls}>
             <World />
             <KeysModels scale={0.01} position-y={4} />
-            {isBookOpen && <BookModel />}
-            {isImgOpen && <ImageWall />}
+            
+            {isBookOpen && book}
+            {isImgOpen &&
+              <ImageWall />
+              
+            }
             <Player walkVelocity={isShiftPressed ? 15 : 5} />
-            {isBookOpen && <BookModel />}
+            {isBookOpen && book}
             {isImgOpen && <ImageWall />}
             <Common />
           </KeyboardControls>
