@@ -18,6 +18,7 @@ export function Book({updateState, flagPageBookState, setIsImgOpen, setIsVidOpen
   const texture_zeus = useLoader(TextureLoader, zeus_img);
   const lore = "Zeus, ruler of all Gods"
   const NextPage = dynamic(() => import('@/components/canvas/book/NextPage').then((mod) => mod.NextPage), { ssr: false })
+  const PreviousPage = dynamic(() => import('@/components/canvas/book/PreviousPage').then((mod) => mod.PreviousPage), { ssr: false })
   const [currentTexture, setCurrentTexture] = useState(texture_zeus);
   const [isWallVisible, setWallVisibility] = useState(false);
   const [isReproduceAnimation, setReproduceAnimation] = useState(false);
@@ -45,9 +46,20 @@ export function Book({updateState, flagPageBookState, setIsImgOpen, setIsVidOpen
     // console.log("AAA", isReproduceAnimation);
       actions["NextPage"].repetitions = 1; // Repetir animación una vez
       actions["NextPage"].reset(); // Detener la animación en el último frame
+      actions["NextPage"].timeScale = 1; // No poner la animación en reversa
       actions["NextPage"].play(); // Reproducir animación si hay una definida en el modelo
       setIsImgOpen(false);
       setIsVidOpen(false);
+  };
+
+  const previousPage = () => {
+    // console.log("AAA", isReproduceAnimation);
+    actions["NextPage"].repetitions = 1; // Repetir animación una vez
+    actions["NextPage"].reset(); // Detener la animación en el último frame
+    actions["NextPage"].timeScale = -1; // Poner la animación en reversa
+    actions["NextPage"].play(); // Reproducir animación si hay una definida en el modelo
+    setIsImgOpen(false);
+    setIsVidOpen(false);
   };
   
 
@@ -114,6 +126,7 @@ export function Book({updateState, flagPageBookState, setIsImgOpen, setIsVidOpen
   return (
     <>
       <NextPage flagPageBookState={flagPageBookState} />
+      <PreviousPage flagPageBookState={flagPageBookState} />
     
     <group ref={group} dispose={null}>
       
@@ -122,7 +135,7 @@ export function Book({updateState, flagPageBookState, setIsImgOpen, setIsVidOpen
         <meshStandardMaterial map={currentTexture} color="whitered" side={DoubleSide}/>
       </mesh>
         <ImageWall visible={isWallVisible} onClick={() => { setWallVisibility(false); setText(""); setImgVisibility(true) }} texture={currentTexture} text={text} />
-        <group rotation-x={Math.PI / 2} name="Scene" onClick={() => { nextPage() }}>
+        <group rotation-x={Math.PI / 2} name="Scene" >
         <group name="Armature">
           <primitive object={nodes.Base} />
           <primitive object={nodes.RFlap} />
@@ -137,8 +150,9 @@ export function Book({updateState, flagPageBookState, setIsImgOpen, setIsVidOpen
             geometry={nodes.Plano001.geometry}
             material={materials["Material.005"]}
             skeleton={nodes.Plano001.skeleton}
+            
           />
-          <group name="Magic_Book">
+            <group name="Magic_Book" >
             <skinnedMesh
               name="Cube005"
               geometry={nodes.Cube005.geometry}
@@ -190,9 +204,23 @@ export function Book({updateState, flagPageBookState, setIsImgOpen, setIsVidOpen
           receiveShadow
           geometry={nodes.Plano002.geometry}
           material={materials["Material.002"]}
-          position={[-0.1, 0.3, 0]}
+          scale={0.2}
+          position={[1.46, 0.3, 1]}
           rotation={[0, 0, -1.54]}
-        />
+          onClick={() => { nextPage() }}
+          />
+          <mesh
+            name="Plano003"
+            visible={flagPageBookState}
+            castShadow
+            receiveShadow
+            geometry={nodes.Plano002.geometry}
+            material={materials["Material.002"]}
+            scale={0.2}
+            position={[-1.95, 0.3, 1]}
+            rotation={[0, 0, -1.54]}
+            onClick={() => { previousPage() }}
+          />
     </group>
       </group>
     </>
