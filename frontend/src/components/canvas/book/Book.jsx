@@ -8,48 +8,155 @@ import dynamic from 'next/dynamic'
 import ImageWall from '../stickers/ImageWall'
 import { GLTFLoader } from 'three-stdlib'
 
+// Data
+import { stickers } from 'public/data/stickers'
+import { videos } from 'public/data/videos'
+
+const sections = [
+  {
+    name: 'Sección 1, mitología',
+    start: 0,
+    end: 6,
+  },
+  {
+    name: 'Sección 2, estructuras',
+    start: 7,
+    end: 13,
+  },
+  {
+    name: 'Sección 3, figuras',
+    start: 14,
+    end: 20,
+  },
+  {
+    name: 'Sección 4, mitologia',
+    start: 21,
+    end: 27,
+  },
+  {
+    name: 'Sección 5, recomendaciones',
+    start: 28,
+    end: 34,
+  },
+]
+
+// Modelo Libro 3D
 export function Book({
-  updateState,
-  flagPageBookState,
-  setIsImgOpen,
-  setIsVidOpen,
-  bookPage,
-  setBookPage,
+  isBookOpen,
   setAnimationPage,
 }) {
+  // Referencias
   const group = useRef()
   const sticker = useRef()
   const indexRef = useRef()
+
+  // modelo
   const { nodes, materials, animations } = useGLTF('/models/book/book.glb')
   const { actions } = useAnimations(animations, group)
   const zeus_img = '/img/world/zeus.jpeg'
   const texture_zeus = useLoader(TextureLoader, zeus_img)
   const lore = 'Zeus, ruler of all Gods'
+
+  // Importaciones de elementos 3D
+  const Sticker = dynamic(() => import('@/components/canvas/stickers/Sticker').then((mod) => mod.ZeusWall), {
+    ssr: false,
+  })
+  const Video = dynamic(() => import('@/components/canvas/videos/Video').then((mod) => mod.AphroditeWall), {
+    ssr: false,
+  })
   const NextPage = dynamic(() => import('@/components/canvas/book/NextPage').then((mod) => mod.NextPage), {
     ssr: false,
   })
   const PreviousPage = dynamic(() => import('@/components/canvas/book/PreviousPage').then((mod) => mod.PreviousPage), {
     ssr: false,
   })
+
+  // Estados del libro
+  const [sectionsUnlocked, setSectionsUnlocked] = useState(3)
+  const [bookPage, setBookPage] = useState(0)
+  const [isImgOpen, setIsImgOpen] = useState(false)
+  const [isVidOpen, setIsVidOpen] = useState(false)
+  const [visibleStickers, setVisibleStickers] = useState([])
+  const [visibleVideos, setVisibleVideos] = useState([])
+
+  const [flagPageBookState, setFlagPageBookState] = useState(false)
+
+  const updateState = (newValue) => {
+    setFlagPageBookState(newValue)
+  }
+
+    // Filtrar los sticker y videos visibles por página
+    useEffect(() => {
+      if (bookPage == -1) {
+        setBookPage(0)
+      } else if (bookPage == sections[sectionsUnlocked - 1].end + 1) {
+        setBookPage(sections[sectionsUnlocked - 1].end)
+      } else {
+        const filteredStickers = stickers.filter((sticker) => {
+          return sticker.page === bookPage
+        })
+        setVisibleStickers(filteredStickers)
+  
+        const filteredVideos = videos.filter((video) => {
+          return video.page === bookPage
+        })
+        setVisibleVideos(filteredVideos)
+      }
+    }, [bookPage])
+
+  useEffect(() => {
+    if (!isBookOpen) {
+      setFlagPageBookState(false)
+
+      // Ocultar el sticker y el video
+      setIsImgOpen(false)
+      setIsVidOpen(false)
+    } else {
+      
+
+      // Mostrar el sticker y el video después de 3 segundos
+      setTimeout(() => {
+        setIsImgOpen(true)
+        setIsVidOpen(true)
+        setFlagPageBookState(true)
+      }, 3000)
+    }
+  }, [isBookOpen])
+
+  // const handleshowImg = () => {
+  //   setIsBookOpen(!isBookOpen)
+  //   if (!isImgOpen) {
+  //     setTimeout(() => {
+  //       setIsImgOpen(!isImgOpen)
+  //     }, 3000)
+  //   } else {
+  //     setIsImgOpen(!isImgOpen)
+  //   }
+  //   !isVidOpen
+  //     ? setTimeout(() => {
+  //         setIsVidOpen(!isVidOpen)
+  //       }, 3000)
+  //     : setIsVidOpen(!isVidOpen)
+  // }
+
   const [currentTexture, setCurrentTexture] = useState(texture_zeus)
   const [isWallVisible, setWallVisibility] = useState(false)
   const [isReproduceAnimation, setReproduceAnimation] = useState(false)
   const [isImgVisible, setImgVisibility] = useState(true)
   const [text, setText] = useState('')
-
   const [isLoading, setIsLoading] = useState(false)
 
   const { camera } = useThree()
 
-  const handleImage = (event) => {
-    event.stopPropagation()
-    if (isWallVisible == false) {
-      // setCurrentTexture(texture_flash);
-      setWallVisibility(true)
-      setImgVisibility(false)
-      setText(lore)
-    }
-  }
+  // const handleImage = (event) => {
+  //   event.stopPropagation()
+  //   if (isWallVisible == false) {
+  //     // setCurrentTexture(texture_flash);
+  //     setWallVisibility(true)
+  //     setImgVisibility(false)
+  //     setText(lore)
+  //   }
+  // }
 
   const nextPage = () => {
     setAnimationPage(true)
@@ -143,13 +250,11 @@ export function Book({
     const cameraDirection = camera.getWorldDirection(new Vector3())
     const targetPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera))
     // const targetImgPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera-0.5));
-    group.current.position.copy(targetPosition) 
-    if(bookPage == 0){
-      indexRef.current.position = [targetPosition.x, targetPosition.y, targetPosition.z] 
+    group.current.position.copy(targetPosition)
+    if (bookPage == 0) {
+      indexRef.current.position = [targetPosition.x, targetPosition.y, targetPosition.z]
     }
     group.current.lookAt(camera.position)
-
-    
 
     // const stickerOffsetX = 1; // Offset horizontal hacia la derecha
     // const stickerOffsetY = 0.5; // Offset vertical hacia arriba
@@ -163,11 +268,23 @@ export function Book({
 
   return (
     <>
+      {/* Mostrar stickers */}
+      {isImgOpen &&
+        visibleStickers.map((sticker) => {
+          return <Sticker {...sticker} />
+        })}
+
+      {/* Mostrar videos */}
+      {isVidOpen &&
+        visibleVideos.map((video) => {
+          return <Video {...video} />
+        })}
+
       <NextPage flagPageBookState={flagPageBookState} />
       <PreviousPage flagPageBookState={flagPageBookState} />
 
       <group ref={group} dispose={null}>
-        <mesh visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
+        {/* <mesh visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
           <planeGeometry args={[1, 1]} />
           <meshStandardMaterial map={currentTexture} color='whitered' side={DoubleSide} />
         </mesh>
@@ -180,7 +297,7 @@ export function Book({
           }}
           texture={currentTexture}
           text={text}
-        />
+        /> */}
         <group rotation-x={Math.PI / 2} name='Scene'>
           <group name='Armature'>
             <primitive object={nodes.Base} />
@@ -276,7 +393,7 @@ export function Book({
           {bookPage == 0 && (
             <>
               <Html ref={indexRef}>
-                <h1 onClick={console.log("1")}>Hello world</h1>
+                <h1 onClick={console.log('1')}>Hello world</h1>
               </Html>
             </>
           )}

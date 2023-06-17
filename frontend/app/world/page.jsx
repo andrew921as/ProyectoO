@@ -13,17 +13,9 @@ import { Book } from '../../src/components/elements/Book'
 
 // Data
 import { labels } from 'public/data/labels'
-import { stickers } from 'public/data/stickers'
-import { videos } from 'public/data/videos'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
-const Sticker = dynamic(() => import('@/components/canvas/stickers/Sticker').then((mod) => mod.ZeusWall), {
-  ssr: false,
-})
-const Video = dynamic(() => import('@/components/canvas/videos/Video').then((mod) => mod.AphroditeWall), {
-  ssr: false,
-})
 const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
 
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
@@ -52,47 +44,19 @@ const keyboardControls = [
 ]
 // cambio para el commit
 
-const sections = [
-  {
-    name: 'Sección 1, mitología',
-    start: 0,
-    end: 6,
-  },
-  {
-    name: 'Sección 2, estructuras',
-    start: 7,
-    end: 13,
-  },
-  {
-    name: 'Sección 3, figuras',
-    start: 14,
-    end: 20,
-  },
-  {
-    name: 'Sección 4, mitologia',
-    start: 21,
-    end: 27,
-  },
-  {
-    name: 'Sección 5, recomendaciones',
-    start: 28,
-    end: 34,
-  },
-]
-
 export default function Page() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
 
-  // Book states
-  const [sectionsUnlocked, setSectionsUnlocked] = useState(3)
-  const [bookPage, setBookPage] = useState(0)
+  // Estados del libro
   const [isBookOpen, setIsBookOpen] = useState(false)
-  const [isImgOpen, setIsImgOpen] = useState(false)
-  const [isVidOpen, setIsVidOpen] = useState(false)
-  const [visibleStickers, setVisibleStickers] = useState([])
-  const [visibleVideos, setVisibleVideos] = useState([])
   const [animationPage, setAnimationPage] = useState(false)
-
+  
+  const book = (
+    <BookModel
+      isBookOpen={isBookOpen}
+      setAnimationPage={setAnimationPage}
+    />
+  )
   //
 
   const router = useRouter()
@@ -101,42 +65,7 @@ export default function Page() {
   const { user, setUser } = useContext(UserContext)
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
 
-  const [flagPageBookState, setFlagPageBookState] = useState(false)
 
-  const updateState = (newValue) => {
-    setFlagPageBookState(newValue)
-  }
-
-  const book = (
-    <BookModel
-      updateState={updateState}
-      flagPageBookState={flagPageBookState}
-      setIsImgOpen={setIsImgOpen}
-      setIsVidOpen={setIsVidOpen}
-      bookPage={bookPage}
-      setBookPage={setBookPage}
-      setAnimationPage={setAnimationPage}
-    />
-  )
-
-  const handleshowImg = () => {
-    if (!isBookOpen) {
-      setFlagPageBookState(false)
-    }
-    setIsBookOpen(!isBookOpen)
-    if (!isImgOpen) {
-      setTimeout(() => {
-        setIsImgOpen(!isImgOpen)
-      }, 3000)
-    } else {
-      setIsImgOpen(!isImgOpen)
-    }
-    !isVidOpen
-      ? setTimeout(() => {
-          setIsVidOpen(!isVidOpen)
-        }, 3000)
-      : setIsVidOpen(!isVidOpen)
-  }
 
   //Obtener el tamaño de la ventana
   useEffect(() => {
@@ -196,25 +125,6 @@ export default function Page() {
     }
   }, [])
 
-  // Filtrar los sticker y videos visibles por página
-  useEffect(() => {
-    if (bookPage == -1) {
-      setBookPage(0)
-    } else if (bookPage == sections[sectionsUnlocked - 1].end + 1) {
-      setBookPage(sections[sectionsUnlocked - 1].end)
-    } else {
-      const filteredStickers = stickers.filter((sticker) => {
-        return sticker.page === bookPage
-      })
-      setVisibleStickers(filteredStickers)
-
-      const filteredVideos = videos.filter((video) => {
-        return video.page === bookPage
-      })
-      setVisibleVideos(filteredVideos)
-    }
-  }, [bookPage])
-
   return (
     <Suspense fallback={<Loader />}>
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
@@ -226,7 +136,8 @@ export default function Page() {
       <div className='absolute z-20 bottom-0 right-0'>
         <Book
           onClick={() => {
-            handleshowImg()
+            // handleshowImg()
+            setIsBookOpen(!isBookOpen)
           }}
         />
       </div>
@@ -249,18 +160,6 @@ export default function Page() {
               <Player walkVelocity={isShiftPressed ? 15 : 5} />
               {isBookOpen && book}
 
-
-              {/* Mostrar stickers */}
-              {isImgOpen &&
-                visibleStickers.map((sticker) => {
-                  return <Sticker {...sticker} />
-                })}
-
-                {/* Mostrar videos */}
-              {isVidOpen &&
-                visibleVideos.map((video) => {
-                  return <Video {...video} />
-                })}
               <Common />
             </Suspense>
           </KeyboardControls>
