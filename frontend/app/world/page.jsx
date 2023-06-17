@@ -1,10 +1,10 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Suspense, useState, useEffect, useRef, useContext} from 'react'
-import { Color, MeshStandardMaterial } from 'three';
+import { Suspense, useState, useEffect, useRef, useContext } from 'react'
+import { Color, MeshStandardMaterial } from 'three'
 import { Html, KeyboardControls, Loader, Environment } from '@react-three/drei'
-import { useLoader } from '@react-three/fiber';
+import { useLoader } from '@react-three/fiber'
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/UserProvider'
 // React Components
@@ -13,13 +13,15 @@ import { Book } from '../../src/components/elements/Book'
 
 // Data
 import { labels } from 'public/data/labels'
+import { stickers } from 'public/data/stickers'
+import { videos } from 'public/data/videos'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
-const ImageWall = dynamic(() => import('@/components/canvas/stickers/ZeusImg').then((mod) => mod.ZeusWall), {
+const Sticker = dynamic(() => import('@/components/canvas/stickers/Sticker').then((mod) => mod.ZeusWall), {
   ssr: false,
 })
-const VideoWall = dynamic(() => import('@/components/canvas/videos/AphroditeVid').then((mod) => mod.AphroditeWall), {
+const Video = dynamic(() => import('@/components/canvas/videos/Video').then((mod) => mod.AphroditeWall), {
   ssr: false,
 })
 const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
@@ -50,42 +52,85 @@ const keyboardControls = [
 ]
 // cambio para el commit
 
+const sections = [
+  {
+    name: 'Sección 1, mitología',
+    start: 0,
+    end: 6,
+  },
+  {
+    name: 'Sección 2, estructuras',
+    start: 7,
+    end: 13,
+  },
+  {
+    name: 'Sección 3, figuras',
+    start: 14,
+    end: 20,
+  },
+  {
+    name: 'Sección 4, mitologia',
+    start: 21,
+    end: 27,
+  },
+  {
+    name: 'Sección 5, recomendaciones',
+    start: 28,
+    end: 34,
+  },
+]
+
 export default function Page() {
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-  const [isBookOpen, setIsBookOpen] = useState(false);
-  const [isImgOpen, setIsImgOpen] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
+
+  // Book states
+  const [sectionsUnlocked, setSectionsUnlocked] = useState(3)
+  const [bookPage, setBookPage] = useState(0)
+  const [isBookOpen, setIsBookOpen] = useState(false)
+  const [isImgOpen, setIsImgOpen] = useState(false)
   const [isVidOpen, setIsVidOpen] = useState(false)
-  const [isLoadingBook, setIsLoadingBook] = useState(false);
-  
+  const [visibleStickers, setVisibleStickers] = useState([])
+  const [visibleVideos, setVisibleVideos] = useState([])
+  const [animationPage, setAnimationPage] = useState(false)
+
+  //
+
   const router = useRouter()
   const loaderRef = useRef()
-  
+
   const { user, setUser } = useContext(UserContext)
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
 
   const [flagPageBookState, setFlagPageBookState] = useState(false)
 
   const updateState = (newValue) => {
-    setFlagPageBookState(newValue);
-  };
+    setFlagPageBookState(newValue)
+  }
 
-  const book = <BookModel updateState={updateState} flagPageBookState={flagPageBookState} setIsImgOpen={setIsImgOpen} setIsVidOpen={setIsVidOpen} />
+  const book = (
+    <BookModel
+      updateState={updateState}
+      flagPageBookState={flagPageBookState}
+      setIsImgOpen={setIsImgOpen}
+      setIsVidOpen={setIsVidOpen}
+      bookPage={bookPage}
+      setBookPage={setBookPage}
+      setAnimationPage={setAnimationPage}
+    />
+  )
 
-  const pageCounter= useRef(0)
- 
   const handleshowImg = () => {
-    if(!isBookOpen){
+    if (!isBookOpen) {
       setFlagPageBookState(false)
     }
     setIsBookOpen(!isBookOpen)
-    if(!isImgOpen){
-       setTimeout(() => {
-          setIsImgOpen(!isImgOpen)
-        }, 3000)
-      }
-    else{ 
+    if (!isImgOpen) {
+      setTimeout(() => {
         setIsImgOpen(!isImgOpen)
-      }
+      }, 3000)
+    } else {
+      setIsImgOpen(!isImgOpen)
+    }
     !isVidOpen
       ? setTimeout(() => {
           setIsVidOpen(!isVidOpen)
@@ -120,11 +165,10 @@ export default function Page() {
     const storedUser = localStorage.getItem('user')
     if (storedUser) {
       setUser(JSON.parse(storedUser))
+    } else {
+      //Si no hay usuario en el localstorage, lo redirige al login
+      router.push('/login')
     }
-     else {
-       //Si no hay usuario en el localstorage, lo redirige al login
-       router.push('/login')
-     }
   }, [])
 
   const [isShiftPressed, setIsShiftPressed] = useState(false)
@@ -134,7 +178,7 @@ export default function Page() {
       if (event.key === 'Shift') {
         setIsShiftPressed(true)
       }
-    };
+    }
 
     const handleKeyUp = (event) => {
       if (event.key === 'Shift') {
@@ -152,9 +196,27 @@ export default function Page() {
     }
   }, [])
 
+  // Filtrar los sticker y videos visibles por página
+  useEffect(() => {
+    if (bookPage == -1) {
+      setBookPage(0)
+    } else if (bookPage == sections[sectionsUnlocked - 1].end + 1) {
+      setBookPage(sections[sectionsUnlocked - 1].end)
+    } else {
+      const filteredStickers = stickers.filter((sticker) => {
+        return sticker.page === bookPage
+      })
+      setVisibleStickers(filteredStickers)
+
+      const filteredVideos = videos.filter((video) => {
+        return video.page === bookPage
+      })
+      setVisibleVideos(filteredVideos)
+    }
+  }, [bookPage])
 
   return (
-    <Suspense fallback={<Loader/>}>
+    <Suspense fallback={<Loader />}>
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
@@ -168,9 +230,12 @@ export default function Page() {
           }}
         />
       </div>
-      {/* {isLoadingBook && <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>} */}
+      {!animationPage && (
+        <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'>
+          <Loader />
+        </div>
+      )}
       <div className='z-10 mx-auto flex w-full h-full flex-col flex-wrap items-center'>
-        
         <View
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
@@ -178,23 +243,34 @@ export default function Page() {
         >
           <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
-            <Suspense fallback={<Loader/>}>
-            <World isBookOpen={isBookOpen} labels={labels} /> 
-            <KeysModels scale={0.01} position-y={4} />
-            <Player walkVelocity={isShiftPressed ? 15 : 5} />
-            {isBookOpen && book}
-            {isImgOpen && <ImageWall />}
-            {isVidOpen && <VideoWall />}
-            <Common />
+            <Suspense fallback={<Loader />}>
+              <World isBookOpen={isBookOpen} labels={labels} />
+              <KeysModels scale={0.01} position-y={4} />
+              <Player walkVelocity={isShiftPressed ? 15 : 5} />
+              {isBookOpen && book}
+
+
+              {/* Mostrar stickers */}
+              {isImgOpen &&
+                visibleStickers.map((sticker) => {
+                  return <Sticker {...sticker} />
+                })}
+
+                {/* Mostrar videos */}
+              {isVidOpen &&
+                visibleVideos.map((video) => {
+                  return <Video {...video} />
+                })}
+              <Common />
             </Suspense>
           </KeyboardControls>
         </View>
-        <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'><Loader/></div>
-        
-        
+        {/* <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'>
+          <Loader />
+        </div> */}
+
         {/* </div> */}
       </div>
     </Suspense>
   )
 }
-
