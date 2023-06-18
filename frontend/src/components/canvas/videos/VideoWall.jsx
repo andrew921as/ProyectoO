@@ -51,8 +51,11 @@ export default function VideoWall({visible, onContextMenu, url}){
     };
 
     const handleContextMenu = (event) => {
-        onContextMenu(event);
-        stopvid(event);
+        if (visible){
+            event.stopPropagation()
+            onContextMenu(event);
+            stopvid(event);
+        }
 
     }
 
@@ -71,7 +74,7 @@ export default function VideoWall({visible, onContextMenu, url}){
       }, [])
 
     return (
-        <mesh ref={videoRef} receiveShadow dispose={null} visible={visible} onClick={handleContextMenu} onPointerDown={handleUnmuted} onContextMenu={handleClick}>
+        <mesh ref={videoRef} receiveShadow dispose={null} visible={visible} onClick={handleClick} onPointerDown={handleUnmuted} onContextMenu={handleContextMenu}>
             <planeGeometry args={[2.75, 2.75]} />
             <meshBasicMaterial map={videoTexture.current} />
         </mesh>
