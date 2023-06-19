@@ -1,46 +1,53 @@
 const questions = [
+  
   {
     quizId: 2,
     section: 2,
-    page: 3,
+    page: 4,
     isFinished: false,
     questions: [
       {
-        question: '¿Cuál es el dios del Rayo?',
+        question: '¿Cuál es el dios más infiel?',
         options: [
           { option: 'Zeus', correct: true },
           { option: 'Hades', correct: false },
-          { option: 'cronos', correct: false },
-          {
-            option: 'Barranquilla, el mejor equipo de Colombia, el más grande del mundo',
-            correct: false,
-          },
+          { option: 'Poseidon', correct: false },
+          { option: 'Barranquilla', correct: false,},
         ],
       },
       {
-        question: '¿Cuál es el dios del Rayo?',
+        question: '¿Quién estrangula serpientes en la cuna?',
         options: [
-          { option: 'Zeus', correct: false },
-          { option: 'Hades', correct: true },
-          { option: 'cronos', correct: false },
-          { option: 'Barranquilla', correct: false },
+          { option: 'Perseo', correct: false },
+          { option: 'Hercules', correct: true },
+          { option: 'Simon Bolivar', correct: false },
+          { option: 'Aquiles', correct: false },
         ],
       },
       {
-        question: '¿Cuál es el dios del Rayo?',
+        question: '¿Para que sirve el Oraculo de Delfos ?',
         options: [
-          { option: 'Zeus', correct: true },
-          { option: 'Hades', correct: false },
-          { option: 'cronos', correct: false },
-          { option: 'Barranquilla', correct: false },
+          { option: 'Ver tu pasado', correct: false },
+          { option: 'Encontrar el amor', correct: false },
+          { option: 'Preguntar del futuro', correct: true },
+          { option: 'Leer el horoscopo', correct: false }
         ],
       },
+      {
+        question: 'Si le cortas una cabeza salen dos...',
+        options: [
+          { option: 'Cerbero', correct: false },
+          { option: 'Minotauro', correct: false },
+          { option: 'Medusa', correct: false },
+          { option: 'Hidra de Lerna', correct: true },
+        ],
+      }
     ],
   },
   {
     quizId: 3,
     section: 3,
-    page: 4,
+    page: 6,
     isFinished: false,
     questions: [
       {
@@ -57,7 +64,7 @@ const questions = [
   {
     quizId: 4,
     section: 4,
-    page: 4,
+    page: 6,
     isFinished: false,
     questions: [
       {
@@ -74,7 +81,7 @@ const questions = [
   {
     quizId: 5,
     section: 5,
-    page: 4,
+    page: 7,
     isFinished: false,
     questions: [
       {

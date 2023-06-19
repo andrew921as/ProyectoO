@@ -9,6 +9,7 @@ import QuizQuestions from './QuizQuestions'
 
 // Context
 import { BookContext } from '@/context/BookProvider'
+import Image from 'next/image'
 
 export function Quiz(props) {
   // Refs
@@ -36,11 +37,20 @@ export function Quiz(props) {
 
   return (
     <>
+      {!bookState.isQuizOpen && (
+        <Html position={[-1.65, 0.5, -1]}>
+          <div className=' w-[300px] h-40'>
+            <div className=''>
+              <h1 className='text-4xl font-texto text-caca_clara text-center'>Terminaste esta sección, es hora de:</h1>
+            </div>
+          </div>
+        </Html>
+      )}
       <mesh
         {...props}
         visible={!isQuizOpen}
         ref={imgWallRef}
-        position={[-0.8, 0.5, -0.25]}
+        position={[-0.91, 0.5, 0.2]}
         onClick={() => {
           console.log('CLICKED QUIZ')
           setBookState({ ...bookState, isQuizOpen: true, quiz: props.quiz })
@@ -48,7 +58,7 @@ export function Quiz(props) {
         }}
       >
         <planeGeometry args={[0.8, 0.8]} />
-        <meshStandardMaterial map={currentTexture} color='white' side={DoubleSide} />
+        <meshStandardMaterial map={currentTexture} color='white' side={DoubleSide} transparent />
       </mesh>
     </>
   )

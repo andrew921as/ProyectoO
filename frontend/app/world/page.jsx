@@ -53,7 +53,7 @@ export default function Page() {
   const [isBookOpen, setIsBookOpen] = useState(false)
   const [animationPage, setAnimationPage] = useState(false)
 
-  const book = <BookModel isBookOpen={isBookOpen} setAnimationPage={setAnimationPage} />
+  const book = <BookModel isBookOpen={isBookOpen} animationPage={animationPage} setAnimationPage={setAnimationPage} />
 
   const router = useRouter()
   const loaderRef = useRef()

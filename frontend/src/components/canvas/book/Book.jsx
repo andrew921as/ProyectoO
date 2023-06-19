@@ -46,7 +46,7 @@ const sections = [
 ]
 
 // Modelo Libro 3D
-export function Book({ isBookOpen, setAnimationPage }) {
+export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   // Referencias
   const group = useRef()
   const sticker = useRef()
@@ -328,7 +328,7 @@ export function Book({ isBookOpen, setAnimationPage }) {
               skeleton={nodes.Plano001.skeleton}
             />
             {/* Mostrar quizzes */}
-            {visibleQuizzes.map((quiz) => {
+            {!animationPage && visibleQuizzes.map((quiz) => {
               return <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
             })}
 
