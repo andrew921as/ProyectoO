@@ -171,7 +171,7 @@ export default function Page() {
           <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
             <Suspense>
-              {/* <World isBookOpen={isBookOpen} labels={labels} /> */}
+              <World isBookOpen={isBookOpen} labels={labels} />
               <KeysModels scale={0.01} position-y={4} />
               <Player walkVelocity={isShiftPressed ? 15 : 5} />
               {isBookOpen && book}
