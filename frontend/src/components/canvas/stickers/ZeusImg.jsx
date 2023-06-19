@@ -36,7 +36,7 @@ export function ZeusWall(props){
     useFrame(() => {
         const distanceFromCamera = 3.1; // Distancia deseada del libro a la cámara
         const offsetX = 0.8; // Desplazamiento hacia la derecha en el eje X
-        const offsetY = -0.5; // Desplazamiento hacia arriba
+        const offsetY = 0.5; // Desplazamiento hacia arriba
         const offsetZ = -0.25; // Desplazamiento hacia adelante
       
         const cameraDirection = camera.getWorldDirection(new Vector3());

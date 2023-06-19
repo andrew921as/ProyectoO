@@ -19,13 +19,14 @@ import { Three } from '@/helpers/components/Three'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { CuboidCollider, RigidBody } from '@react-three/rapier'
+import { Perf } from 'r3f-perf'
 
 export const Common = ({ color }) => (
   <Suspense fallback={null}>
     {color && <color attach='background' args={[color]} />}
     <ambientLight intensity={0.2} />
     <pointLight position={[7, 60, 1]} intensity={0.8} />
-
+    <Perf />
     {/*<PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} />
     <OrbitControls fov={40} position={[20, 20, 60]} />*/}
   </Suspense>
