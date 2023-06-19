@@ -7,9 +7,11 @@ import { Html, KeyboardControls, Loader, Environment } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber'
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/UserProvider'
+import { BookContext } from '@/context/BookProvider'
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
+import { QuizInterface } from '@/components/elements/QuizInterface'
 
 // Data
 import { labels } from 'public/data/labels'
@@ -50,22 +52,18 @@ export default function Page() {
   // Estados del libro
   const [isBookOpen, setIsBookOpen] = useState(false)
   const [animationPage, setAnimationPage] = useState(false)
-  
-  const book = (
-    <BookModel
-      isBookOpen={isBookOpen}
-      setAnimationPage={setAnimationPage}
-    />
-  )
-  //
+
+  const book = <BookModel isBookOpen={isBookOpen} setAnimationPage={setAnimationPage} />
 
   const router = useRouter()
   const loaderRef = useRef()
 
+  // Contextos
   const { user, setUser } = useContext(UserContext)
+  const { bookState, setBookState } = useContext(BookContext)
+
+  // Variable HDRI para el cielo
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
-
-
 
   //Obtener el tamaño de la ventana
   useEffect(() => {
@@ -130,9 +128,13 @@ export default function Page() {
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
+
+      {/* Modal */}
       <div className='absolute z-20 top-0 right-0'>
         <Modal />
       </div>
+
+      {/* Book */}
       <div className='absolute z-20 bottom-0 right-0'>
         <Book
           onClick={() => {
@@ -141,6 +143,20 @@ export default function Page() {
           }}
         />
       </div>
+
+      {/* Quiz interface */}
+      {bookState.isQuizOpen && (
+        <div
+          style={{
+            width: windowSize.width * 0.8 + 'px',
+            height: windowSize.height * 0.9 + 'px',
+          }}
+          className='fixed z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+        >
+          <QuizInterface />
+        </div>
+      )}
+
       {!animationPage && (
         <div className='absolute z-20 right-0 left-0 top-0 bottom-0 m-auto w-1 h-1'>
           <Loader />
@@ -154,8 +170,8 @@ export default function Page() {
         >
           <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
-            <Suspense fallback={<Loader />}>
-              <World isBookOpen={isBookOpen} labels={labels} />
+            <Suspense>
+              {/* <World isBookOpen={isBookOpen} labels={labels} /> */}
               <KeysModels scale={0.01} position-y={4} />
               <Player walkVelocity={isShiftPressed ? 15 : 5} />
               {isBookOpen && book}

@@ -58,7 +58,7 @@ export function AphroditeWall(props) {
   return (
     <>
       <mesh ref={videoRef} visible={isImgVisible} onClick={handleImage} receiveShadow dispose={null}>
-        <planeBufferGeometry args={[0.8, 0.8]} />
+        <planeGeometry args={[0.8, 0.8]} />
         <meshBasicMaterial map={currentTexture} side={DoubleSide} />
       </mesh>
       <VideoWall

@@ -128,12 +128,7 @@ router.patch('/:userId', async (req, res) => {
 			{_id: req.params.userId},
 			{
 				$set: {
-					name: req.body.name,
-					last_name: req.body.last_name,
-					email: req.body.email,
-					password: req.body.password,
-					token: req.body.token,
-					avatar: req.body.avatar,
+					...req.body,
 				},
 			}
 		);

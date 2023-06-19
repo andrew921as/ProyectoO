@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import { useGLTF, useAnimations, Html } from '@react-three/drei'
 import { useLoader, useFrame, useThree } from '@react-three/fiber'
 import { Vector3, TextureLoader, DoubleSide } from 'three'
@@ -8,9 +8,14 @@ import dynamic from 'next/dynamic'
 import ImageWall from '../stickers/ImageWall'
 import { GLTFLoader } from 'three-stdlib'
 
+// Context
+import { UserContext } from '@/context/UserProvider'
+import { BookContext } from '@/context/BookProvider'
+
 // Data
 import { stickers } from 'public/data/stickers'
 import { videos } from 'public/data/videos'
+import { questions } from 'public/data/quices'
 
 const sections = [
   {
@@ -41,10 +46,7 @@ const sections = [
 ]
 
 // Modelo Libro 3D
-export function Book({
-  isBookOpen,
-  setAnimationPage,
-}) {
+export function Book({ isBookOpen, setAnimationPage }) {
   // Referencias
   const group = useRef()
   const sticker = useRef()
@@ -64,6 +66,9 @@ export function Book({
   const Video = dynamic(() => import('@/components/canvas/videos/Video').then((mod) => mod.AphroditeWall), {
     ssr: false,
   })
+  const Quiz = dynamic(() => import('@/components/canvas/book/quizzes/Quiz').then((mod) => mod.Quiz), {
+    ssr: false,
+  })
   const NextPage = dynamic(() => import('@/components/canvas/book/NextPage').then((mod) => mod.NextPage), {
     ssr: false,
   })
@@ -73,11 +78,12 @@ export function Book({
 
   // Estados del libro
   const [sectionsUnlocked, setSectionsUnlocked] = useState(3)
-  const [bookPage, setBookPage] = useState(0)
+  const [bookPage, setBookPage] = useState(3)
   const [isImgOpen, setIsImgOpen] = useState(false)
   const [isVidOpen, setIsVidOpen] = useState(false)
   const [visibleStickers, setVisibleStickers] = useState([])
   const [visibleVideos, setVisibleVideos] = useState([])
+  const [visibleQuizzes, setVisibleQuizzes] = useState([])
 
   const [flagPageBookState, setFlagPageBookState] = useState(false)
 
@@ -85,24 +91,63 @@ export function Book({
     setFlagPageBookState(newValue)
   }
 
-    // Filtrar los sticker y videos visibles por página
-    useEffect(() => {
-      if (bookPage == -1) {
-        setBookPage(0)
-      } else if (bookPage == sections[sectionsUnlocked - 1].end + 1) {
-        setBookPage(sections[sectionsUnlocked - 1].end)
-      } else {
-        const filteredStickers = stickers.filter((sticker) => {
-          return sticker.page === bookPage
-        })
-        setVisibleStickers(filteredStickers)
-  
-        const filteredVideos = videos.filter((video) => {
-          return video.page === bookPage
-        })
-        setVisibleVideos(filteredVideos)
-      }
-    }, [bookPage])
+  // Contextos
+  const { user, setUser } = useContext(UserContext)
+  const { bookState, setBookState } = useContext(BookContext)
+
+  // Verificar que quizzes el usuario a finalizado
+  useEffect(() => {
+    const quizzes = bookState.quizzes
+
+    // Actualizar el estado del libro, para ocultar los quizzes que el usuario ya completó de acuerdo a los puntos que tiene
+    if (user?.points === 100) {
+      quizzes[0].isFinished = true
+    }
+
+    if (user?.points === 200) {
+      quizzes[1].isFinished = true
+    }
+
+    if (user?.points === 300) {
+      quizzes[2].isFinished = true
+    }
+
+    if (user?.points === 400) {
+      quizzes[3].isFinished = true
+    }
+
+    // Actualizar el estado del libro, para ocultar los quizzes que el usuario ya completó
+    setBookState({
+      ...bookState,
+      quizzes,
+    })
+
+    console.log(bookState)
+  }, [user])
+
+  // Filtrar los sticker, videos y quizzes visibles por página
+  useEffect(() => {
+    if (bookPage == -1) {
+      setBookPage(0)
+    } else if (bookPage == sections[sectionsUnlocked - 1].end + 1) {
+      setBookPage(sections[sectionsUnlocked - 1].end)
+    } else {
+      const filteredStickers = stickers.filter((sticker) => {
+        return sticker.page === bookPage
+      })
+      setVisibleStickers(filteredStickers)
+
+      const filteredVideos = videos.filter((video) => {
+        return video.page === bookPage
+      })
+      setVisibleVideos(filteredVideos)
+
+      const filteredQuizzes = bookState.quizzes.filter((quiz) => {
+        return quiz.page === bookPage && !quiz.isFinished
+      })
+      setVisibleQuizzes(filteredQuizzes)
+    }
+  }, [bookPage, bookState])
 
   useEffect(() => {
     if (!isBookOpen) {
@@ -112,8 +157,6 @@ export function Book({
       setIsImgOpen(false)
       setIsVidOpen(false)
     } else {
-      
-
       // Mostrar el sticker y el video después de 3 segundos
       setTimeout(() => {
         setIsImgOpen(true)
@@ -123,40 +166,10 @@ export function Book({
     }
   }, [isBookOpen])
 
-  // const handleshowImg = () => {
-  //   setIsBookOpen(!isBookOpen)
-  //   if (!isImgOpen) {
-  //     setTimeout(() => {
-  //       setIsImgOpen(!isImgOpen)
-  //     }, 3000)
-  //   } else {
-  //     setIsImgOpen(!isImgOpen)
-  //   }
-  //   !isVidOpen
-  //     ? setTimeout(() => {
-  //         setIsVidOpen(!isVidOpen)
-  //       }, 3000)
-  //     : setIsVidOpen(!isVidOpen)
-  // }
-
-  const [currentTexture, setCurrentTexture] = useState(texture_zeus)
-  const [isWallVisible, setWallVisibility] = useState(false)
   const [isReproduceAnimation, setReproduceAnimation] = useState(false)
-  const [isImgVisible, setImgVisibility] = useState(true)
-  const [text, setText] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const { camera } = useThree()
-
-  // const handleImage = (event) => {
-  //   event.stopPropagation()
-  //   if (isWallVisible == false) {
-  //     // setCurrentTexture(texture_flash);
-  //     setWallVisibility(true)
-  //     setImgVisibility(false)
-  //     setText(lore)
-  //   }
-  // }
 
   const nextPage = () => {
     setAnimationPage(true)
@@ -242,7 +255,7 @@ export function Book({
     setTimeout(() => {
       updateState(true)
     }, 3000)
-  }, [updateState])
+  }, [isBookOpen])
 
   useFrame(() => {
     const distanceFromCamera = 3.5 // Distancia deseada del libro a la cámara
@@ -251,7 +264,7 @@ export function Book({
     const targetPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera))
     // const targetImgPosition = camera.position.clone().add(cameraDirection.multiplyScalar(distanceFromCamera-0.5));
     group.current.position.copy(targetPosition)
-    if (bookPage == 0) {
+    if (bookPage == 0 && indexRef.current) {
       indexRef.current.position = [targetPosition.x, targetPosition.y, targetPosition.z]
     }
     group.current.lookAt(camera.position)
@@ -271,13 +284,13 @@ export function Book({
       {/* Mostrar stickers */}
       {isImgOpen &&
         visibleStickers.map((sticker) => {
-          return <Sticker {...sticker} />
+          return <Sticker key={'sticker_' + sticker.stickerId} {...sticker} />
         })}
 
       {/* Mostrar videos */}
       {isVidOpen &&
         visibleVideos.map((video) => {
-          return <Video {...video} />
+          return <Video key={'video_' + video.videoId} {...video} />
         })}
 
       <NextPage flagPageBookState={flagPageBookState} />
@@ -314,6 +327,11 @@ export function Book({
               material={materials['Material.005']}
               skeleton={nodes.Plano001.skeleton}
             />
+            {/* Mostrar quizzes */}
+            {visibleQuizzes.map((quiz) => {
+              return <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
+            })}
+
             <group name='Magic_Book'>
               <skinnedMesh
                 name='Cube005'
@@ -380,8 +398,8 @@ export function Book({
             castShadow
             receiveShadow
             geometry={nodes.Plano002.geometry}
-            // material={materials['Material.002']}
-            material={materials['lock.004']}
+            material={materials['Material.002']}
+            // material={materials['lock.004']}
             scale={[0.2, 0.27, 0.13]}
             position={[-1.83, 0.3, 1]}
             rotation={[0, 0, -1.54]}
@@ -393,7 +411,7 @@ export function Book({
           {bookPage == 0 && (
             <>
               <Html ref={indexRef}>
-                <h1 onClick={console.log('1')}>Hello world</h1>
+                <h1 onClick={() => console.log('1')}>Hello world</h1>
               </Html>
             </>
           )}
