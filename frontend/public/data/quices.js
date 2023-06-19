@@ -1,92 +1,100 @@
-const questions= [
-    {
-        section: 1,
-        questions: [
-          {
-            question: "¿Cuál es el dios del Rayo?",
-            options: [
-              { option: "Zeus", correct: true },
-              { option: "Hades", correct: false },
-              { option: "cronos", correct: false },
-              { option: "Barranquilla", correct: false }
-            ]
-
-          },
-          {
-            question: "¿Cuál es el dios del Rayo?",
-            options: [
-              { option: "Zeus", correct: true },
-              { option: "Hades", correct: false },
-              { option: "cronos", correct: false },
-              { option: "Barranquilla", correct: false }
-            ]
-
-          },
-        ]
-
-    },
-    {
-        section: 2,
-        questions: [
-          {
-            question: "¿Cuál es la capital de Colombia?",
-            options: [
-              { option: "Bogotá", correct: true },
-              { option: "Medellín", correct: false },
-              { option: "Cali", correct: false },
-              { option: "Barranquilla", correct: false }
-            ]
-
-          },
-        ]
-
-    },
-    {
-        section: 3,
-        questions: [
-          {
-            question: "¿Cuál es la capital de Colombia?",
-            options: [
-              { option: "Bogotá", correct: true },
-              { option: "Medellín", correct: false },
-              { option: "Cali", correct: false },
-              { option: "Barranquilla", correct: false }
-            ]
-
-          },
-        ]
-
-    },
-    {
-        section: 4,
-        questions: [
-          {
-            question: "¿Cuál es la capital de Colombia?",
-            options: [
-              { option: "Bogotá", correct: true },
-              { option: "Medellín", correct: false },
-              { option: "Cali", correct: false },
-              { option: "Barranquilla", correct: false }
-            ]
-
-          },
-        ]
-
-    },
-    {
-        section: 5,
-        questions: [
-          {
-            question: "¿Cuál es la capital de Colombia?",
-            options: [
-              { option: "Bogotá", correct: true },
-              { option: "Medellín", correct: false },
-              { option: "Cali", correct: false },
-              { option: "Barranquilla", correct: false }
-            ]
-
-          },
-        ]
-
-    },
+const questions = [
+  
+  {
+    quizId: 2,
+    section: 2,
+    page: 4,
+    isFinished: false,
+    questions: [
+      {
+        question: '¿Cuál es el dios más infiel?',
+        options: [
+          { option: 'Zeus', correct: true },
+          { option: 'Hades', correct: false },
+          { option: 'Poseidon', correct: false },
+          { option: 'Barranquilla', correct: false,},
+        ],
+      },
+      {
+        question: '¿Quién estrangula serpientes en la cuna?',
+        options: [
+          { option: 'Perseo', correct: false },
+          { option: 'Hercules', correct: true },
+          { option: 'Simon Bolivar', correct: false },
+          { option: 'Aquiles', correct: false },
+        ],
+      },
+      {
+        question: '¿Para que sirve el Oraculo de Delfos ?',
+        options: [
+          { option: 'Ver tu pasado', correct: false },
+          { option: 'Encontrar el amor', correct: false },
+          { option: 'Preguntar del futuro', correct: true },
+          { option: 'Leer el horoscopo', correct: false }
+        ],
+      },
+      {
+        question: 'Si le cortas una cabeza salen dos...',
+        options: [
+          { option: 'Cerbero', correct: false },
+          { option: 'Minotauro', correct: false },
+          { option: 'Medusa', correct: false },
+          { option: 'Hidra de Lerna', correct: true },
+        ],
+      }
+    ],
+  },
+  {
+    quizId: 3,
+    section: 3,
+    page: 6,
+    isFinished: false,
+    questions: [
+      {
+        question: '¿Cuál es la capital de Colombia?',
+        options: [
+          { option: 'Bogotá', correct: true },
+          { option: 'Medellín', correct: false },
+          { option: 'Cali', correct: false },
+          { option: 'Barranquilla', correct: false },
+        ],
+      },
+    ],
+  },
+  {
+    quizId: 4,
+    section: 4,
+    page: 6,
+    isFinished: false,
+    questions: [
+      {
+        question: '¿Cuál es la capital de Colombia?',
+        options: [
+          { option: 'Bogotá', correct: true },
+          { option: 'Medellín', correct: false },
+          { option: 'Cali', correct: false },
+          { option: 'Barranquilla', correct: false },
+        ],
+      },
+    ],
+  },
+  {
+    quizId: 5,
+    section: 5,
+    page: 7,
+    isFinished: false,
+    questions: [
+      {
+        question: '¿Cuál es la capital de Colombia?',
+        options: [
+          { option: 'Bogotá', correct: true },
+          { option: 'Medellín', correct: false },
+          { option: 'Cali', correct: false },
+          { option: 'Barranquilla', correct: false },
+        ],
+      },
+    ],
+  },
 ]
+
+export { questions }

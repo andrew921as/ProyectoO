@@ -1,4 +1,5 @@
 import { Layout } from '@/components/dom/Layout'
+import { BookProvider } from '@/context/BookProvider'
 import { UserProvider } from '@/context/UserProvider'
 import '@/global.css'
 
@@ -30,7 +31,9 @@ export default function RootLayout({ children }) {
       <body>
         {/* To avoid FOUT with styled-components wrap Layout with StyledComponentsRegistry https://beta.nextjs.org/docs/styling/css-in-js#styled-components */}
         <UserProvider>
-          <Layout>{children}</Layout>
+          <BookProvider>
+            <Layout>{children}</Layout>
+          </BookProvider>
         </UserProvider>
       </body>
     </html>
