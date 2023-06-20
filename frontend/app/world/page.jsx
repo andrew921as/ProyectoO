@@ -19,6 +19,7 @@ import { labels } from 'public/data/labels'
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
 const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
+const TiamatStatue = dynamic(() => import('@/components/canvas/world/statues/Tiamat').then((mod) => mod.Tiamat), { ssr: false })
 
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -172,6 +173,7 @@ export default function Page() {
           <KeyboardControls map={keyboardControls}>
             <Suspense>
               <World isBookOpen={isBookOpen} labels={labels} />
+              <TiamatStatue/>
               <KeysModels scale={0.01} position-y={4} />
               <Player walkVelocity={isShiftPressed ? 15 : 5} />
               {isBookOpen && book}
