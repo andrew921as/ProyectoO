@@ -43,11 +43,11 @@ export function IndexBook({setBookPage, nextPage}) {
 			>
 				<h1 className='text-3xl md:text-5xl xl:text-6xl font-bold mb-11 text-center font-texto'>INDICE</h1>
 
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto' onClick={()=> handleClick(1)}>1. Mitologia</h3>
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto' onClick={()=> handleClick(2)}>2. Estructuras</h3>
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto' onClick={()=> handleClick(3)}>3. Herramientas</h3>
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto' onClick={()=> handleClick(4)}>4. Figuras</h3>
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto' onClick={()=> handleClick(5)}>5. Recomendaciones</h3>
+				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(1)}>1. Mitologia</h3>
+				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(2)}>2. Estructuras</h3>
+				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(3)}>3. Herramientas</h3>
+				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(4)}>4. Figuras</h3>
+				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(5)}>5. Recomendaciones</h3>
 			</Html>
 		</>
 	)
