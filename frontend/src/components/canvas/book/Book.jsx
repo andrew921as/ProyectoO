@@ -335,7 +335,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
               return <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
             })}
             {bookPage == 0 && (
-            <IndexB setBookPage={setBookPage} nextPage={nextPage}/>
+            <IndexB setBookPage={setBookPage} nextPage={nextPage} />
           )}
             <group name='Magic_Book'>
               <skinnedMesh

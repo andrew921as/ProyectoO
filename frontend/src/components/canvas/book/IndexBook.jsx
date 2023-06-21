@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState, useContext } from 'react'
 import { Html } from '@react-three/drei'
-
+import Swal from 'sweetalert2'
 import { UserContext } from '@/context/UserProvider'
 
 export function IndexBook({setBookPage, nextPage}) {
@@ -28,11 +28,31 @@ export function IndexBook({setBookPage, nextPage}) {
 			}
 		}
 	}, [])
-	const handleClick = (number)=>{
-		// Si porcentaje cumple con la pagina
+	const handleClick = (number, percent)=>{
+		if(user.progress >= percent){
 		nextPage()
 		setBookPage(number)
-		// Si no alerta
+		}
+		else{
+    Swal.fire({
+          title: 'NO DISPONIBLE',
+          text: 'Aun no tienes disponible esta seccion, busca llaves y desbloqueala.',
+          confirmButtonText: 'Aceptar',
+          buttonsStyling: false,
+          color: '#F4DFB0',
+          iconColor: '#F4DFB0',
+          background: 'rgba(140,111,77,0.3)',
+          // iconHtml: '<img src="/icons/login/advertencia.svg" alt="error" class="w-20 h-20">',
+          customClass: {
+            popup: 'rounded-3xl',
+            container: 'rounded-xl',
+            title: 'text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
+            htmlContainer: 'text-amarillito text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
+            confirmButton: 'bg-moradito_palido text-amarillito font-texto text-xl p-4 rounded',
+          },
+        })
+		}
+
 	}
 	return (
 		<>
@@ -43,23 +63,26 @@ export function IndexBook({setBookPage, nextPage}) {
 					overflow: 'auto',
 				}}
 			>
-				<h1 className='text-3xl md:text-5xl xl:text-6xl font-bold mb-11 text-center font-texto'>INDICE</h1>
+				<h1 className='text-3xl md:text-5xl xl:text-6xl font-bold mb-11 text-center font-texto text-caca_clara'>INDICE</h1>
 
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(1)}>1. Mitologia</h3>
-				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 20 ? 'text-amarillito' : 'text-sin_derechos'}`}  
-					onClick={()=> handleClick(2)}>
+				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 20 ? 'text-amarillito' : 'text-caca_clara'}`}
+					onClick={()=> handleClick(1,20)}>
+						1. Mitologia
+				</h3>
+				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 40 ? 'text-amarillito' : 'text-caca_clara'}`}  
+					onClick={()=> handleClick(2,40)}>
 						2. Estructuras
 				</h3>
-				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 40 ? 'text-amarillito' : 'text-sin_derechos'}`} 
-					onClick={() => handleClick(3)}>
+				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 60 ? 'text-amarillito' : 'text-caca_clara'}`} 
+					onClick={() => handleClick(3,60)}>
 						3. Herramientas
 				</h3>
-				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 60 ? 'text-amarillito' : 'text-sin_derechos'}`}  
-					onClick={()=> handleClick(4)}>
+				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 80 ? 'text-amarillito' : 'text-caca_clara'}`}  
+					onClick={()=> handleClick(4,80)}>
 						4. Figuras
 				</h3>
-				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 80 ? 'text-amarillito' : 'text-sin_derechos'}`} 
-					onClick={()=> handleClick(5)}>
+				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 100 ? 'text-amarillito' : 'text-caca_clara'}`} 
+					onClick={()=> handleClick(5,100)}>
 						5. Recomendaciones
 				</h3>
 			</Html>

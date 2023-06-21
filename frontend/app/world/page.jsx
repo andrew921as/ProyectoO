@@ -13,6 +13,7 @@ import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
 import { QuizInterface } from '@/components/elements/QuizInterface'
 
+
 // Data
 import { labels } from 'public/data/labels'
 
@@ -122,6 +123,7 @@ export default function Page() {
       document.removeEventListener('keyup', handleKeyUp)
     }
   }, [])
+
 
   return (
     <Suspense fallback={<Loader />}>
