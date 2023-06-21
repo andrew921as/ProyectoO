@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense, useState, useEffect, useRef, useContext } from 'react'
+import axios from 'axios'
 import { Color, MeshStandardMaterial } from 'three'
 import { Html, KeyboardControls, Loader, Environment } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber'
@@ -13,13 +14,13 @@ import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
 import { QuizInterface } from '@/components/elements/QuizInterface'
 
-
 // Data
 import { labels } from 'public/data/labels'
+import { apiUrl } from '@/config'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
-const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
+const Key = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
 
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -48,11 +49,15 @@ const keyboardControls = [
 // cambio para el commit
 
 export default function Page() {
+  const [isShiftPressed, setIsShiftPressed] = useState(false)
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
 
   // Estados del libro
   const [isBookOpen, setIsBookOpen] = useState(false)
   const [animationPage, setAnimationPage] = useState(false)
+
+  // Estado de las llaves
+  const [visibleKeys, setVisibleKeys] = useState([])
 
   const book = <BookModel isBookOpen={isBookOpen} animationPage={animationPage} setAnimationPage={setAnimationPage} />
 
@@ -65,6 +70,39 @@ export default function Page() {
 
   // Variable HDRI para el cielo
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
+
+  //Verifica que haya un usuario en el localstorage
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
+    } else {
+      //Si no hay usuario en el localstorage, lo redirige al login
+      router.push('/login')
+    }
+  }, [])
+
+  // Filtra las llaves que tiene el usuario
+  useEffect(() => {
+    if (user) {
+      axios.get(apiUrl + '/keys').then((response) => {
+        const allKeys = response.data
+
+        // Quita del array de llaves visibles las llaves que ya tiene el usuario
+        const keys = user.keys
+        const visibleKeys = allKeys.filter((key) => !keys.includes(key._id))
+
+        setVisibleKeys(visibleKeys)
+
+        // Quita
+        console.log('RESPUESTA:', response.data)
+      })
+
+      // Guarda el usuario actualizado en el localStorage
+      localStorage.setItem('user', JSON.stringify(user))
+
+    }
+  }, [user])
 
   //Obtener el tamaño de la ventana
   useEffect(() => {
@@ -88,19 +126,7 @@ export default function Page() {
     }
   }, [])
 
-  //Verifica que haya un usuario en el localstorage
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
-    } else {
-      //Si no hay usuario en el localstorage, lo redirige al login
-      router.push('/login')
-    }
-  }, [])
-
-  const [isShiftPressed, setIsShiftPressed] = useState(false)
-
+  // Verifica si el usuario presiona la tecla shift
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Shift') {
@@ -123,7 +149,6 @@ export default function Page() {
       document.removeEventListener('keyup', handleKeyUp)
     }
   }, [])
-
 
   return (
     <Suspense fallback={<Loader />}>
@@ -174,7 +199,9 @@ export default function Page() {
           <KeyboardControls map={keyboardControls}>
             <Suspense>
               <World isBookOpen={isBookOpen} labels={labels} />
-              <KeysModels scale={0.01} position-y={4} />
+              {visibleKeys.map((key, index) => (
+                <Key key={'key_' + index} scale={0.02} position={key.position} _id={key._id} />
+              ))}
               <Player walkVelocity={isShiftPressed ? 15 : 5} />
               {isBookOpen && book}
 

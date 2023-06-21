@@ -42,6 +42,10 @@ app.use('/users', usersRoutes);
 const modelsRoutes = require('./Routes/models');
 app.use('/models', modelsRoutes);
 
+// Rutas de llaves
+const keysRoutes = require('./Routes/keys');
+app.use('/keys', keysRoutes);
+
 // Iniciar el servidor
 const port = 3001;
 app.listen(port, () => {
