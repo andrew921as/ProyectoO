@@ -1,10 +1,12 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Html } from '@react-three/drei'
+
+import { UserContext } from '@/context/UserProvider'
 
 export function IndexBook({setBookPage, nextPage}) {
 	const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
-
+	const { user, setUser } = useContext(UserContext)
 	//Obtener el tamaño de la ventana
 	useEffect(() => {
 		const handleResize = () => {
@@ -44,10 +46,22 @@ export function IndexBook({setBookPage, nextPage}) {
 				<h1 className='text-3xl md:text-5xl xl:text-6xl font-bold mb-11 text-center font-texto'>INDICE</h1>
 
 				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(1)}>1. Mitologia</h3>
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(2)}>2. Estructuras</h3>
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(3)}>3. Herramientas</h3>
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(4)}>4. Figuras</h3>
-				<h3 className='text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer' onClick={()=> handleClick(5)}>5. Recomendaciones</h3>
+				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 20 ? 'text-amarillito' : 'text-sin_derechos'}`}  
+					onClick={()=> handleClick(2)}>
+						2. Estructuras
+				</h3>
+				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 40 ? 'text-amarillito' : 'text-sin_derechos'}`} 
+					onClick={() => handleClick(3)}>
+						3. Herramientas
+				</h3>
+				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 60 ? 'text-amarillito' : 'text-sin_derechos'}`}  
+					onClick={()=> handleClick(4)}>
+						4. Figuras
+				</h3>
+				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 80 ? 'text-amarillito' : 'text-sin_derechos'}`} 
+					onClick={()=> handleClick(5)}>
+						5. Recomendaciones
+				</h3>
 			</Html>
 		</>
 	)
