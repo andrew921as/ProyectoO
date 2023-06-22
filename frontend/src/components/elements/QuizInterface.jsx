@@ -34,15 +34,15 @@ export const QuizInterface = ({ onClick }) => {
       setIsLoading(true)
 
       axios
-        .patch(`${apiUrl}/users/${user._id}`, { points: user.points + 100 })
+        .patch(`${apiUrl}/users/${user._id}`, { points: user.points + 100, keys: user.keys })
         .then((response) => {
           // Actualizar el usuario local haciendo una petición al servidor
           axios.get(`${apiUrl}/users/${user._id}`).then((response) => {
             setUser(response.data)
 
-            // // Guarda el usuario actualizado en el localStorage
-            // localStorage.setItem('user', JSON.stringify(response.data))
-            // setIsLoading(false)
+            // Guarda el usuario actualizado en el localStorage
+            localStorage.setItem('user', JSON.stringify(response.data))
+            setIsLoading(false)
           })
         })
         .catch((error) => {

@@ -63,25 +63,25 @@ export function IndexBook({setBookPage, nextPage}) {
 					overflow: 'auto',
 				}}
 			>
-				<h1 className='text-3xl md:text-5xl xl:text-6xl font-bold mb-11 text-center font-texto text-caca_clara'>INDICE</h1>
+				<h1 className='text-2xl md:text-4xl xl:text-3xl font-bold mb-4 text-center font-texto text-caca_clara'>INDICE</h1>
 
-				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 20 ? 'text-amarillito' : 'text-caca_clara'}`}
+				<h3 className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${user.progress < 20 ? 'text-amarillito' : 'text-caca_clara'}`}
 					onClick={()=> handleClick(1,20)}>
 						1. Mitologia
 				</h3>
-				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 40 ? 'text-amarillito' : 'text-caca_clara'}`}  
+				<h3 className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${user.progress < 40 ? 'text-amarillito' : 'text-caca_clara'}`}  
 					onClick={()=> handleClick(2,40)}>
-						2. Estructuras
+						2. Figuras
 				</h3>
-				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 60 ? 'text-amarillito' : 'text-caca_clara'}`} 
+				<h3 className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${user.progress < 60 ? 'text-amarillito' : 'text-caca_clara'}`} 
 					onClick={() => handleClick(3,60)}>
 						3. Herramientas
 				</h3>
-				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 80 ? 'text-amarillito' : 'text-caca_clara'}`}  
+				<h3 className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${user.progress < 80 ? 'text-amarillito' : 'text-caca_clara'}`}  
 					onClick={()=> handleClick(4,80)}>
-						4. Figuras
+						4. Estructuras
 				</h3>
-				<h3 className={`text-1xl md:text-2xl xl:text-3xl font-bold mb-5 text-left font-texto hover:cursor-pointer ${user.progress < 100 ? 'text-amarillito' : 'text-caca_clara'}`} 
+				<h3 className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${user.progress < 100 ? 'text-amarillito' : 'text-caca_clara'}`} 
 					onClick={()=> handleClick(5,100)}>
 						5. Recomendaciones
 				</h3>

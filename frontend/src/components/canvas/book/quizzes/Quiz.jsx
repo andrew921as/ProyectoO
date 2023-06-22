@@ -39,9 +39,13 @@ export function Quiz(props) {
     <>
       {!bookState.isQuizOpen && (
         <Html position={[-1.65, 0.5, -1]}>
-          <div className=' w-[300px] h-40'>
+          <div className=' w-[200px] h-40' onClick={() => {
+          // console.log('CLICKED QUIZ')
+          setBookState({ ...bookState, isQuizOpen: true, quiz: props.quiz })
+          setIsQuizOpen(true)
+        }}>
             <div className=''>
-              <h1 className='text-4xl font-texto text-caca_clara text-center'>Terminaste esta sección, es hora de:</h1>
+              <h1 className='text-xl xxl:text-4xl font-texto text-caca_clara text-center'>Terminaste esta sección, es hora de:</h1>
             </div>
           </div>
         </Html>
@@ -52,7 +56,7 @@ export function Quiz(props) {
         ref={imgWallRef}
         position={[-0.91, 0.5, 0.2]}
         onClick={() => {
-          console.log('CLICKED QUIZ')
+          // console.log('CLICKED QUIZ')
           setBookState({ ...bookState, isQuizOpen: true, quiz: props.quiz })
           setIsQuizOpen(true)
         }}

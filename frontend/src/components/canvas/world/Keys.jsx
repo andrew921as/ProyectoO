@@ -23,7 +23,7 @@ export function Key(props) {
   const handleOnClickKey = () => {
     // Agregar el id de la llave al array de llaves recolectadas por el usuario
     axios
-      .patch(`${apiUrl}/users/${user._id}`, { keys: [...user.keys, props._id] })
+      .patch(`${apiUrl}/users/${user._id}`, { keys: [...user.keys, props._id], points: user.points })
       .then((response) => {
         // Actualizar el usuario local haciendo una petición al servidor
         axios.get(`${apiUrl}/users/${user._id}`).then((response) => {
