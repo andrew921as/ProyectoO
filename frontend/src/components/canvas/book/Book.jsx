@@ -81,7 +81,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
 
   // Estados del libro
   const [sectionsUnlocked, setSectionsUnlocked] = useState(3)
-  const [bookPage, setBookPage] = useState(1)
+  const [bookPage, setBookPage] = useState(0)
   const [isImgOpen, setIsImgOpen] = useState(false)
   const [isVidOpen, setIsVidOpen] = useState(false)
   const [visibleStickers, setVisibleStickers] = useState([])
@@ -331,12 +331,11 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
               skeleton={nodes.Plano001.skeleton}
             />
             {/* Mostrar quizzes */}
-            {!animationPage && visibleQuizzes.map((quiz) => {
-              return <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
-            })}
-            {bookPage == 0 && (
-            <IndexB setBookPage={setBookPage} nextPage={nextPage} />
-          )}
+            {!animationPage &&
+              visibleQuizzes.map((quiz) => {
+                return <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
+              })}
+            {bookPage == 0 && <IndexB setBookPage={setBookPage} nextPage={nextPage} />}
             <group name='Magic_Book'>
               <skinnedMesh
                 name='Cube005'
