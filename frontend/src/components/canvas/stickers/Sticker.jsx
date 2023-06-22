@@ -66,7 +66,7 @@ export function ZeusWall(props) {
   return (
     <>
       <mesh {...props} visible={isImgVisible} ref={imgWallRef} receiveShadow dispose={null} onClick={handleImage}>
-        <planeGeometry args={[0.8, 0.8]} />
+        <planeGeometry args={[1.4, 0.8]} />
         <meshStandardMaterial map={currentTexture} color='white' side={DoubleSide} />
       </mesh>
       <ImageWall
@@ -78,6 +78,7 @@ export function ZeusWall(props) {
         }}
         texture={currentTexture}
         text={text}
+        textColor={ props.textColor || 'Black'}
       />
     </>
   )
