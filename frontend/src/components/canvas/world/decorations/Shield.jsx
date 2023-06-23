@@ -10,7 +10,8 @@ export function Shield(props) {
         receiveShadow
         geometry={nodes.shield_greek_2_001.geometry}
         material={materials.map_Greek_Shield_2_001}
-        position={[20, 10, 0]}
+        position={[-47.1, 30.45, -106.8]}
+        rotation={[-Math.PI/5, -Math.PI/5, 0]}
       />
     </group>
   );

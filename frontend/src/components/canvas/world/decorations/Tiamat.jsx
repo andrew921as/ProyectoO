@@ -10,9 +10,9 @@ export function Tiamat(props) {
         receiveShadow
         geometry={nodes.Uncut_body.geometry}
         material={nodes.Uncut_body.material}
-        position={[-7.5, 9, 160.781]}
-        rotation={[1.567, 0, Math.PI ]}
-        scale={0.06}
+        position={[157, 22.2, -177]}
+        rotation={[Math.PI/2, 0, -Math.PI/2 ]}
+        scale={0.08}
       />
     </group>
   );

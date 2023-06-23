@@ -10,8 +10,8 @@ export function Sword(props) {
         receiveShadow
         geometry={nodes.OldSword.geometry}
         material={materials["Material.001"]}
-        rotation={[Math.PI / 2, 0, 0]}
-        position={[30, 10, 0]}
+        rotation={[Math.PI / 1.9, -Math.PI/15, Math.PI/2]}
+        position={[-47.25, 30.35, -107.25]}
         scale={0.02}
       />
     </group>

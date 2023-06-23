@@ -10,8 +10,9 @@ export function Dagger(props) {
         receiveShadow
         geometry={nodes.LP001.geometry}
         material={materials.NewMat01}
-        position={[10,10,0]}
+        position={[-47.15, 30.05, -107.15]}
         scale={0.08}
+        rotation={[-Math.PI / 2, 0, Math.PI/3]}
       />
     </group>
   );
