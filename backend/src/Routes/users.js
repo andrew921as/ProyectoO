@@ -124,6 +124,7 @@ router.delete('/:userId', async (req, res) => {
 // Ruta para actualizar un usuario por su ID
 router.patch('/:userId', async (req, res) => {
 	try {
+		// console.log(req.body)
 		const updatedUser = await User.updateOne(
 			{_id: req.params.userId},
 			{
@@ -134,7 +135,7 @@ router.patch('/:userId', async (req, res) => {
 		);
 		res.json(updatedUser);
 	} catch (error) {
-		res.json({message: error});
+		res.json({message: error.message});
 	}
 });
 
