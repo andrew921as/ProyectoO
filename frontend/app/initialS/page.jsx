@@ -151,12 +151,12 @@ export default function Page() {
       >
         <Image alt='Cloud' src={cloudImg} fill />
       </motion.div>
-      <motion.h3 className='font-titulo absolute bottom-5 right-3 text-5xl z-30 hover:cursor-pointer'
+      <motion.h3 className='font-titulo absolute p-2 bottom-5 right-3 text-5xl z-30 bg-amarillito bg-opacity-75 rounded-md hover:cursor-pointer'
         initial={{ opacity: 1 }}
         animate={skipButton}
         onClick={handleSkipClick}
       > 
-        Skip
+        Saltar Intro
       </motion.h3>
       <motion.h2
         className='z-10 absolute h-fit top-0 right-0 bottom-0 left-0 m-auto font-texto text-center text-4xl text-white bg-sin_derechos bg-opacity-75 p-2 rounded-lg md:text-6xl md:w-1/3'
