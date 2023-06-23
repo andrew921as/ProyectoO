@@ -37,7 +37,7 @@ export default function ImageWall({ visible, onClick, texture, text, textColor})
             </Text>
           </mesh> */}
       <mesh ref={words}>
-        <Text font='/fonts/jeju.ttf' fontSize={0.1} color={textColor} maxWidth={2.5} textAlign='center' position={[0, -0.6, 0]}>
+        <Text font='/fonts/jeju.ttf' fontSize={0.1} color={textColor} maxWidth={2.5} textAlign='center' position={[0, -0.6, 0]} outlineWidth={0.005} outlineColor='White'>
           {text}
         </Text>
       </mesh>
