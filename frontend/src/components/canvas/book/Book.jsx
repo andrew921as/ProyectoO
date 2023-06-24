@@ -57,6 +57,8 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const { actions } = useAnimations(animations, group)
   const zeus_img = '/img/world/zeus.jpeg'
   const texture_zeus = useLoader(TextureLoader, zeus_img)
+  const arrow_img = '/img/world/arrow.png'
+  const texture_arrow = useLoader(TextureLoader, arrow_img)
   const lore = 'Zeus, ruler of all Gods'
 
   // Importaciones de elementos 3D
@@ -87,6 +89,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const [visibleStickers, setVisibleStickers] = useState([])
   const [visibleVideos, setVisibleVideos] = useState([])
   const [visibleQuizzes, setVisibleQuizzes] = useState([])
+  const [arrowTexture, setArrowTexture] = useState(texture_arrow);
 
   const [flagPageBookState, setFlagPageBookState] = useState(false)
 
@@ -390,7 +393,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             material={materials['Material.002']}
             // material={materials['lock.004']}
             scale={[0.2, 0.27, 0.13]}
-            position={[1.26, 0.3, 1]}
+            position={[1.4, 0.3, 1.1]}
             rotation={[0, 0, -1.54]}
             onClick={() => {
               nextPage()
@@ -402,10 +405,10 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             castShadow
             receiveShadow
             geometry={nodes.Plano002.geometry}
-            material={materials['Material.002']}
+            material={arrowTexture}
             // material={materials['lock.004']}
             scale={[0.2, 0.27, 0.13]}
-            position={[-1.83, 0.3, 1]}
+            position={[-1.75, 0.7, 1]}
             rotation={[0, 0, -1.54]}
             onClick={() => {
               // console.log('CLICKEEEED')

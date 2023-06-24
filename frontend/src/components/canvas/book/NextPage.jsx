@@ -52,8 +52,8 @@ export function NextPage({ flagPageBookState } ) {
 
   useFrame(() => {
     const distanceFromCamera = 3.1; // Distancia deseada del libro a la camara
-    const offsetX = -1.4; // Desplazamiento hacia la izquierda en el eje X
-    const offsetY = 0.9; // Desplazamiento hacia abajo
+    const offsetX = -1.5; // Desplazamiento hacia la izquierda en el eje X
+    const offsetY = 1; // Desplazamiento hacia abajo
     const offsetZ = -0.25; // Desplazamiento hacia adelante
 
     const cameraDirection = camera.getWorldDirection(new Vector3());
@@ -82,7 +82,7 @@ export function NextPage({ flagPageBookState } ) {
   return (
     <>
       <mesh visible={flagPageBookState} ref={imgWallRef} receiveShadow dispose={null}>
-        <planeGeometry args={[0.5, 0.5]} />
+        <planeGeometry args={[0.4, 0.4]} />
         <meshStandardMaterial map={currentTexture} side={DoubleSide} transparent />
       </mesh>
       <ImageWall visible={isWallVisible} onClick={() => { setWallVisibility(false); setText(""); setImgVisibility(true) }} texture={currentTexture} text={text} />
