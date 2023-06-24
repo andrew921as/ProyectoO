@@ -19,17 +19,17 @@ const labels = [
     id: 3,
     position: [60, 15, 0],
     rotation: [0, 0, 0],
-    text: 'Estatua de Apolo 🗿',
+    text: 'El coloso de Rodas 🗿',
     description:
-      'Una de las estatuas más conocidas en la antigua Grecia, era tan reverenciada que se creía que tenía la capacidad de predecir el futuro a través de sus sutiles cambios de sombra y luz durante el día.',
+      'El Coloso de Rodas, además de ser una de las Siete Maravillas del Mundo Antiguo, fue considerado como una inspiración para la estatua de la Libertad en Nueva York. Ambas estatuas compartían una postura similar, con un brazo extendido hacia arriba sosteniendo una antorcha. Fue destruido por un terremoto.',
   },
   {
     id: 4,
     position: [-70, 40, -100],
     rotation: [0, 0, 0],
-    text: 'Partenon 🏛️',
+    text: 'Templo de Artemisa 🏛️',
     description:
-      'Un templo en Atenas construido en el siglo V a.C., fue diseñado de manera asimétrica para corregir una ilusión óptica. Sus columnas convergen ligeramente hacia el centro para que parezcan rectas a simple vista.',
+      'El Templo de Artemisa, en Éfeso, fue una de las Siete Maravillas del Mundo Antiguo. Fue incendiado intencionalmente en el año 356 a.C. por un hombre llamado Herostrato.',
   },
   {
     id: 5,
@@ -46,6 +46,14 @@ const labels = [
     text: 'Atalaya 🔥',
     description:
       'torres de vigilancia estratégicamente ubicadas, eran un elemento clave en la defensa de las ciudades antiguas. Su diseño incluía un sistema de espejos que permitía la comunicación óptica a larga distancia, transmitiendo mensajes entre atalayas a través de destellos de luz.',
+  },
+  {
+    id: 7,
+    position: [-122, 28, 122],
+    rotation: [0, 0, 0],
+    text: 'Partenon 🏛️',
+    description:
+      'Un templo en Atenas construido en el siglo V a.C., fue diseñado de manera asimétrica para corregir una ilusión óptica. Sus columnas convergen ligeramente hacia el centro para que parezcan rectas a simple vista.',
   },
 ]
 

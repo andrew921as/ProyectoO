@@ -4,7 +4,7 @@ import { DoubleSide, Vector3 } from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Text } from '@react-three/drei'
 
-export default function ImageWall({ visible, onClick, texture, text, textColor}) {
+export default function ImageWall({ visible, onClick, texture, text, textColor }) {
   const imgWallRef = useRef()
   const words = useRef()
   const { camera } = useThree()
@@ -37,7 +37,7 @@ export default function ImageWall({ visible, onClick, texture, text, textColor})
             </Text>
           </mesh> */}
       <mesh ref={words}>
-        <Text font='/fonts/jeju.ttf' fontSize={0.1} color={textColor} maxWidth={2.5} textAlign='center' position={[0, -0.6, 0]} outlineWidth={0.005} outlineColor='White'>
+        <Text font='/fonts/caligo.ttf' fontSize={0.1} color={textColor} maxWidth={2.5} textAlign='center' position={[0, -0.6, 0]} outlineWidth={0.005} outlineColor='White' >
           {text}
         </Text>
       </mesh>
