@@ -20,7 +20,16 @@ import { apiUrl } from '@/config'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
+
+const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
+const TiamatStatue = dynamic(() => import('@/components/canvas/world/decorations/Tiamat').then((mod) => mod.Tiamat), { ssr: false })
+const Crane = dynamic(() => import('@/components/canvas/world/decorations/Crane').then((mod) => mod.Crane), { ssr: false })
+const Dagger = dynamic(() => import('@/components/canvas/world/decorations/Dagger').then((mod) => mod.Dagger), { ssr: false })
+const Kratos = dynamic(() => import('@/components/canvas/world/decorations/Kratos').then((mod) => mod.Kratos), { ssr: false })
+const Sword = dynamic(() => import('@/components/canvas/world/decorations/Sword').then((mod) => mod.Sword), { ssr: false })
+const Shield = dynamic(() => import('@/components/canvas/world/decorations/Shield').then((mod) => mod.Shield), { ssr: false })
 const Key = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
+
 
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -199,9 +208,19 @@ export default function Page() {
           <KeyboardControls map={keyboardControls}>
             <Suspense>
               <World isBookOpen={isBookOpen} labels={labels} />
+
+              <TiamatStatue />
+              <Crane />
+              <Dagger />
+              <Kratos />
+              <Sword />
+              <Shield />
+              <KeysModels scale={0.01} position-y={4} />
+
               {visibleKeys.map((key, index) => (
                 <Key key={'key_' + index} scale={0.02} position={key.position} _id={key._id} />
               ))}
+
               <Player walkVelocity={isShiftPressed ? 15 : 5} />
               {isBookOpen && book}
 
