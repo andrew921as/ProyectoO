@@ -21,15 +21,15 @@ const sections = [
   {
     name: 'Sección 1, mitología',
     start: 0,
-    end: 6,
+    end: 3,
   },
   {
-    name: 'Sección 2, estructuras',
-    start: 7,
+    name: 'Sección 2, figuras',
+    start: 3,
     end: 13,
   },
   {
-    name: 'Sección 3, figuras',
+    name: 'Sección 3, estructuras',
     start: 14,
     end: 20,
   },
@@ -202,6 +202,26 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
     }, 1000)
   }
 
+  const nextPageIndex = () => {
+    setAnimationPage(true)
+    // console.log("AAA", isReproduceAnimation);
+    actions['NextPage'].repetitions = 1 // Repetir animación una vez
+    actions['NextPage'].reset() // Detener la animación en el último frame
+    actions['NextPage'].timeScale = 1 // No poner la animación en reversa
+    actions['NextPage'].play() // Reproducir animación si hay una definida en el modelo
+
+    // Ocultar el sticker y el video
+    setIsImgOpen(false)
+    setIsVidOpen(false)
+
+    // Mostrar el sticker y el video
+    setTimeout(() => {
+      setIsImgOpen(true)
+      setIsVidOpen(true)
+      setAnimationPage(false)
+    }, 1000)
+  }
+
   const previousPage = () => {
     setAnimationPage(true)
     // console.log("AAA", isReproduceAnimation);
@@ -333,12 +353,27 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
               material={materials['Material.005']}
               skeleton={nodes.Plano001.skeleton}
             />
-            {/* Mostrar quizzes */}
+            {/* Mostrar quizzes y siguiente sección */}
             {!animationPage &&
               visibleQuizzes.map((quiz) => {
-                return <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
+                return <>
+                  <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
+                </>
               })}
-            {bookPage == 0 && <IndexB setBookPage={setBookPage} nextPage={nextPage} />}
+            {bookPage == 0 && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} />}
+
+            {/* Mensaje de introducción para la sección 2, la cual trata sobre figuras de la antigua grecia*/}
+            {bookPage == 4 && !bookState.isQuizOpen && (
+              <Html position={[0.2, 0.5, -0.5]}>
+                <div className=' w-[200px] h-40'>
+                  <div className=''>
+                    <h1 className='text-xl xxl:text-4xl font-texto text-caca_clara text-center'>Sección 2: Figuras</h1>
+                    <p className='font-texto text-caca_clara text-center'>En esta sección encontrarás información sobre personas importantes de la antigua Grecia.</p>
+
+                  </div>
+                </div>
+              </Html>
+            )}
             <group name='Magic_Book'>
               <skinnedMesh
                 name='Cube005'

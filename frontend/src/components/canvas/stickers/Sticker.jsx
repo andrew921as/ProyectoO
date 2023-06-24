@@ -71,14 +71,17 @@ export function ZeusWall(props) {
       </mesh>
       <ImageWall
         visible={isWallVisible}
-        onClick={() => {
+        onClick={(event) => {
+          if (isWallVisible == true) {
+            event.stopPropagation()
+          }
           setWallVisibility(false)
           setText('')
           setImgVisibility(true)
         }}
         texture={currentTexture}
         text={text}
-        textColor={ props.textColor || 'Black'}
+        textColor={props.textColor || 'Black'}
       />
     </>
   )

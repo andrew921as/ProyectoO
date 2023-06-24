@@ -21,7 +21,6 @@ import { apiUrl } from '@/config'
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
 
-const KeysModels = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
 const TiamatStatue = dynamic(() => import('@/components/canvas/world/decorations/Tiamat').then((mod) => mod.Tiamat), { ssr: false })
 const Crane = dynamic(() => import('@/components/canvas/world/decorations/Crane').then((mod) => mod.Crane), { ssr: false })
 const Dagger = dynamic(() => import('@/components/canvas/world/decorations/Dagger').then((mod) => mod.Dagger), { ssr: false })
@@ -203,11 +202,12 @@ export default function Page() {
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
           isBookOpen={isBookOpen}
+          castShadow={false}
         >
           <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
             <Suspense>
-              <World isBookOpen={isBookOpen} labels={labels} />
+              <World isBookOpen={isBookOpen} labels={labels} castShadow={false}/>
 
               <TiamatStatue />
               <Crane />
@@ -215,7 +215,6 @@ export default function Page() {
               <Kratos />
               <Sword />
               <Shield />
-              <KeysModels scale={0.01} position-y={4} />
 
               {visibleKeys.map((key, index) => (
                 <Key key={'key_' + index} scale={0.02} position={key.position} _id={key._id} />
