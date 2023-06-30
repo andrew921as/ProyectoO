@@ -19,27 +19,32 @@ import { questions } from 'public/data/quices'
 
 const sections = [
   {
-    name: 'Sección 1, mitología',
+    title: 'Sección 1, mitología',
+    description: 'En esta sección encontrarás información sobre los dioses y cr más importantes de la mitología griega',
     start: 0,
-    end: 3,
+    end: 4,
   },
   {
-    name: 'Sección 2, figuras',
-    start: 3,
-    end: 13,
+    title: 'Sección 2, figuras',
+    description: 'En esta sección encontrarás información sobre las figuras más importantes de la antigua grecia',
+    start: 4,
+    end: 7,
   },
   {
-    name: 'Sección 3, estructuras',
-    start: 14,
+    title: 'Sección 3, estructuras',
+    description: 'En esta sección encontrarás información sobre las estructuras más importantes de la mitología griega',
+    start: 7,
     end: 20,
   },
   {
-    name: 'Sección 4, mitologia',
+    title: 'Sección 4, herramientas',
+    description: 'En esta sección encontrarás información sobre las herramientas más importantes de la antigua griega',
     start: 21,
     end: 27,
   },
   {
-    name: 'Sección 5, recomendaciones',
+    title: 'Sección 5, recomendaciones',
+    description: 'En esta sección encontrarás recomendaciones sobre la mitología griega',
     start: 28,
     end: 34,
   },
@@ -89,7 +94,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const [visibleStickers, setVisibleStickers] = useState([])
   const [visibleVideos, setVisibleVideos] = useState([])
   const [visibleQuizzes, setVisibleQuizzes] = useState([])
-  const [arrowTexture, setArrowTexture] = useState(texture_arrow);
+  const [arrowTexture, setArrowTexture] = useState(texture_arrow)
 
   const [flagPageBookState, setFlagPageBookState] = useState(false)
 
@@ -128,7 +133,13 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       quizzes,
     })
 
-    console.log(bookState)
+    // Actualizar las zonas desbloqueadas
+    if (user.progress == 0) setSectionsUnlocked(0)
+    if (user.progress == 20) setSectionsUnlocked(1)
+    if (user.progress == 40) setSectionsUnlocked(2)
+    if (user.progress == 60) setSectionsUnlocked(3)
+    if (user.progress == 80) setSectionsUnlocked(4)
+    if (user.progress == 100) setSectionsUnlocked(5)
   }, [user])
 
   // Filtrar los sticker, videos y quizzes visibles por página
@@ -178,6 +189,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const { camera } = useThree()
 
   const nextPage = () => {
+    if (bookPage == sections[sectionsUnlocked - 1].end) return
     setAnimationPage(true)
     // console.log("AAA", isReproduceAnimation);
     actions['NextPage'].repetitions = 1 // Repetir animación una vez
@@ -203,6 +215,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   }
 
   const nextPageIndex = () => {
+    if (bookPage == sections[sectionsUnlocked - 1].end) return
     setAnimationPage(true)
     // console.log("AAA", isReproduceAnimation);
     actions['NextPage'].repetitions = 1 // Repetir animación una vez
@@ -223,6 +236,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   }
 
   const previousPage = () => {
+    if (bookPage == 0) return
     setAnimationPage(true)
     // console.log("AAA", isReproduceAnimation);
     actions['NextPage'].repetitions = 1 // Repetir animación una vez
@@ -356,24 +370,29 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             {/* Mostrar quizzes y siguiente sección */}
             {!animationPage &&
               visibleQuizzes.map((quiz) => {
-                return <>
-                  <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
-                </>
+                return (
+                  <>
+                    <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
+                  </>
+                )
               })}
             {bookPage == 0 && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} />}
 
             {/* Mensaje de introducción para la sección 2, la cual trata sobre figuras de la antigua grecia*/}
-            {bookPage == 4 && !bookState.isQuizOpen && (
-              <Html position={[0.2, 0.5, -0.5]}>
-                <div className=' w-[200px] h-40'>
-                  <div className=''>
-                    <h1 className='text-xl xxl:text-4xl font-texto text-caca_clara text-center'>Sección 2: Figuras</h1>
-                    <p className='font-texto text-caca_clara text-center'>En esta sección encontrarás información sobre personas importantes de la antigua Grecia.</p>
-
-                  </div>
-                </div>
-              </Html>
-            )}
+            {sections.map((section, index) => {
+              if (bookPage == section.start && !bookState.isQuizOpen && index !== 0) {
+                return (
+                  <Html position={[0.2, 0.5, -0.5]}>
+                    <div className=' w-[200px] h-40'>
+                      <div className=''>
+                        <h1 className='text-xl xxl:text-4xl font-texto text-caca_clara text-center'>{section.title}</h1>
+                        <p className='font-texto text-caca_clara text-center'>{section.description}</p>
+                      </div>
+                    </div>
+                  </Html>
+                )
+              }
+            })}
             <group name='Magic_Book'>
               <skinnedMesh
                 name='Cube005'

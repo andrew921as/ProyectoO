@@ -17,18 +17,30 @@ import { QuizInterface } from '@/components/elements/QuizInterface'
 // Data
 import { labels } from 'public/data/labels'
 import { apiUrl } from '@/config'
+import ChangeAvatar from '@/components/elements/ChangeAvatar'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
 
-const TiamatStatue = dynamic(() => import('@/components/canvas/world/decorations/Tiamat').then((mod) => mod.Tiamat), { ssr: false })
-const Crane = dynamic(() => import('@/components/canvas/world/decorations/Crane').then((mod) => mod.Crane), { ssr: false })
-const Dagger = dynamic(() => import('@/components/canvas/world/decorations/Dagger').then((mod) => mod.Dagger), { ssr: false })
-const Kratos = dynamic(() => import('@/components/canvas/world/decorations/Kratos').then((mod) => mod.Kratos), { ssr: false })
-const Sword = dynamic(() => import('@/components/canvas/world/decorations/Sword').then((mod) => mod.Sword), { ssr: false })
-const Shield = dynamic(() => import('@/components/canvas/world/decorations/Shield').then((mod) => mod.Shield), { ssr: false })
+const TiamatStatue = dynamic(() => import('@/components/canvas/world/decorations/Tiamat').then((mod) => mod.Tiamat), {
+  ssr: false,
+})
+const Crane = dynamic(() => import('@/components/canvas/world/decorations/Crane').then((mod) => mod.Crane), {
+  ssr: false,
+})
+const Dagger = dynamic(() => import('@/components/canvas/world/decorations/Dagger').then((mod) => mod.Dagger), {
+  ssr: false,
+})
+const Kratos = dynamic(() => import('@/components/canvas/world/decorations/Kratos').then((mod) => mod.Kratos), {
+  ssr: false,
+})
+const Sword = dynamic(() => import('@/components/canvas/world/decorations/Sword').then((mod) => mod.Sword), {
+  ssr: false,
+})
+const Shield = dynamic(() => import('@/components/canvas/world/decorations/Shield').then((mod) => mod.Shield), {
+  ssr: false,
+})
 const Key = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
-
 
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -66,6 +78,9 @@ export default function Page() {
 
   // Estado de las llaves
   const [visibleKeys, setVisibleKeys] = useState([])
+
+  // Estados del usuario
+  const [isChangeAvatarOpen, setIsChangeAvatarOpen] = useState(false)
 
   const book = <BookModel isBookOpen={isBookOpen} animationPage={animationPage} setAnimationPage={setAnimationPage} />
 
@@ -108,7 +123,6 @@ export default function Page() {
 
       // Guarda el usuario actualizado en el localStorage
       localStorage.setItem('user', JSON.stringify(user))
-
     }
   }, [user])
 
@@ -166,8 +180,22 @@ export default function Page() {
 
       {/* Modal */}
       <div className='absolute z-20 top-0 right-0'>
-        <Modal />
+        <Modal setIsChangeAvatarOpen={setIsChangeAvatarOpen} />
       </div>
+
+      {/* Cambiar avatar */}
+      {isChangeAvatarOpen && (
+        <div
+          style={{
+            width: windowSize.width * 0.8 + 'px',
+            height: windowSize.height * 0.9 + 'px',
+          }}
+          className='fixed z-40 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+        >
+          {/* <QuizInterface /> */}
+          <ChangeAvatar setIsChangeAvatarOpen={setIsChangeAvatarOpen} />
+        </div>
+      )}
 
       {/* Book */}
       <div className='absolute z-20 bottom-0 right-0'>
@@ -203,11 +231,12 @@ export default function Page() {
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
           isBookOpen={isBookOpen}
           castShadow={false}
+          
         >
           <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
             <Suspense>
-              <World isBookOpen={isBookOpen} labels={labels} castShadow={false}/>
+              <World isBookOpen={isBookOpen} isChangeAvatarOpen={isChangeAvatarOpen} labels={labels} castShadow={false} />
 
               <TiamatStatue />
               <Crane />
