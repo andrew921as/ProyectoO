@@ -9,7 +9,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } f
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 let app
 let provider
-if (typeof window !== 'undefined' && getApps().length === 0) {
+if (getApps().length === 0) {
   const firebaseConfig = {
     apiKey: "AIzaSyDJ2aq3TLGCNhVa4_KwYtxHsHOL8N7ueuc",
     authDomain: "proyecto-olimpo.firebaseapp.com",
