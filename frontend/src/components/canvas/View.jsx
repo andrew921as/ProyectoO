@@ -86,7 +86,7 @@ export function Player({ walkVelocity = 5 }) {
 
   useFrame((state, delta) => {
     const { forward, backward, left, right } = get()
-    const initialPosition = new THREE.Vector3(-52.5, 10, -40)
+    const initialPosition = new THREE.Vector3(-54, 10, -40)
     const cameraPosition = state.camera.position
     if (cameraPosition.x == 0 && cameraPosition.y == 0 && cameraPosition.z == 5) {
       state.camera.position.copy(initialPosition)

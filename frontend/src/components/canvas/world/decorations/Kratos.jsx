@@ -10,7 +10,7 @@ export function Kratos(props) {
         receiveShadow
         geometry={nodes["uploads_files_2889383_Kratos+Bust+-+Base"].geometry}
         material={nodes["uploads_files_2889383_Kratos+Bust+-+Base"].material}
-        position={[-93.5, 36, -116]}
+        position={[-94.75, 35.7, -116.6]}
         rotation={[Math.PI / 2, 0, -Math.PI/2]}
         scale={0.01}
       >

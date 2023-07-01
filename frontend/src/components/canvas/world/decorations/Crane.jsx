@@ -4,7 +4,7 @@ import { useGLTF } from "@react-three/drei";
 export function Crane(props) {
   const { nodes, materials } = useGLTF("/models/world/Crane.glb");
   return (
-    <group {...props} dispose={null} position={[140, 1.5, 3]}>
+    <group {...props} dispose={null} position={[136, 1.5, 3]}>
       <mesh
         castShadow
         receiveShadow

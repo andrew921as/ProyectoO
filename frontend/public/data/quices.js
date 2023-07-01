@@ -96,6 +96,33 @@ const questions = [
     isFinished: false,
     questions: [
       {
+        question: '¿Cuál era el mercado de la antigua Grecia?',
+        options: [
+          { option: 'Agora', correct: true },
+          { option: 'Galeria', correct: false },
+          { option: 'Bazar', correct: false },
+          { option: 'Stoa', correct: false },
+        ],
+      },
+      {
+        question: '¿Qúe estructura es ?',
+        options: [
+          { option: 'Bogotá', correct: true },
+          { option: 'Medellín', correct: false },
+          { option: 'Cali', correct: false },
+          { option: 'Barranquilla', correct: false },
+        ],
+      },
+      {
+        question: '¿Cuál es la capital de Colombia?',
+        options: [
+          { option: 'Bogotá', correct: true },
+          { option: 'Medellín', correct: false },
+          { option: 'Cali', correct: false },
+          { option: 'Barranquilla', correct: false },
+        ],
+      },
+      {
         question: '¿Cuál es la capital de Colombia?',
         options: [
           { option: 'Bogotá', correct: true },
