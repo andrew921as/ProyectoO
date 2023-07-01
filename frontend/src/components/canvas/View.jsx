@@ -37,7 +37,7 @@ const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
   const [isExitCamera, setIsExitCamera] = useState(false)
 
   // Refs
-  const pointerLockRef = useRef(null)
+  // const pointerLockRef = useRef(null)
   const localRef = useRef(null)
   useImperativeHandle(ref, () => localRef.current)
 
