@@ -74,12 +74,12 @@ export function IndexBook({ setBookPage, nextPage }) {
 					2. Figuras
 				</h3>
 				<h3 className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${user.progress < 60 ? 'text-amarillito' : 'text-caca_clara'}`}
-					onClick={() => handleClick(3, 60)}>
-					3. Herramientas
+					onClick={() => handleClick(7, 60)}>
+					3. Estructuras
 				</h3>
 				<h3 className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${user.progress < 80 ? 'text-amarillito' : 'text-caca_clara'}`}
 					onClick={() => handleClick(4, 80)}>
-					4. Estructuras
+					4. Herramientas
 				</h3>
 				<h3 className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${user.progress < 100 ? 'text-amarillito' : 'text-caca_clara'}`}
 					onClick={() => handleClick(5, 100)}>
