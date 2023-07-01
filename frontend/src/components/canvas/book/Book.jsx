@@ -382,7 +382,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             {sections.map((section, index) => {
               if (bookPage == section.start && !bookState.isQuizOpen && index !== 0) {
                 return (
-                  <Html position={[0.2, 0.5, -0.5]}>
+                  <Html key={`section_${index}`} position={[0.2, 0.5, -0.5]}>
                     <div className=' w-[200px] h-40'>
                       <div className=''>
                         <h1 className='text-xl xxl:text-4xl font-texto text-caca_clara text-center'>{section.title}</h1>

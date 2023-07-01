@@ -123,6 +123,7 @@ const SelectImage = ({ setIsChangeAvatarOpen, setIsSelectingAvatar }) => {
           {!isLoading &&
             avatars.map((avatar, index) => (
               <img
+                key={`avatar-${index}`}
                 src={`img/avatars/${avatar}`}
                 alt='Foto de perfil'
                 className='z-20 w-32 h-32 object-cover rounded-full cursor-pointer'
