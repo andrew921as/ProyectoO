@@ -230,13 +230,17 @@ export default function Page() {
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
           isBookOpen={isBookOpen}
-          castShadow={false}
-          
+          // castShadow={false}
         >
           <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
             <Suspense>
-              <World isBookOpen={isBookOpen} isChangeAvatarOpen={isChangeAvatarOpen} labels={labels} castShadow={false} />
+              <World
+                isBookOpen={isBookOpen}
+                isChangeAvatarOpen={isChangeAvatarOpen}
+                labels={labels}
+                castShadow={false}
+              />
 
               <TiamatStatue />
               <Crane />

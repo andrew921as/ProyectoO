@@ -157,7 +157,7 @@ export const QuizInterface = ({ onClick }) => {
               {/* Opciones si no se ha terminado el quiz */}
               {quiz?.questions[currentQuestion].options.map((option, index) => (
                 <button
-                  key={index}
+                  key={`${option.option}-${index}`}
                   onClick={() => {
                     // Si la respuesta es correcta
                     if (option.correct) {
