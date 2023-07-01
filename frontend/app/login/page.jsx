@@ -44,13 +44,12 @@ const Login = () => {
       .then((response) => {
         console.log(response.data) // Maneja la respuesta del servidor según tus necesidades
 
-        // Detiene el loading
-        setIsLoading(false)
-
         if (response.data.user) {
           // Guarda el usuario en el localStorage
           localStorage.setItem('user', JSON.stringify(response.data.user))
         }
+        // Detiene el loading
+        setIsLoading(false)
 
         // Envía al usuario a la página de inicio
         router.push('/world')
@@ -82,8 +81,10 @@ const Login = () => {
       })
   }
 
-  const handleGoogleLogin = async() => {
-    const {profile} =  await signInGoogle()
+  const handleGoogleLogin = async () => {
+    // Inicia el loading
+    setIsLoading(true)
+    const { profile } = await signInGoogle()
 
     const data = {
       name: profile.given_name,
@@ -92,48 +93,49 @@ const Login = () => {
       password: profile.id,
     }
 
-    if(profile){
+    if (profile) {
       axios
-      .post(`${apiUrl}/users/loginGoogle`, data)
-      .then((response) => {
-        console.log(response.data) // Maneja la respuesta del servidor según tus necesidades
+        .post(`${apiUrl}/users/loginGoogle`, data)
+        .then((response) => {
+          console.log(response.data) // Maneja la respuesta del servidor según tus necesidades
 
-        // Detiene el loading
-        setIsLoading(false)
+          // Detiene el loading
+          setIsLoading(false)
 
-        if (response.data.user) {
-          // Guarda el usuario en el localStorage
-          localStorage.setItem('user', JSON.stringify(response.data.user))
-        }
-
-        // Envía al usuario a la página de inicio
-        router.push('/world')
-      })
-      .catch((error) => {
-        // console.error(error)
-
-        // Detiene el loading
-        setIsLoading(false)
-
-        // Alerta de error
-        Swal.fire({
-          title: 'Error!',
-          text: 'Ocurrió un error al iniciar sesión. Verifica tus credenciales.',
-          confirmButtonText: 'Aceptar',
-          buttonsStyling: false,
-          color: '#F4DFB0',
-          iconColor: '#F4DFB0',
-          background: '#8C6F4D',
-          iconHtml: '<img src="/icons/login/advertencia.svg" alt="error" class="w-20 h-20">',
-          customClass: {
-            popup: 'rounded-3xl',
-            container: 'rounded-xl',
-            title: 'text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
-            htmlContainer: 'text-amarillito text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
-            confirmButton: 'bg-moradito_palido text-amarillito font-texto text-xl p-4 rounded',
-          },
+          if (response.data.user) {
+            // Guarda el usuario en el localStorage
+            localStorage.setItem('user', JSON.stringify(response.data.user))
+          }
+          // Detiene el loading
+          setIsLoading(false)
+          // Envía al usuario a la página de inicio
+          router.push('/world')
         })
-      })
+        .catch((error) => {
+          // console.error(error)
+
+          // Detiene el loading
+          setIsLoading(false)
+
+          // Alerta de error
+          Swal.fire({
+            title: 'Error!',
+            text: 'Ocurrió un error al iniciar sesión. Verifica tus credenciales.',
+            confirmButtonText: 'Aceptar',
+            buttonsStyling: false,
+            color: '#F4DFB0',
+            iconColor: '#F4DFB0',
+            background: '#8C6F4D',
+            iconHtml: '<img src="/icons/login/advertencia.svg" alt="error" class="w-20 h-20">',
+            customClass: {
+              popup: 'rounded-3xl',
+              container: 'rounded-xl',
+              title: 'text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
+              htmlContainer: 'text-amarillito text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
+              confirmButton: 'bg-moradito_palido text-amarillito font-texto text-xl p-4 rounded',
+            },
+          })
+        })
     }
   }
 
@@ -203,8 +205,13 @@ const Login = () => {
             <img src='icons/login/login_button.svg' alt='continuar button' />
           </button>
         </div>
+        <div className='relative grid justify-center w-full mt-6'>
+          <button className='relative mx-0 m-auto' type='button' onClick={handleGoogleLogin}>
+            <img src='icons/login/googleButton.png' alt='continuar button' />
+          </button>
+        </div>
       </form>
-      <button onClick={handleGoogleLogin}> Google </button>
+
     </div>
   )
 }
