@@ -105,10 +105,10 @@ const questions = [
         ],
       },
       {
-        question: '¿Qúe estructura es ?',
+        question: '¿Qúe estructura fue hecha en honor de Atenea, Poseidon y Erecteo?',
         options: [
-          { option: 'Bogotá', correct: true },
-          { option: 'Medellín', correct: false },
+          { option: 'Partenon', correct: false },
+          { option: 'Medellín', correct: true },
           { option: 'Cali', correct: false },
           { option: 'Barranquilla', correct: false },
         ],
