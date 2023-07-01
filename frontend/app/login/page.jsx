@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { apiUrl } from '@/config'
 import Link from 'next/link'
 import Swal from 'sweetalert2'
-import {app, provider} from '@/functions'
+import {provider} from '@/functions'
 import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
 
 // COMPONENTS

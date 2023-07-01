@@ -6,7 +6,8 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { apiUrl } from '@/config'
 import Swal from 'sweetalert2'
-import signInGoogle from '@/functions'
+import {provider} from '@/functions'
+import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
 
 // COMPONENTS
 import Loading from '@/components/elements/Loading'
@@ -93,10 +94,37 @@ const Resgiter = () => {
       })
   }
 
+  //Inicia sesión con Google
+  const auth = getAuth();
+  
   const handleGoogleLogin = async () => {
     // Inicia el loading
     setIsLoading(true)
-    const { profile } = await signInGoogle()
+    const { profile } =await signInWithPopup(auth, provider)
+    .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+		const moreUser = getAdditionalUserInfo(result)
+    
+    //Comentario
+    console.log(moreUser);
+
+    return moreUser
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+    return error
+  });
 
     const data = {
       name: profile.given_name,
