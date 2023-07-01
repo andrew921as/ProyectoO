@@ -125,6 +125,7 @@ export default function Page() {
 
   return (
     <div className='w-full h-full relative grid text-center justify-center overflow-hidden'>
+      
       <ReactAudioPlayer
         src={song}
         autoPlay={true}

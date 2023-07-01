@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { apiUrl } from '@/config'
 import Link from 'next/link'
 import Swal from 'sweetalert2'
+import signInGoogle from '@/functions'
 
 // COMPONENTS
 import Loading from '@/components/elements/Loading'
@@ -148,6 +149,7 @@ const Login = () => {
           </button>
         </div>
       </form>
+      <button onClick={signInGoogle}> Google </button>
     </div>
   )
 }
