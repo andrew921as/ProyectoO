@@ -1,12 +1,12 @@
 'use client'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, use } from 'react'
 import { UserContext } from '@/context/UserProvider'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { apiUrl } from '@/config'
 import Link from 'next/link'
 import Swal from 'sweetalert2'
-import {provider} from '@/functions'
+import { provider } from '@/functions'
 import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
 
 // COMPONENTS
@@ -84,44 +84,42 @@ const Login = () => {
 
   //Inicio de sesion  con google
   const auth = getAuth();
-
   const handleGoogleLogin = async () => {
+    if (typeof window !== 'undefined') {
     // Inicia el loading
     setIsLoading(true)
+      const { profile } = await signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const moreUser = getAdditionalUserInfo(result)
 
-    const { profile } =await signInWithPopup(auth, provider)
-    .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-		const moreUser = getAdditionalUserInfo(result)
-    
-    //Comentario
-    console.log(moreUser);
+          //Comentario
+          console.log(moreUser);
 
-    return moreUser
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-    return error
-  });
+          return moreUser
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+          return error
+        });
 
-    const data = {
-      name: profile.given_name,
-      last_name: profile.family_name,
-      email: profile.email,
-      password: profile.id,
-    }
-
+      const data = {
+        name: profile.given_name,
+        last_name: profile.family_name,
+        email: profile.email,
+        password: profile.id,
+      }
     if (profile) {
       axios
         .post(`${apiUrl}/users/loginGoogle`, data)
@@ -166,13 +164,16 @@ const Login = () => {
           })
         })
     }
-  }
+  }}
 
   useEffect(() => {
     const screenHeight = window.innerHeight
     const calculatedHeight = screenHeight * 0.96
     setFormHeight(calculatedHeight)
+    
   }, [])
+
+  
 
   return (
     <div

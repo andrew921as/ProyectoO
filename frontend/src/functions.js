@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import {getApps,initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -7,21 +7,24 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } f
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDJ2aq3TLGCNhVa4_KwYtxHsHOL8N7ueuc",
-  authDomain: "proyecto-olimpo.firebaseapp.com",
-  projectId: "proyecto-olimpo",
-  storageBucket: "proyecto-olimpo.appspot.com",
-  messagingSenderId: "269752274673",
-  appId: "1:269752274673:web:5891cb6f34a8d02b2f2350",
-  measurementId: "G-7SSKKQ3L20"
-};
+let app
+let provider
+if (typeof window !== 'undefined' && getApps().length === 0) {
+  const firebaseConfig = {
+    apiKey: "AIzaSyDJ2aq3TLGCNhVa4_KwYtxHsHOL8N7ueuc",
+    authDomain: "proyecto-olimpo.firebaseapp.com",
+    projectId: "proyecto-olimpo",
+    storageBucket: "proyecto-olimpo.appspot.com",
+    messagingSenderId: "269752274673",
+    appId: "1:269752274673:web:5891cb6f34a8d02b2f2350",
+    measurementId: "G-7SSKKQ3L20"
+  };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const provider = new GoogleAuthProvider();
-const analytics = getAnalytics(app);
-
+  // Initialize Firebase
+  app = initializeApp(firebaseConfig);
+  provider = new GoogleAuthProvider();
+  const analytics = getAnalytics(app);
+}
 
 // const auth = getAuth();
 

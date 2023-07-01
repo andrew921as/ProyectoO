@@ -98,6 +98,7 @@ const Resgiter = () => {
   const auth = getAuth();
   
   const handleGoogleLogin = async () => {
+    if (typeof window !== 'undefined') {
     // Inicia el loading
     setIsLoading(true)
     const { profile } =await signInWithPopup(auth, provider)
@@ -177,7 +178,7 @@ const Resgiter = () => {
           })
         })
     }
-  }
+  }}
 
   useEffect(() => {
     const screenHeight = window.innerHeight
