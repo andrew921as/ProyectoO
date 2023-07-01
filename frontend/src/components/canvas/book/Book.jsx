@@ -16,39 +16,7 @@ import { BookContext } from '@/context/BookProvider'
 import { stickers } from 'public/data/stickers'
 import { videos } from 'public/data/videos'
 import { questions } from 'public/data/quices'
-
-const sections = [
-  {
-    title: 'Sección 1, mitología',
-    description: 'En esta sección encontrarás información sobre los dioses y cr más importantes de la mitología griega',
-    start: 0,
-    end: 4,
-  },
-  {
-    title: 'Sección 2, figuras',
-    description: 'En esta sección encontrarás información sobre las figuras más importantes de la antigua grecia',
-    start: 4,
-    end: 7,
-  },
-  {
-    title: 'Sección 3, estructuras',
-    description: 'En esta sección encontrarás información sobre las estructuras más importantes de la mitología griega',
-    start: 7,
-    end: 20,
-  },
-  {
-    title: 'Sección 4, herramientas',
-    description: 'En esta sección encontrarás información sobre las herramientas más importantes de la antigua griega',
-    start: 21,
-    end: 27,
-  },
-  {
-    title: 'Sección 5, recomendaciones',
-    description: 'En esta sección encontrarás recomendaciones sobre la mitología griega',
-    start: 28,
-    end: 34,
-  },
-]
+import { sections } from 'public/data/sections'
 
 // Modelo Libro 3D
 export function Book({ isBookOpen, setAnimationPage, animationPage }) {
@@ -87,7 +55,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   })
 
   // Estados del libro
-  const [sectionsUnlocked, setSectionsUnlocked] = useState(3)
+  const [sectionsUnlocked, setSectionsUnlocked] = useState(0)
   const [bookPage, setBookPage] = useState(0)
   const [isImgOpen, setIsImgOpen] = useState(false)
   const [isVidOpen, setIsVidOpen] = useState(false)
@@ -144,26 +112,20 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
 
   // Filtrar los sticker, videos y quizzes visibles por página
   useEffect(() => {
-    if (bookPage == -1) {
-      setBookPage(0)
-    } else if (bookPage == sections[sectionsUnlocked - 1].end + 1) {
-      setBookPage(sections[sectionsUnlocked - 1].end)
-    } else {
-      const filteredStickers = stickers.filter((sticker) => {
-        return sticker.page === bookPage
-      })
-      setVisibleStickers(filteredStickers)
+    const filteredStickers = stickers.filter((sticker) => {
+      return sticker.page === bookPage
+    })
+    setVisibleStickers(filteredStickers)
 
-      const filteredVideos = videos.filter((video) => {
-        return video.page === bookPage
-      })
-      setVisibleVideos(filteredVideos)
+    const filteredVideos = videos.filter((video) => {
+      return video.page === bookPage
+    })
+    setVisibleVideos(filteredVideos)
 
-      const filteredQuizzes = bookState.quizzes.filter((quiz) => {
-        return quiz.page === bookPage && !quiz.isFinished
-      })
-      setVisibleQuizzes(filteredQuizzes)
-    }
+    const filteredQuizzes = bookState.quizzes.filter((quiz) => {
+      return quiz.page === bookPage && !quiz.isFinished
+    })
+    setVisibleQuizzes(filteredQuizzes)
   }, [bookPage, bookState])
 
   useEffect(() => {

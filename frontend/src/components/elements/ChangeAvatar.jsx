@@ -49,7 +49,7 @@ const Image = ({ setIsSelectingAvatar }) => {
 
       <div>
         <img
-          src={user.avatar}
+          src={user?.avatar || 'https://i.pinimg.com/280x280_RS/42/03/a5/4203a57a78f6f1b1cc8ce5750f614656.jpg'}
           alt='Foto de perfil'
           width={280}
           height={280}
