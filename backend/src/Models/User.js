@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
 	avatar: {
 		type: String,
 		required: false,
-		default: 'https://res.cloudinary.com/dy1xcx7kw/image/upload/v1623687229/olimpo/avatar-default.png',
+		default: 'https://i.pinimg.com/280x280_RS/42/03/a5/4203a57a78f6f1b1cc8ce5750f614656.jpg',
 	},
 	progress: {
 		type: Number,
