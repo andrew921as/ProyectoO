@@ -59,9 +59,9 @@ const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
     }
   }, []) // El array vacío asegura que el efecto solo se ejecute una vez al montar el componente
 
-  useEffect(() => {
-    console.log('isExitCamera', isExitCamera)
-  }, [isExitCamera])
+  // useEffect(() => {
+  //   console.log('isExitCamera', isExitCamera)
+  // }, [isExitCamera])
 
   return (
     <>
