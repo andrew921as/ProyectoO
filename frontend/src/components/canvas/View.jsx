@@ -26,7 +26,7 @@ export const Common = ({ color }) => (
     {color && <color attach='background' args={[color]} />}
     <ambientLight intensity={0.2} />
     <pointLight position={[7, 60, 1]} intensity={0.8} />
-    <Perf />
+    {/* <Perf /> */}
     {/*<PerspectiveCamera makeDefault fov={50} position={[-250, 70, -120]} />
     <OrbitControls fov={40} position={[20, 20, 60]} />*/}
   </Suspense>
@@ -122,7 +122,7 @@ export function Player({ walkVelocity = 5 }) {
 
   useFrame((state, delta) => {
     const { forward, backward, left, right } = get()
-    const initialPosition = new THREE.Vector3(-52.5, 10, -40)
+    const initialPosition = new THREE.Vector3(-54, 10, -40)
     const cameraPosition = state.camera.position
     if (cameraPosition.x == 0 && cameraPosition.y == 0 && cameraPosition.z == 5) {
       state.camera.position.copy(initialPosition)

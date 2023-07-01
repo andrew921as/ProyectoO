@@ -1,7 +1,7 @@
 export const sections = [
   {
     title: 'Sección 1, mitología',
-    description: 'En esta sección encontrarás información sobre los dioses y cr más importantes de la mitología griega',
+    description: 'En esta sección encontrarás información sobre los dioses y criaturas más importantes de la mitología griega',
     start: 0,
     end: 4,
   },
@@ -13,19 +13,19 @@ export const sections = [
   },
   {
     title: 'Sección 3, estructuras',
-    description: 'En esta sección encontrarás información sobre las estructuras más importantes de la mitología griega',
+    description: 'En esta sección encontrarás información sobre las estructuras más emblemáticas de la antigua grecia',
     start: 7,
-    end: 20,
+    end: 11,
   },
   {
     title: 'Sección 4, herramientas',
-    description: 'En esta sección encontrarás información sobre las herramientas más importantes de la antigua griega',
+    description: 'En esta sección encontrarás información sobre las herramientas más relevantes de la antigua grecia',
     start: 21,
     end: 27,
   },
   {
     title: 'Sección 5, recomendaciones',
-    description: 'En esta sección encontrarás recomendaciones sobre la mitología griega',
+    description: 'En esta sección encontrarás recomendaciones de libros, peliculas y juegos relacionados con la antigua grecia',
     start: 28,
     end: 34,
   },

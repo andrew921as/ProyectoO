@@ -11,7 +11,7 @@ export function Sword(props) {
         geometry={nodes.OldSword.geometry}
         material={materials["Material.001"]}
         rotation={[Math.PI / 1.9, -Math.PI/15, Math.PI/2]}
-        position={[-47.25, 30.35, -107.25]}
+        position={[-48.25, 30.1, -107.25]}
         scale={0.02}
       />
     </group>
