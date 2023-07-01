@@ -53,7 +53,19 @@ export function Key(props) {
       }}
     >
       {/* <pointLight position={[0, 0, 0]} intensity={1} /> */}
-      <mesh castShadow receiveShadow geometry={nodes.key.geometry}>
+      <mesh
+        onPointerOver={() => {
+          // Cambia el cursor al modo 'pointer' cuando el cursor se pone sobre el objeto
+          document.body.style.cursor = 'pointer'
+        }}
+        onPointerOut={() => {
+          // Restaura el cursor al modo predeterminado cuando el cursor sale del objeto
+          document.body.style.cursor = 'auto'
+        }}
+        castShadow
+        receiveShadow
+        geometry={nodes.key.geometry}
+      >
         <meshStandardMaterial color={'#E7B229'} metalness={0.01} roughness={0} />
       </mesh>
     </group>
