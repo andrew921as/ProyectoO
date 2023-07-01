@@ -30,11 +30,12 @@ const  signInGoogle = async()=> signInWithPopup(auth, provider)
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
     // The signed-in user info.
-    const user = result.user;
-		console.log(user);
-		console.log("Otro usuario");
 		const moreUser = getAdditionalUserInfo(result)
-		console.log(moreUser);
+    
+    //Comentario
+    console.log(moreUser);
+
+    return moreUser
     // IdP data available using getAdditionalUserInfo(result)
     // ...
   }).catch((error) => {

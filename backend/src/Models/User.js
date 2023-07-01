@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
 	email: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	password: {
 		type: String,
@@ -44,6 +43,11 @@ const userSchema = new mongoose.Schema({
 			required: false,
 		},
 	],
+	isGoogle: {
+		type: Boolean,
+		default: false,
+		required: true,
+	}
 });
 
 // Definir el middleware pre para actualizar el atributo "progress"
