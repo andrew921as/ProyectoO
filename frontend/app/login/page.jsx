@@ -83,9 +83,10 @@ const Login = () => {
   }
 
   //Inicio de sesion  con google
-  const auth = getAuth();
+  
   const handleGoogleLogin = async () => {
     if (typeof window !== 'undefined') {
+    const auth = getAuth();
     // Inicia el loading
     setIsLoading(true)
       const { profile } = await signInWithPopup(auth, provider)
