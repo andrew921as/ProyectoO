@@ -211,7 +211,7 @@ const stickers = [
     stickerId: 27,
     page: 13,
     texture: '/img/world/arotron.jpg',
-    text: 'El arotron era un arado utilizado por los griegos para labrar y preparar la tierra. Tirado por bueyes o mulas, su hoja de hierro se adentraba en el suelo, volteándolo y rompiéndolo, facilitando la siembra. Ayudaba a controlar malas hierbas y residuos de cultivos anteriores',
+    text: 'En la escultura, los artistas griegos utilizaban el martillo y cincel para esculpir detalles finos y precisos en la piedra o el mármol. Golpeando cuidadosamente el cincel con el martillo, podían tallar formas y crear texturas según su visión artística.',
     textColor: 'Black',
     position: [-0.875, 0.35, -0.25],
   },

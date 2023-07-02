@@ -20,8 +20,8 @@ export const sections = [
   {
     title: 'Sección 4, herramientas',
     description: 'En esta sección encontrarás información sobre las herramientas más relevantes de la antigua grecia',
-    start: 21,
-    end: 27,
+    start: 11,
+    end: 14,
   },
   {
     title: 'Sección 5, recomendaciones',

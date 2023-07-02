@@ -136,16 +136,43 @@ const questions = [
   {
     quizId: 5,
     section: 5,
-    page: 11,
+    page: 14,
     isFinished: false,
     questions: [
       {
-        question: '¿Cuál es la capital de Colombia?',
+        question: '¿Como se llama la herramienta que utilizaban para labrar la tierra?',
         options: [
-          { option: 'Bogotá', correct: true },
-          { option: 'Medellín', correct: false },
-          { option: 'Cali', correct: false },
-          { option: 'Barranquilla', correct: false },
+          { option: 'Arotron', correct: true },
+          { option: 'Pico', correct: false },
+          { option: 'Megatron', correct: false },
+          { option: 'Pala', correct: false },
+        ],
+      },
+      {
+        question: 'Los antiguos griegos tenian hornos en forma de...',
+        options: [
+          { option: 'Esfera', correct: false },
+          { option: 'Tronco', correct: false },
+          { option: 'Cupula', correct: true },
+          { option: 'Cubo', correct: false },
+        ],
+      },
+      {
+        question: 'En la tecnica de construccion "oups caementicium" se utilizaba...',
+        options: [
+          { option: 'Cal, arena y agua', correct: true },
+          { option: 'Cal, arcilla y agua', correct: false },
+          { option: 'Arena, piedra volcanica y agua', correct: false },
+          { option: 'Cal, arena y barro', correct: false },
+        ],
+      },
+      {
+        question: '¿Para que se utilizaba el tornillo de Arquímedes?',
+        options: [
+          { option: 'Unir madera', correct: false },
+          { option: 'Transportar cultivos', correct: false },
+          { option: 'Abrir huecos', correct: false },
+          { option: 'Elevar agua', correct: true },
         ],
       },
     ],
