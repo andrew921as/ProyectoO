@@ -47,6 +47,9 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const IndexB = dynamic(() => import('@/components/canvas/book/IndexBook').then((mod) => mod.IndexBook), {
     ssr: false,
   })
+  const Hints = dynamic(() => import('@/components/canvas/book/Hints').then((mod) => mod.Hints), {
+    ssr: false,
+  })
   const NextPage = dynamic(() => import('@/components/canvas/book/NextPage').then((mod) => mod.NextPage), {
     ssr: false,
   })
@@ -250,10 +253,6 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
     group.current.rotation.z += Math.PI / 2 // Rotación de 90 grados alrededor del eje Y
     // sticker.current.rotation.x -= Math.PI /2;
 
-    // actions["ArmatureAction"].isRunning() ? funtionsS : null
-    // actions["ArmatureAction"].isRunning()? updateState(true) : null
-    // updateState(true)
-
     setTimeout(() => {
       updateState(true)
     }, 3000)
@@ -270,15 +269,6 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       indexRef.current.position = [targetPosition.x, targetPosition.y, targetPosition.z]
     }
     group.current.lookAt(camera.position)
-
-    // const stickerOffsetX = 1; // Offset horizontal hacia la derecha
-    // const stickerOffsetY = 0.5; // Offset vertical hacia arriba
-    // const stickerOffsetZ = 3; // Offset vertical hacia arriba
-    // sticker.current.position.copy(targetImgPosition);
-    // sticker.current.position.x = camera.position.x;
-    // sticker.current.position.y = camera.position.y;
-    // sticker.current.position.z = camera.position.z;
-    // sticker.current.lookAt(camera.position);
   }, [])
 
   return (
@@ -299,20 +289,6 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       <PreviousPage flagPageBookState={flagPageBookState} />
 
       <group ref={group} dispose={null}>
-        {/* <mesh visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
-          <planeGeometry args={[1, 1]} />
-          <meshStandardMaterial map={currentTexture} color='whitered' side={DoubleSide} />
-        </mesh>
-        <ImageWall
-          visible={isWallVisible}
-          onClick={() => {
-            setWallVisibility(false)
-            setText('')
-            setImgVisibility(true)
-          }}
-          texture={currentTexture}
-          text={text}
-        /> */}
         <group rotation-x={Math.PI / 2} name='Scene'>
           <group name='Armature'>
             <primitive object={nodes.Base} />
@@ -338,9 +314,18 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
                   </>
                 )
               })}
-            {bookPage == 0 && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} />}
 
-            {/* Mensaje de introducción para la sección 2, la cual trata sobre figuras de la antigua grecia*/}
+            {/* Pistas */}
+            {bookPage == 0 && !bookState.hint && (
+              <>
+                <Hints />
+              </>
+            )}
+
+            {/* Página de índice */}
+            {bookPage == 0 && !bookState.hint && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} />}
+
+            {/* Mensajes de introducción a cada sección del libro*/}
             {sections.map((section, index) => {
               if (bookPage == section.start && !bookState.isQuizOpen && index !== 0) {
                 return (
@@ -407,7 +392,6 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             receiveShadow
             geometry={nodes.Plano002.geometry}
             material={materials['Material.002']}
-            // material={materials['lock.004']}
             scale={[0.2, 0.27, 0.13]}
             position={[1.4, 0.3, 1.1]}
             rotation={[0, 0, -1.54]}
@@ -422,12 +406,10 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             receiveShadow
             geometry={nodes.Plano002.geometry}
             material={arrowTexture}
-            // material={materials['lock.004']}
             scale={[0.2, 0.27, 0.13]}
             position={[-1.75, 0.7, 1]}
             rotation={[0, 0, -1.54]}
             onClick={() => {
-              // console.log('CLICKEEEED')
               previousPage()
             }}
           />

@@ -5,19 +5,27 @@ import { Suspense, useState, useEffect, useRef, useContext } from 'react'
 import axios from 'axios'
 import { Color, MeshStandardMaterial } from 'three'
 import { Html, KeyboardControls, Loader, Environment } from '@react-three/drei'
+import ReactAudioPlayer from 'react-audio-player'
 import { useLoader } from '@react-three/fiber'
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/UserProvider'
 import { BookContext } from '@/context/BookProvider'
+import Swal from 'sweetalert2'
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
 import { QuizInterface } from '@/components/elements/QuizInterface'
+import { Help } from '../../src/components/elements/Help'
+import { Music } from '../../src/components/elements/Music'
+
 
 // Data
 import { labels } from 'public/data/labels'
 import { apiUrl } from '@/config'
 import ChangeAvatar from '@/components/elements/ChangeAvatar'
+
+// Music
+import song from '/public/music/enviroment.mp3'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
@@ -66,7 +74,6 @@ const keyboardControls = [
   { name: 'left', keys: ['ArrowLeft', 'a', 'A'] },
   { name: 'right', keys: ['ArrowRight', 'd', 'D'] },
 ]
-// cambio para el commit
 
 export default function Page() {
   const [isShiftPressed, setIsShiftPressed] = useState(false)
@@ -93,6 +100,21 @@ export default function Page() {
 
   // Variable HDRI para el cielo
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
+
+  // Referencia al componente ReactAudioPlayer
+  const audioRef = useRef()
+
+  //Verifica que se pause la musica si el usuario esta interactuando con el libro
+  useEffect(() => {
+    // Lógica para reproducir y pausar la música cuando cambia el estado de isBookOpen
+    if (isBookOpen) {
+      // Detener la reproducción de la música
+      audioRef.current?.audioEl.current?.pause()
+    } else {
+      // Iniciar la reproducción de la música
+      audioRef.current?.audioEl.current?.play()
+    }
+  }, [isBookOpen])
 
   //Verifica que haya un usuario en el localstorage
   useEffect(() => {
@@ -172,11 +194,29 @@ export default function Page() {
     }
   }, [])
 
+  // Verifica si el usuario presiona la tecla B
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'b' || event.key === 'B') {
+        setIsBookOpen(!isBookOpen)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyPress)
+
+    // Limpia los listeners al desmontar el componente
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [isBookOpen])
+
   return (
     <Suspense fallback={<Loader />}>
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
+      {/* Music */}
+      <ReactAudioPlayer ref={audioRef} src={song} autoPlay={!isBookOpen} loop volume={0.4} className='hidden' />
 
       {/* Modal */}
       <div className='absolute z-20 top-0 right-0'>
@@ -196,6 +236,16 @@ export default function Page() {
           <ChangeAvatar setIsChangeAvatarOpen={setIsChangeAvatarOpen} />
         </div>
       )}
+
+      {/* Help */}
+      <div className='absolute z-20 left-0 top-0'>
+        <Help />
+      </div>
+
+      {/* Music */}
+      <div className='absolute z-20 left-0 bottom-0'>
+        <Music />
+      </div>
 
       {/* Book */}
       <div className='absolute z-20 bottom-0 right-0'>
