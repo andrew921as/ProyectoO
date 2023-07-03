@@ -53,6 +53,9 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const PreviousPage = dynamic(() => import('@/components/canvas/book/PreviousPage').then((mod) => mod.PreviousPage), {
     ssr: false,
   })
+  const IndexButton = dynamic(() => import('@/components/elements/IndexButton').then((mod) => mod.IndexButton), {
+    ssr: false,
+  })
 
   // Estados del libro
   const [sectionsUnlocked, setSectionsUnlocked] = useState(0)
@@ -63,7 +66,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const [visibleVideos, setVisibleVideos] = useState([])
   const [visibleQuizzes, setVisibleQuizzes] = useState([])
   const [arrowTexture, setArrowTexture] = useState(texture_arrow)
-
+  const [visibleIndexB, setVisibleIndexB] = useState(true)
   const [flagPageBookState, setFlagPageBookState] = useState(false)
 
   const updateState = (newValue) => {
@@ -339,7 +342,8 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
                 )
               })}
             {bookPage == 0 && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} />}
-
+            
+            {(visibleIndexB && bookPage != 0)? <IndexButton setBookPage={setBookPage} nextPage={nextPageIndex} /> : null}
             {/* Mensaje de introducción para la sección 2, la cual trata sobre figuras de la antigua grecia*/}
             {sections.map((section, index) => {
               if (bookPage == section.start && !bookState.isQuizOpen && index !== 0) {
