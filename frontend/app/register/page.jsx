@@ -97,88 +97,90 @@ const Resgiter = () => {
   //Inicia sesión con Google
   
   const handleGoogleLogin = async () => {
-    if (typeof window !== 'undefined') {
-    const auth = getAuth();
-    // Inicia el loading
-    setIsLoading(true)
-    const { profile } =await signInWithPopup(auth, provider)
-    .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-		const moreUser = getAdditionalUserInfo(result)
+    console.log('hola')
+  //   if (typeof window !== 'undefined') {
+  //   const auth = getAuth();
+  //   // Inicia el loading
+  //   setIsLoading(true)
+  //   const { profile } =await signInWithPopup(auth, provider)
+  //   .then((result) => {
+  //   // This gives you a Google Access Token. You can use it to access the Google API.
+  //   const credential = GoogleAuthProvider.credentialFromResult(result);
+  //   const token = credential.accessToken;
+  //   // The signed-in user info.
+	// 	const moreUser = getAdditionalUserInfo(result)
     
-    //Comentario
-    console.log(moreUser);
+  //   //Comentario
+  //   console.log(moreUser);
 
-    return moreUser
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-    return error
-  });
+  //   return moreUser
+  //   // IdP data available using getAdditionalUserInfo(result)
+  //   // ...
+  // }).catch((error) => {
+  //   // Handle Errors here.
+  //   const errorCode = error.code;
+  //   const errorMessage = error.message;
+  //   // The email of the user's account used.
+  //   const email = error.customData.email;
+  //   // The AuthCredential type that was used.
+  //   const credential = GoogleAuthProvider.credentialFromError(error);
+  //   // ...
+  //   return error
+  // });
 
-    const data = {
-      name: profile.given_name,
-      last_name: profile.family_name,
-      email: profile.email,
-      password: profile.id,
-    }
+  //   const data = {
+  //     name: profile.given_name,
+  //     last_name: profile.family_name,
+  //     email: profile.email,
+  //     password: profile.id,
+  //   }
 
-    if (profile) {
-      axios
-        .post(`${apiUrl}/users/loginGoogle`, data)
-        .then((response) => {
-          console.log(response.data) // Maneja la respuesta del servidor según tus necesidades
+  //   if (profile) {
+  //     axios
+  //       .post(`${apiUrl}/users/loginGoogle`, data)
+  //       .then((response) => {
+  //         console.log(response.data) // Maneja la respuesta del servidor según tus necesidades
 
-          // Detiene el loading
-          setIsLoading(false)
+  //         // Detiene el loading
+  //         setIsLoading(false)
 
-          if (response.data.user) {
-            // Guarda el usuario en el localStorage
-            localStorage.setItem('user', JSON.stringify(response.data.user))
-          }
-          // Detiene el loading
-          setIsLoading(false)
-          // Envía al usuario a la página de inicio
-          router.push('/world')
-        })
-        .catch((error) => {
-          // console.error(error)
+  //         if (response.data.user) {
+  //           // Guarda el usuario en el localStorage
+  //           localStorage.setItem('user', JSON.stringify(response.data.user))
+  //         }
+  //         // Detiene el loading
+  //         setIsLoading(false)
+  //         // Envía al usuario a la página de inicio
+  //         router.push('/world')
+  //       })
+  //       .catch((error) => {
+  //         // console.error(error)
 
-          // Detiene el loading
-          setIsLoading(false)
+  //         // Detiene el loading
+  //         setIsLoading(false)
 
-          // Alerta de error
-          Swal.fire({
-            title: 'Error!',
-            text: 'Ocurrió un error al iniciar sesión. Verifica tus credenciales.',
-            confirmButtonText: 'Aceptar',
-            buttonsStyling: false,
-            color: '#F4DFB0',
-            iconColor: '#F4DFB0',
-            background: '#8C6F4D',
-            iconHtml: '<img src="/icons/login/advertencia.svg" alt="error" class="w-20 h-20">',
-            customClass: {
-              popup: 'rounded-3xl',
-              container: 'rounded-xl',
-              title: 'text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
-              htmlContainer: 'text-amarillito text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
-              confirmButton: 'bg-moradito_palido text-amarillito font-texto text-xl p-4 rounded',
-            },
-          })
-        })
-    }
-  }}
+  //         // Alerta de error
+  //         Swal.fire({
+  //           title: 'Error!',
+  //           text: 'Ocurrió un error al iniciar sesión. Verifica tus credenciales.',
+  //           confirmButtonText: 'Aceptar',
+  //           buttonsStyling: false,
+  //           color: '#F4DFB0',
+  //           iconColor: '#F4DFB0',
+  //           background: '#8C6F4D',
+  //           iconHtml: '<img src="/icons/login/advertencia.svg" alt="error" class="w-20 h-20">',
+  //           customClass: {
+  //             popup: 'rounded-3xl',
+  //             container: 'rounded-xl',
+  //             title: 'text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
+  //             htmlContainer: 'text-amarillito text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto',
+  //             confirmButton: 'bg-moradito_palido text-amarillito font-texto text-xl p-4 rounded',
+  //           },
+  //         })
+  //       })
+  //   }
+  // }
+  }
 
   useEffect(() => {
     const screenHeight = window.innerHeight
