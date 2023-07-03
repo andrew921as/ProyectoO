@@ -15,9 +15,9 @@ export const Music = ({ onClick }) => {
     }
   
     return (
-      <div onClick={handleClick} className='absolute cursor-pointer bottom-4 left-4 w-20 h-20 rounded-md'>
+      <div onClick={()=>{handleClick();onClick()}} className='absolute cursor-pointer bottom-4 left-4 w-20 h-20 rounded-md'>
         <div className='flex justify-center items-center w-full h-full'>
-          <img src={isClicked ? '/img/world/sonido.png' : '/img/world/no-sonido.png'} alt='GIF' className='w-16 h-16 object-cover' />
+          <img src={isClicked ?  '/img/world/no-sonido.png' : '/img/world/sonido.png'} alt='GIF' className='w-16 h-16 object-cover' />
         </div>
       </div>
     )

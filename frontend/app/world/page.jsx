@@ -86,6 +86,9 @@ export default function Page() {
   // Estado de las llaves
   const [visibleKeys, setVisibleKeys] = useState([])
 
+  // Estado de la Musica
+  const [isMusicPlaying, setIsMusicPlaying] = useState(true);
+
   // Estados del usuario
   const [isChangeAvatarOpen, setIsChangeAvatarOpen] = useState(false)
 
@@ -104,17 +107,24 @@ export default function Page() {
   // Referencia al componente ReactAudioPlayer
   const audioRef = useRef()
 
-  //Verifica que se pause la musica si el usuario esta interactuando con el libro
+  //Verifica que se pause la musica si el usuario esta interactuando con el libro o con el boton de sonido
   useEffect(() => {
     // Lógica para reproducir y pausar la música cuando cambia el estado de isBookOpen
-    if (isBookOpen) {
+    if (isBookOpen || !isMusicPlaying) {
       // Detener la reproducción de la música
       audioRef.current?.audioEl.current?.pause()
     } else {
       // Iniciar la reproducción de la música
       audioRef.current?.audioEl.current?.play()
     }
-  }, [isBookOpen])
+  }, [isBookOpen,isMusicPlaying])
+
+  // Handler de la Musica
+  const handleMusicToggle = () => {
+  
+    setIsMusicPlaying(!isMusicPlaying);
+   
+  };
 
   //Verifica que haya un usuario en el localstorage
   useEffect(() => {
@@ -216,7 +226,7 @@ export default function Page() {
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
       {/* Music */}
-      <ReactAudioPlayer ref={audioRef} src={song} autoPlay={!isBookOpen} loop volume={0.4} className='hidden' />
+      <ReactAudioPlayer ref={audioRef} src={song} autoPlay={!isBookOpen && isMusicPlaying} loop volume={0.4} className='hidden' />
 
       {/* Modal */}
       <div className='absolute z-20 top-0 right-0'>
@@ -244,7 +254,7 @@ export default function Page() {
 
       {/* Music */}
       <div className='absolute z-20 left-0 bottom-0'>
-        <Music />
+        <Music onClick={handleMusicToggle}/>
       </div>
 
       {/* Book */}
