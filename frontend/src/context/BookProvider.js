@@ -12,11 +12,11 @@ const initialBookState = {
   isQuizOpen: false,
   quiz: null,
   quizzes: questions,
+  hint: false,
 }
 
 export const BookProvider = ({ children }) => {
   const [bookState, setBookState] = useState(initialBookState)
-
 
   return <BookContext.Provider value={{ bookState, setBookState }}>{children}</BookContext.Provider>
 }
