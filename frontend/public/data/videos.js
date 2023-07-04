@@ -83,6 +83,13 @@ const videos = [
     videoUrl: 'https://www.youtube.com/watch?v=tjlb-SfTKdI',
     texture: '/img/world/Hydra.jpg',
   },
+  {
+    videoId: 13,
+    page: 8,
+    position: [0.875, -0.65, -0.25],
+    videoUrl: 'https://www.youtube.com/watch?v=tmK8iqWAqK4',
+    texture: '/img/world/Structures.jpg',
+  },
 ]
 
 export { videos }

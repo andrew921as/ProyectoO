@@ -6,7 +6,7 @@ import { useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
-export const Modal = () => {
+export const Modal = ({ setIsChangeAvatarOpen }) => {
   const { user, setUser } = useContext(UserContext)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -18,17 +18,17 @@ export const Modal = () => {
     setIsOpen(false)
   }
 
+  // console.log(user)
+
   return (
     <>
       <div
         className='cursor-pointer absolute right-5 top-5 rounded-full bg-blue-500 h-20 w-20 flex items-center justify-center'
         onClick={handleToggleMenu}
       >
-        <img
-          src='https://i.pinimg.com/280x280_RS/42/03/a5/4203a57a78f6f1b1cc8ce5750f614656.jpg'
-          alt='Foto de perfil'
-          className='z-20 w-full h-full object-cover rounded-full'
-        />
+        {user && (
+          <img src={user.avatar} alt='Foto de perfil' className='z-20 w-full h-full object-cover rounded-full' />
+        )}
       </div>
 
       {isOpen && (
@@ -36,14 +36,11 @@ export const Modal = () => {
           <ul className='font-texto shadow-lg rounded-lg py-2 bg-sin_derechos bg-opacity-75'>
             <li className='px-4 py-2 text-amarillito'>Conocimiento: {user ? user.points : 0}</li>
             <div className='w-full h-[2px] bg-amarillito' />
-            <li>
-              <Link
-                href='/change-avatar'
-                className='block px-4 py-2 text-con_derechos hover:bg-gray-200'
-                onClick={handleCloseMenu}
-              >
-                Cambiar avatar
-              </Link>
+            <li
+              className='block px-4 py-2 text-con_derechos hover:bg-gray-200'
+              onClick={() => setIsChangeAvatarOpen(true)}
+            >
+              Cambiar avatar
             </li>
             <li>
               <Link

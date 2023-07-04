@@ -33,8 +33,35 @@ export const Common = ({ color }) => (
 )
 
 const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
+  // Estados
+  const [isExitCamera, setIsExitCamera] = useState(false)
+
+  // Refs
+  // const pointerLockRef = useRef(null)
   const localRef = useRef(null)
   useImperativeHandle(ref, () => localRef.current)
+
+  // Verifica si el usuario presiona la tecla escape
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.keyCode === 27) {
+        // Código de tecla para Escape es 27
+        setIsExitCamera(false)
+      }
+    }
+
+    // Agregar el evento de escucha al montar el componente
+    document.addEventListener('keydown', handleKeyPress)
+
+    // Limpiar el evento de escucha al desmontar el componente
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress)
+    }
+  }, []) // El array vacío asegura que el efecto solo se ejecute una vez al montar el componente
+
+  // useEffect(() => {
+  //   console.log('isExitCamera', isExitCamera)
+  // }, [isExitCamera])
 
   return (
     <>
@@ -46,7 +73,16 @@ const View = forwardRef(({ children, orbit, isBookOpen, ...props }, ref) => {
           {orbit && (
             <>
               {/* <OrbitControls enablePan={false} /> */}
-              {!isBookOpen && <PointerLockControls />}
+              {!isBookOpen && !isExitCamera && (
+                <PointerLockControls
+                  isLocked={true}
+                  onUnlock={(e) => {
+                    if (e.type == 'unlock') {
+                      setIsExitCamera(true)
+                    }
+                  }}
+                />
+              )}
             </>
           )}
         </ViewImpl>
@@ -86,7 +122,7 @@ export function Player({ walkVelocity = 5 }) {
 
   useFrame((state, delta) => {
     const { forward, backward, left, right } = get()
-    const initialPosition = new THREE.Vector3(-52.5, 10, -40)
+    const initialPosition = new THREE.Vector3(-54, 10, -40)
     const cameraPosition = state.camera.position
     if (cameraPosition.x == 0 && cameraPosition.y == 0 && cameraPosition.z == 5) {
       state.camera.position.copy(initialPosition)

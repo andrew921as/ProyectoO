@@ -92,16 +92,43 @@ const questions = [
   {
     quizId: 4,
     section: 4,
-    page: 10,
+    page: 11,
     isFinished: false,
     questions: [
       {
-        question: '¿Cuál es la capital de Colombia?',
+        question: '¿Cuál era el mercado de la antigua Grecia?',
         options: [
-          { option: 'Bogotá', correct: true },
-          { option: 'Medellín', correct: false },
-          { option: 'Cali', correct: false },
-          { option: 'Barranquilla', correct: false },
+          { option: 'Agora', correct: true },
+          { option: 'Galeria', correct: false },
+          { option: 'Bazar', correct: false },
+          { option: 'Stoa', correct: false },
+        ],
+      },
+      {
+        question: '¿Qúe estructura fue hecha en honor de Atenea, Poseidon y Erecteo?',
+        options: [
+          { option: 'Partenon', correct: false },
+          { option: 'Erecteion', correct: true },
+          { option: 'Templo de atenea', correct: false },
+          { option: 'Piramide de Guiza', correct: false },
+        ],
+      },
+      {
+        question: '¿Cómo se le decia a las puertas de entrada de un edificio, templo o recinto?',
+        options: [
+          { option: 'Alfombra Roja', correct: false },
+          { option: 'Cenote', correct: false },
+          { option: 'Bouleterion', correct: false },
+          { option: 'Propileos', correct: true },
+        ],
+      },
+      {
+        question: '¿Cuál es el mayor templo de todo el Peloponeso',
+        options: [
+          { option: 'El Templo de Artemisa', correct: false },
+          { option: 'Mausoleo de Halicarnaso', correct: false },
+          { option: 'Templo de Zeus', correct: true },
+          { option: 'El templo de Poseidón', correct: false },
         ],
       },
     ],

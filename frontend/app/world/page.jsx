@@ -5,30 +5,50 @@ import { Suspense, useState, useEffect, useRef, useContext } from 'react'
 import axios from 'axios'
 import { Color, MeshStandardMaterial } from 'three'
 import { Html, KeyboardControls, Loader, Environment } from '@react-three/drei'
+import ReactAudioPlayer from 'react-audio-player'
 import { useLoader } from '@react-three/fiber'
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/UserProvider'
 import { BookContext } from '@/context/BookProvider'
+import Swal from 'sweetalert2'
 // React Components
 import { Modal } from '../../src/components/elements/Modal'
 import { Book } from '../../src/components/elements/Book'
 import { QuizInterface } from '@/components/elements/QuizInterface'
+import { Help } from '../../src/components/elements/Help'
+import { Music } from '../../src/components/elements/Music'
+
 
 // Data
 import { labels } from 'public/data/labels'
 import { apiUrl } from '@/config'
+import ChangeAvatar from '@/components/elements/ChangeAvatar'
+
+// Music
+import song from '/public/music/enviroment.mp3'
 
 // React Three Fiber Components
 const BookModel = dynamic(() => import('@/components/canvas/book/Book').then((mod) => mod.Book), { ssr: false })
 
-const TiamatStatue = dynamic(() => import('@/components/canvas/world/decorations/Tiamat').then((mod) => mod.Tiamat), { ssr: false })
-const Crane = dynamic(() => import('@/components/canvas/world/decorations/Crane').then((mod) => mod.Crane), { ssr: false })
-const Dagger = dynamic(() => import('@/components/canvas/world/decorations/Dagger').then((mod) => mod.Dagger), { ssr: false })
-const Kratos = dynamic(() => import('@/components/canvas/world/decorations/Kratos').then((mod) => mod.Kratos), { ssr: false })
-const Sword = dynamic(() => import('@/components/canvas/world/decorations/Sword').then((mod) => mod.Sword), { ssr: false })
-const Shield = dynamic(() => import('@/components/canvas/world/decorations/Shield').then((mod) => mod.Shield), { ssr: false })
+const TiamatStatue = dynamic(() => import('@/components/canvas/world/decorations/Tiamat').then((mod) => mod.Tiamat), {
+  ssr: false,
+})
+const Crane = dynamic(() => import('@/components/canvas/world/decorations/Crane').then((mod) => mod.Crane), {
+  ssr: false,
+})
+const Dagger = dynamic(() => import('@/components/canvas/world/decorations/Dagger').then((mod) => mod.Dagger), {
+  ssr: false,
+})
+const Kratos = dynamic(() => import('@/components/canvas/world/decorations/Kratos').then((mod) => mod.Kratos), {
+  ssr: false,
+})
+const Sword = dynamic(() => import('@/components/canvas/world/decorations/Sword').then((mod) => mod.Sword), {
+  ssr: false,
+})
+const Shield = dynamic(() => import('@/components/canvas/world/decorations/Shield').then((mod) => mod.Shield), {
+  ssr: false,
+})
 const Key = dynamic(() => import('@/components/canvas/world/Keys').then((mod) => mod.Key), { ssr: false })
-
 
 const World = dynamic(() => import('@/components/canvas/world/World').then((mod) => mod.ModelWorld), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -54,7 +74,6 @@ const keyboardControls = [
   { name: 'left', keys: ['ArrowLeft', 'a', 'A'] },
   { name: 'right', keys: ['ArrowRight', 'd', 'D'] },
 ]
-// cambio para el commit
 
 export default function Page() {
   const [isShiftPressed, setIsShiftPressed] = useState(false)
@@ -67,6 +86,12 @@ export default function Page() {
   // Estado de las llaves
   const [visibleKeys, setVisibleKeys] = useState([])
 
+  // Estado de la Musica
+  const [isMusicPlaying, setIsMusicPlaying] = useState(true);
+
+  // Estados del usuario
+  const [isChangeAvatarOpen, setIsChangeAvatarOpen] = useState(false)
+
   const book = <BookModel isBookOpen={isBookOpen} animationPage={animationPage} setAnimationPage={setAnimationPage} />
 
   const router = useRouter()
@@ -78,6 +103,28 @@ export default function Page() {
 
   // Variable HDRI para el cielo
   const env = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/industrial_sunset_02_puresky_4k.hdr'
+
+  // Referencia al componente ReactAudioPlayer
+  const audioRef = useRef()
+
+  //Verifica que se pause la musica si el usuario esta interactuando con el libro o con el boton de sonido
+  useEffect(() => {
+    // Lógica para reproducir y pausar la música cuando cambia el estado de isBookOpen
+    if (isBookOpen || !isMusicPlaying) {
+      // Detener la reproducción de la música
+      audioRef.current?.audioEl.current?.pause()
+    } else {
+      // Iniciar la reproducción de la música
+      audioRef.current?.audioEl.current?.play()
+    }
+  }, [isBookOpen,isMusicPlaying])
+
+  // Handler de la Musica
+  const handleMusicToggle = () => {
+  
+    setIsMusicPlaying(!isMusicPlaying);
+   
+  };
 
   //Verifica que haya un usuario en el localstorage
   useEffect(() => {
@@ -108,7 +155,6 @@ export default function Page() {
 
       // Guarda el usuario actualizado en el localStorage
       localStorage.setItem('user', JSON.stringify(user))
-
     }
   }, [user])
 
@@ -158,15 +204,57 @@ export default function Page() {
     }
   }, [])
 
+  // Verifica si el usuario presiona la tecla B
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'b' || event.key === 'B') {
+        setIsBookOpen(!isBookOpen)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyPress)
+
+    // Limpia los listeners al desmontar el componente
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [isBookOpen])
+
   return (
     <Suspense fallback={<Loader />}>
       {/* <div className='absolute z-20 top-0 right-[400px] left-0 bottom-[300px] flex items-center justify-center'>
         <div className='bg-red-500 w-32 h-32'></div>
       </div > */}
+      {/* Music */}
+      <ReactAudioPlayer ref={audioRef} src={song} autoPlay={!isBookOpen && isMusicPlaying} loop volume={0.4} className='hidden' />
 
       {/* Modal */}
       <div className='absolute z-20 top-0 right-0'>
-        <Modal />
+        <Modal setIsChangeAvatarOpen={setIsChangeAvatarOpen} />
+      </div>
+
+      {/* Cambiar avatar */}
+      {isChangeAvatarOpen && (
+        <div
+          style={{
+            width: windowSize.width * 0.8 + 'px',
+            height: windowSize.height * 0.9 + 'px',
+          }}
+          className='fixed z-40 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+        >
+          {/* <QuizInterface /> */}
+          <ChangeAvatar setIsChangeAvatarOpen={setIsChangeAvatarOpen} />
+        </div>
+      )}
+
+      {/* Help */}
+      <div className='absolute z-20 left-0 top-0'>
+        <Help />
+      </div>
+
+      {/* Music */}
+      <div className='absolute z-20 left-0 bottom-0'>
+        <Music onClick={handleMusicToggle}/>
       </div>
 
       {/* Book */}
@@ -202,12 +290,17 @@ export default function Page() {
           orbit
           className='absolute flex h-full w-full flex-col items-center justify-center bg-blue-700 bg-opacity-50'
           isBookOpen={isBookOpen}
-          castShadow={false}
+          // castShadow={false}
         >
           <Environment files={env} ground={{ height: 5, radius: 4096, scale: 400 }} />
           <KeyboardControls map={keyboardControls}>
             <Suspense>
-              <World isBookOpen={isBookOpen} labels={labels} castShadow={false}/>
+              <World
+                isBookOpen={isBookOpen}
+                isChangeAvatarOpen={isChangeAvatarOpen}
+                labels={labels}
+                castShadow={false}
+              />
 
               <TiamatStatue />
               <Crane />

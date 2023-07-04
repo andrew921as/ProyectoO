@@ -16,34 +16,7 @@ import { BookContext } from '@/context/BookProvider'
 import { stickers } from 'public/data/stickers'
 import { videos } from 'public/data/videos'
 import { questions } from 'public/data/quices'
-
-const sections = [
-  {
-    name: 'Sección 1, mitología',
-    start: 0,
-    end: 3,
-  },
-  {
-    name: 'Sección 2, figuras',
-    start: 3,
-    end: 13,
-  },
-  {
-    name: 'Sección 3, estructuras',
-    start: 14,
-    end: 20,
-  },
-  {
-    name: 'Sección 4, mitologia',
-    start: 21,
-    end: 27,
-  },
-  {
-    name: 'Sección 5, recomendaciones',
-    start: 28,
-    end: 34,
-  },
-]
+import { sections } from 'public/data/sections'
 
 // Modelo Libro 3D
 export function Book({ isBookOpen, setAnimationPage, animationPage }) {
@@ -74,6 +47,9 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const IndexB = dynamic(() => import('@/components/canvas/book/IndexBook').then((mod) => mod.IndexBook), {
     ssr: false,
   })
+  const Hints = dynamic(() => import('@/components/canvas/book/Hints').then((mod) => mod.Hints), {
+    ssr: false,
+  })
   const NextPage = dynamic(() => import('@/components/canvas/book/NextPage').then((mod) => mod.NextPage), {
     ssr: false,
   })
@@ -82,14 +58,14 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   })
 
   // Estados del libro
-  const [sectionsUnlocked, setSectionsUnlocked] = useState(3)
+  const [sectionsUnlocked, setSectionsUnlocked] = useState(0)
   const [bookPage, setBookPage] = useState(0)
   const [isImgOpen, setIsImgOpen] = useState(false)
   const [isVidOpen, setIsVidOpen] = useState(false)
   const [visibleStickers, setVisibleStickers] = useState([])
   const [visibleVideos, setVisibleVideos] = useState([])
   const [visibleQuizzes, setVisibleQuizzes] = useState([])
-  const [arrowTexture, setArrowTexture] = useState(texture_arrow);
+  const [arrowTexture, setArrowTexture] = useState(texture_arrow)
 
   const [flagPageBookState, setFlagPageBookState] = useState(false)
 
@@ -128,31 +104,31 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       quizzes,
     })
 
-    console.log(bookState)
+    // Actualizar las zonas desbloqueadas
+    if (user.progress == 0) setSectionsUnlocked(0)
+    if (user.progress == 20) setSectionsUnlocked(1)
+    if (user.progress == 40) setSectionsUnlocked(2)
+    if (user.progress == 60) setSectionsUnlocked(3)
+    if (user.progress == 80) setSectionsUnlocked(4)
+    if (user.progress == 100) setSectionsUnlocked(5)
   }, [user])
 
   // Filtrar los sticker, videos y quizzes visibles por página
   useEffect(() => {
-    if (bookPage == -1) {
-      setBookPage(0)
-    } else if (bookPage == sections[sectionsUnlocked - 1].end + 1) {
-      setBookPage(sections[sectionsUnlocked - 1].end)
-    } else {
-      const filteredStickers = stickers.filter((sticker) => {
-        return sticker.page === bookPage
-      })
-      setVisibleStickers(filteredStickers)
+    const filteredStickers = stickers.filter((sticker) => {
+      return sticker.page === bookPage
+    })
+    setVisibleStickers(filteredStickers)
 
-      const filteredVideos = videos.filter((video) => {
-        return video.page === bookPage
-      })
-      setVisibleVideos(filteredVideos)
+    const filteredVideos = videos.filter((video) => {
+      return video.page === bookPage
+    })
+    setVisibleVideos(filteredVideos)
 
-      const filteredQuizzes = bookState.quizzes.filter((quiz) => {
-        return quiz.page === bookPage && !quiz.isFinished
-      })
-      setVisibleQuizzes(filteredQuizzes)
-    }
+    const filteredQuizzes = bookState.quizzes.filter((quiz) => {
+      return quiz.page === bookPage && !quiz.isFinished
+    })
+    setVisibleQuizzes(filteredQuizzes)
   }, [bookPage, bookState])
 
   useEffect(() => {
@@ -178,6 +154,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const { camera } = useThree()
 
   const nextPage = () => {
+    if (bookPage == sections[sectionsUnlocked - 1].end) return
     setAnimationPage(true)
     // console.log("AAA", isReproduceAnimation);
     actions['NextPage'].repetitions = 1 // Repetir animación una vez
@@ -203,6 +180,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   }
 
   const nextPageIndex = () => {
+    if (bookPage == sections[sectionsUnlocked - 1].end) return
     setAnimationPage(true)
     // console.log("AAA", isReproduceAnimation);
     actions['NextPage'].repetitions = 1 // Repetir animación una vez
@@ -223,6 +201,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   }
 
   const previousPage = () => {
+    if (bookPage == 0) return
     setAnimationPage(true)
     // console.log("AAA", isReproduceAnimation);
     actions['NextPage'].repetitions = 1 // Repetir animación una vez
@@ -274,10 +253,6 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
     group.current.rotation.z += Math.PI / 2 // Rotación de 90 grados alrededor del eje Y
     // sticker.current.rotation.x -= Math.PI /2;
 
-    // actions["ArmatureAction"].isRunning() ? funtionsS : null
-    // actions["ArmatureAction"].isRunning()? updateState(true) : null
-    // updateState(true)
-
     setTimeout(() => {
       updateState(true)
     }, 3000)
@@ -294,15 +269,6 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       indexRef.current.position = [targetPosition.x, targetPosition.y, targetPosition.z]
     }
     group.current.lookAt(camera.position)
-
-    // const stickerOffsetX = 1; // Offset horizontal hacia la derecha
-    // const stickerOffsetY = 0.5; // Offset vertical hacia arriba
-    // const stickerOffsetZ = 3; // Offset vertical hacia arriba
-    // sticker.current.position.copy(targetImgPosition);
-    // sticker.current.position.x = camera.position.x;
-    // sticker.current.position.y = camera.position.y;
-    // sticker.current.position.z = camera.position.z;
-    // sticker.current.lookAt(camera.position);
   }, [])
 
   return (
@@ -323,20 +289,6 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       <PreviousPage flagPageBookState={flagPageBookState} />
 
       <group ref={group} dispose={null}>
-        {/* <mesh visible={isImgVisible} ref={sticker} receiveShadow dispose={null} onClick={handleImage}>
-          <planeGeometry args={[1, 1]} />
-          <meshStandardMaterial map={currentTexture} color='whitered' side={DoubleSide} />
-        </mesh>
-        <ImageWall
-          visible={isWallVisible}
-          onClick={() => {
-            setWallVisibility(false)
-            setText('')
-            setImgVisibility(true)
-          }}
-          texture={currentTexture}
-          text={text}
-        /> */}
         <group rotation-x={Math.PI / 2} name='Scene'>
           <group name='Armature'>
             <primitive object={nodes.Base} />
@@ -356,24 +308,38 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             {/* Mostrar quizzes y siguiente sección */}
             {!animationPage &&
               visibleQuizzes.map((quiz) => {
-                return <>
-                  <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
-                </>
+                return (
+                  <>
+                    <Quiz key={'quiz_' + quiz.quizId} quiz={quiz} />
+                  </>
+                )
               })}
-            {bookPage == 0 && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} />}
 
-            {/* Mensaje de introducción para la sección 2, la cual trata sobre figuras de la antigua grecia*/}
-            {bookPage == 4 && !bookState.isQuizOpen && (
-              <Html position={[0.2, 0.5, -0.5]}>
-                <div className=' w-[200px] h-40'>
-                  <div className=''>
-                    <h1 className='text-xl xxl:text-4xl font-texto text-caca_clara text-center'>Sección 2: Figuras</h1>
-                    <p className='font-texto text-caca_clara text-center'>En esta sección encontrarás información sobre personas importantes de la antigua Grecia.</p>
-
-                  </div>
-                </div>
-              </Html>
+            {/* Pistas */}
+            {bookPage == 0 && !bookState.hint && (
+              <>
+                <Hints />
+              </>
             )}
+
+            {/* Página de índice */}
+            {bookPage == 0 && !bookState.hint && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} />}
+
+            {/* Mensajes de introducción a cada sección del libro*/}
+            {sections.map((section, index) => {
+              if (bookPage == section.start && !bookState.isQuizOpen && index !== 0) {
+                return (
+                  <Html key={`section_${index}`} position={[0.2, 0.5, -0.5]}>
+                    <div className=' w-[200px] h-40'>
+                      <div className=''>
+                        <h1 className='text-xl xxl:text-4xl font-texto text-caca_clara text-center'>{section.title}</h1>
+                        <p className='font-texto text-caca_clara text-center'>{section.description}</p>
+                      </div>
+                    </div>
+                  </Html>
+                )
+              }
+            })}
             <group name='Magic_Book'>
               <skinnedMesh
                 name='Cube005'
@@ -426,7 +392,6 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             receiveShadow
             geometry={nodes.Plano002.geometry}
             material={materials['Material.002']}
-            // material={materials['lock.004']}
             scale={[0.2, 0.27, 0.13]}
             position={[1.4, 0.3, 1.1]}
             rotation={[0, 0, -1.54]}
@@ -441,12 +406,10 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             receiveShadow
             geometry={nodes.Plano002.geometry}
             material={arrowTexture}
-            // material={materials['lock.004']}
             scale={[0.2, 0.27, 0.13]}
             position={[-1.75, 0.7, 1]}
             rotation={[0, 0, -1.54]}
             onClick={() => {
-              // console.log('CLICKEEEED')
               previousPage()
             }}
           />
