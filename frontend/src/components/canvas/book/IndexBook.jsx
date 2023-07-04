@@ -27,6 +27,7 @@ export function IndexBook({ setBookPage, nextPage }) {
       window.addEventListener('resize', handleResize) // Actualizar el tamaño de la ventana al cambiar su tamaño
     }
 
+
     return () => {
       if (typeof window !== 'undefined') {
         window.removeEventListener('resize', handleResize) // Eliminar el evento de cambio de tamaño al desmontar el componente
@@ -103,7 +104,7 @@ export function IndexBook({ setBookPage, nextPage }) {
           className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
             user.progress < 80 ? 'text-gray-500' : 'text-caca_clara'
           }`}
-          onClick={() => handleClick(4, 80)}
+          onClick={() => handleClick(11, 80)}
         >
           4. Herramientas
         </h3>
@@ -111,7 +112,7 @@ export function IndexBook({ setBookPage, nextPage }) {
           className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
             user.progress < 100 ? 'text-gray-500' : 'text-caca_clara'
           }`}
-          onClick={() => handleClick(5, 100)}
+          onClick={() => handleClick(14, 100)}
         >
           5. Recomendaciones
         </h3>

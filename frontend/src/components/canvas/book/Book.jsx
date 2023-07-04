@@ -56,6 +56,9 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const PreviousPage = dynamic(() => import('@/components/canvas/book/PreviousPage').then((mod) => mod.PreviousPage), {
     ssr: false,
   })
+  const IndexButton = dynamic(() => import('@/components/elements/IndexButton').then((mod) => mod.IndexButton), {
+    ssr: false,
+  })
 
   // Estados del libro
   const [sectionsUnlocked, setSectionsUnlocked] = useState(0)
@@ -66,7 +69,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
   const [visibleVideos, setVisibleVideos] = useState([])
   const [visibleQuizzes, setVisibleQuizzes] = useState([])
   const [arrowTexture, setArrowTexture] = useState(texture_arrow)
-
+  const [visibleIndexB, setVisibleIndexB] = useState(true)
   const [flagPageBookState, setFlagPageBookState] = useState(false)
 
   const updateState = (newValue) => {
@@ -314,6 +317,8 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
                   </>
                 )
               })}
+            
+            {(visibleIndexB && bookPage != 0)? <IndexButton setBookPage={setBookPage} nextPage={nextPageIndex} /> : null}
 
             {/* Pistas */}
             {bookPage == 0 && !bookState.hint && (
@@ -326,6 +331,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
             {bookPage == 0 && !bookState.hint && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} />}
 
             {/* Mensajes de introducción a cada sección del libro*/}
+
             {sections.map((section, index) => {
               if (bookPage == section.start && !bookState.isQuizOpen && index !== 0) {
                 return (
