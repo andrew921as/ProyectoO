@@ -130,6 +130,7 @@ export default function Page() {
         autoPlay={true}
         controls
         className='hidden'
+        volume={0.35}
       />
       <motion.div
         id={styles.mainHome}

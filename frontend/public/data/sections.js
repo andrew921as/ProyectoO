@@ -17,6 +17,7 @@ export const sections = [
     start: 7,
     end: 11,
   },
+  // -----PENDIENTES----
   {
     title: 'Sección 4, herramientas',
     description: 'En esta sección encontrarás información sobre las herramientas más relevantes de la antigua grecia',
@@ -26,7 +27,7 @@ export const sections = [
   {
     title: 'Sección 5, recomendaciones',
     description: 'En esta sección encontrarás recomendaciones de libros, peliculas y juegos relacionados con la antigua grecia',
-    start: 28,
-    end: 34,
+    start: 14,
+    end: 20,
   },
 ]
