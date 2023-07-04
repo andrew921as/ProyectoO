@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation'
 import { apiUrl } from '@/config'
 import Link from 'next/link'
 import Swal from 'sweetalert2'
-import { provider } from '@/functions'
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo, getRedirectResult } from "firebase/auth";
+import { auth, app, provider, signInWithPopup} from '@/functions';
+import { getAdditionalUserInfo, getAuth } from "firebase/auth";
 
 // COMPONENTS
 import Loading from '@/components/elements/Loading'
@@ -83,45 +83,36 @@ const Login = () => {
   }
 
   //Inicio de sesion  con google
-  const auth = getAuth();
-
   const handleGoogleLogin = async () => {
-      if (typeof window !== 'undefined') {
-      const auth = getAuth();
+    //const auth = getAuth(app);
+    if (typeof window !== 'undefined') {
       // Inicia el loading
       setIsLoading(true)
-        const { profile } = await signInWithPopup(auth, provider)
-          .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const moreUser = getAdditionalUserInfo(result)
+      const { profile } = await signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          // const credential = GoogleAuthProvider.credentialFromResult(result);
+          // const token = credential.accessToken;
+          // The signed-in user info.
+          const moreUser = getAdditionalUserInfo(result)
 
-            //Comentario
-            console.log(moreUser);
+          //Comentario
+          console.log(moreUser);
 
-            return moreUser
-            // IdP data available using getAdditionalUserInfo(result)
-            // ...
-          }).catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
-            return error
-          });
+          return moreUser
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        }).catch((error) => {
+          // ...
+          return error
+        });
 
-        const data = {
-          name: profile.given_name,
-          last_name: profile.family_name,
-          email: profile.email,
-          password: profile.id,
-        }
+      const data = {
+        name: profile.given_name,
+        last_name: profile.family_name,
+        email: profile.email,
+        password: profile.id,
+      }
       if (profile) {
         axios
           .post(`${apiUrl}/users/loginGoogle`, data)
@@ -164,83 +155,86 @@ const Login = () => {
           })
       }
     }
+    else{
+      console.log("No hay nada");
+    }
   }
 
-useEffect(() => {
-  const screenHeight = window.innerHeight
-  const calculatedHeight = screenHeight * 0.96
-  setFormHeight(calculatedHeight)
-}, []);
+  useEffect(() => {
+    const screenHeight = window.innerHeight
+    const calculatedHeight = screenHeight * 0.96
+    setFormHeight(calculatedHeight)
+  }, []);
 
-return (
-  <div
-    className='flex items-center w-full h-screen'
-    style={{
-      backgroundImage: `url("/img/login/login.jpg")`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}
-  >
-    {/* <img src='/img/login/login.png' alt='Fondo De Inicio de Sesión' /> */}
-    <form
-      onSubmit={handleSubmit}
-      className='w-full sm:w-1/2 max-w-[1000px] flex justify-center flex-col p-8 sm:ml-20 bg-sin_derechos bg-opacity-75 text-amarillito text-left rounded shadow-lg'
-      style={{ height: formHeight }}
+  return (
+    <div
+      className='flex items-center w-full h-screen'
+      style={{
+        backgroundImage: `url("/img/login/login.jpg")`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
     >
-      <h2 className='text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto'>Iniciar sesión</h2>
-      <div className='flex mb-4'>
-        <IoMailSharp className=' w-10 h-10 mr-2 mt-2 text-amarillito' />
+      {/* <img src='/img/login/login.png' alt='Fondo De Inicio de Sesión' /> */}
+      <form
+        onSubmit={handleSubmit}
+        className='w-full sm:w-1/2 max-w-[1000px] flex justify-center flex-col p-8 sm:ml-20 bg-sin_derechos bg-opacity-75 text-amarillito text-left rounded shadow-lg'
+        style={{ height: formHeight }}
+      >
+        <h2 className='text-3xl md:text-4xl xl:text-7xl font-bold mb-11 text-left font-texto'>Iniciar sesión</h2>
+        <div className='flex mb-4'>
+          <IoMailSharp className=' w-10 h-10 mr-2 mt-2 text-amarillito' />
 
-        <input
-          type='email'
-          id='email'
-          placeholder='Correo electrónico'
-          value={email}
-          onChange={handleEmailChange}
-          className='text-xl lg:text-3xl w-full bg-transparent border-b-4 p-4 border-amarillito placeholder:text-caca_clara rounded placeholder:text-xl placeholder:lg:text-3xl placeholder:font-light'
-          required
-        />
-      </div>
-      <div className='flex mb-4'>
-        <AiFillUnlock className='w-10 h-10 mr-2 mt-2  text-amarillito' />
-
-        <input
-          type='password'
-          id='password'
-          placeholder='Contraseña'
-          value={password}
-          onChange={handlePasswordChange}
-          className='text-xl lg:text-3xl w-full bg-transparent border-b-4 p-4 border-amarillito placeholder:text-caca_clara rounded placeholder:text-xl placeholder:lg:text-3xl placeholder:font-light '
-          required
-        />
-      </div>
-
-      {isLoading ? (
-        <div className='flex w-full justify-center mt-4'>
-          <Loading />
+          <input
+            type='email'
+            id='email'
+            placeholder='Correo electrónico'
+            value={email}
+            onChange={handleEmailChange}
+            className='text-xl lg:text-3xl w-full bg-transparent border-b-4 p-4 border-amarillito placeholder:text-caca_clara rounded placeholder:text-xl placeholder:lg:text-3xl placeholder:font-light'
+            required
+          />
         </div>
-      ) : null}
+        <div className='flex mb-4'>
+          <AiFillUnlock className='w-10 h-10 mr-2 mt-2  text-amarillito' />
 
-      <div className='flex font-texto text-3xl mt-4 md:mt-[100px] xl:mt-[200px] xxl:mt-[300px]'>
-        <button className='relative'>
-          <Link href='/initialS'>
-            <img src='icons/login/back_button.svg' alt='Volver button' />
-          </Link>
-        </button>
-        <button type='submit' className='relative'>
-          <img src='icons/login/login_button.svg' alt='continuar button' />
-        </button>
-      </div>
-      <div className='relative grid justify-center w-full mt-6'>
-        <button className='relative mx-0 m-auto' type='button' onClick={handleGoogleLogin}>
-          <img src='icons/login/googleButton.png' alt='continuar button' />
-        </button>
-      </div>
-    </form>
+          <input
+            type='password'
+            id='password'
+            placeholder='Contraseña'
+            value={password}
+            onChange={handlePasswordChange}
+            className='text-xl lg:text-3xl w-full bg-transparent border-b-4 p-4 border-amarillito placeholder:text-caca_clara rounded placeholder:text-xl placeholder:lg:text-3xl placeholder:font-light '
+            required
+          />
+        </div>
 
-  </div>
-)
+        {isLoading ? (
+          <div className='flex w-full justify-center mt-4'>
+            <Loading />
+          </div>
+        ) : null}
+
+        <div className='flex font-texto text-3xl mt-4 md:mt-[100px] xl:mt-[200px] xxl:mt-[300px]'>
+          <button className='relative'>
+            <Link href='/initialS'>
+              <img src='icons/login/back_button.svg' alt='Volver button' />
+            </Link>
+          </button>
+          <button type='submit' className='relative'>
+            <img src='icons/login/login_button.svg' alt='continuar button' />
+          </button>
+        </div>
+        <div className='relative grid justify-center w-full mt-6'>
+          <button className='relative mx-0 m-auto' type='button' onClick={handleGoogleLogin}>
+            <img src='icons/login/googleButton.png' alt='continuar button' />
+          </button>
+        </div>
+      </form>
+
+    </div>
+  )
 }
 
 export default Login

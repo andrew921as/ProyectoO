@@ -211,7 +211,7 @@ export default function Page() {
 
               <TiamatStatue />
               <Crane />
-              <Dagger />
+              {/* <Dagger /> */}
               <Kratos />
               <Sword />
               <Shield />
