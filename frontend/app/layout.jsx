@@ -1,4 +1,4 @@
-"use client";
+
 import { Layout } from '@/components/dom/Layout'
 import { BookProvider } from '@/context/BookProvider'
 import { UserProvider } from '@/context/UserProvider'
