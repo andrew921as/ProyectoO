@@ -76,7 +76,7 @@ export function IndexBook({ setBookPage, nextPage }) {
         </h1>
 
         <h3
-          className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
+          className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
             user.progress < 20 ? 'text-gray-500' : 'text-caca_clara'
           }`}
           onClick={() => handleClick(1, 20)}
@@ -84,7 +84,7 @@ export function IndexBook({ setBookPage, nextPage }) {
           1. Mitologia
         </h3>
         <h3
-          className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
+          className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
             user.progress < 40 ? 'text-gray-500' : 'text-caca_clara'
           }`}
           onClick={() => handleClick(4, 40)}
@@ -92,7 +92,7 @@ export function IndexBook({ setBookPage, nextPage }) {
           2. Figuras
         </h3>
         <h3
-          className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
+          className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
             user.progress < 60 ? 'text-gray-500' : 'text-caca_clara'
           }`}
           onClick={() => handleClick(7, 60)}
@@ -100,7 +100,7 @@ export function IndexBook({ setBookPage, nextPage }) {
           3. Estructuras
         </h3>
         <h3
-          className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
+          className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
             user.progress < 80 ? 'text-gray-500' : 'text-caca_clara'
           }`}
           onClick={() => handleClick(4, 80)}
@@ -108,7 +108,7 @@ export function IndexBook({ setBookPage, nextPage }) {
           4. Herramientas
         </h3>
         <h3
-          className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
+          className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
             user.progress < 100 ? 'text-gray-500' : 'text-caca_clara'
           }`}
           onClick={() => handleClick(5, 100)}

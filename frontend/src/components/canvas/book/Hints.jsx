@@ -118,9 +118,13 @@ export function Hints({ setHint }) {
           // Si el usuario no ha encontrado la llave, no se muestra
           if (user.keys.find((k) => k == key._id) == undefined) {
             return (
-              <div className='flex items-center justify-center hover:cursor-pointer' onClick={() => handleClick(key)}>
+              <div
+                key={`hint_${index}`}
+                className='flex items-center justify-center hover:cursor-pointer'
+                onClick={() => handleClick(key)}
+              >
                 <h3
-                  className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer text-gray-500`}
+                  className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer text-gray-500`}
                 >
                   Llave #{index + 1}
                 </h3>
@@ -129,9 +133,9 @@ export function Hints({ setHint }) {
             )
           } else {
             return (
-              <div className='flex items-center justify-center hover:cursor-pointer'>
+              <div key={`hint_${index}`} className='flex items-center justify-center hover:cursor-pointer'>
                 <h3
-                  className={`text-1xl md:text-2xl xl:text-1xl font-bold mb-3 xl:mb-3 text-left font-texto  text-caca_clara`}
+                  className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto  text-caca_clara`}
                 >
                   Llave #{index + 1}
                 </h3>
