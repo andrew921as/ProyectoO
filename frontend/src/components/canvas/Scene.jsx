@@ -11,6 +11,7 @@ export default function Scene({ ...props }) {
     // <Canvas {...props} shadows={false} dpr={[1,2]} flat gl={{antialias: true, outputEncoding: sRGBEncoding, toneMapping: ACESFilmicToneMapping}} >
     <Canvas
       {...props}
+      // style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
       shadows={false}
       dpr={[1, 2]}
       flat
