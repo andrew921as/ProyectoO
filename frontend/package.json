@@ -25,6 +25,7 @@
     "@react-three/rapier": "^1.0.0",
     "adm-zip": "^0.5.10",
     "axios": "^1.4.0",
+    "firebase": "^9.23.0",
     "framer-motion": "^10.12.12",
     "glsl-random": "^0.0.5",
     "next": "^13.4.2",
@@ -38,7 +39,6 @@
     "tunnel-rat": "^0.1.2"
   },
   "devDependencies": {
-    "r3f-perf": "^7.1.2",
     "@next/bundle-analyzer": "^13.3.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.38.0",
@@ -51,6 +51,7 @@
     "jest": "^29.5.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.7",
+    "r3f-perf": "^7.1.2",
     "raw-loader": "^4.0.2",
     "tailwindcss": "^3.3.1",
     "url-loader": "^4.1.1"

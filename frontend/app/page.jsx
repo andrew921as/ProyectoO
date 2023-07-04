@@ -5,8 +5,6 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import ReactAudioPlayer from 'react-audio-player'
-
-
 //Images
 import greekPlay from '/public/img/greekPlay.png'
 
