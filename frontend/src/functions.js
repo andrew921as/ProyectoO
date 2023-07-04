@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+"use client";
 import {getApps,initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
