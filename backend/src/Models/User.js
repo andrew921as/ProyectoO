@@ -46,8 +46,7 @@ const userSchema = new mongoose.Schema({
 	isGoogle: {
 		type: Boolean,
 		default: false,
-		required: true,
-	}
+	},
 });
 
 // Definir el middleware pre para actualizar el atributo "progress"
