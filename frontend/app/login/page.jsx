@@ -215,8 +215,13 @@ const Login = () => {
             <Loading />
           </div>
         ) : null}
-
-        <div className='flex font-texto text-3xl mt-4 md:mt-[100px] xl:mt-[200px] xxl:mt-[300px]'>
+        
+        <div className='relative grid justify-center w-full mt-6'>
+          <button className='relative mx-0 m-auto' type='button' onClick={handleGoogleLogin}>
+            <img src='icons/login/googleButton.png' alt='continuar button' />
+          </button>
+        </div>
+        <div className='flex font-texto text-3xl mt-2 md:mt-[50px] xl:mt-[100px] xxl:mt-[150px]'>
           <button className='relative'>
             <Link href='/initialS'>
               <img src='icons/login/back_button.svg' alt='Volver button' />
@@ -224,11 +229,6 @@ const Login = () => {
           </button>
           <button type='submit' className='relative'>
             <img src='icons/login/login_button.svg' alt='continuar button' />
-          </button>
-        </div>
-        <div className='relative grid justify-center w-full mt-6'>
-          <button className='relative mx-0 m-auto' type='button' onClick={handleGoogleLogin}>
-            <img src='icons/login/googleButton.png' alt='continuar button' />
           </button>
         </div>
       </form>

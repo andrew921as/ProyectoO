@@ -257,7 +257,11 @@ const Resgiter = () => {
             <Loading />
           </div>
         ) : null}
-
+        <div className='relative grid justify-center w-full mt-6'>
+          <button className='relative mx-0 m-auto' type='button' onClick={handleGoogleLogin}>
+            <img src='icons/login/googleButton.png' alt='continuar button' />
+          </button>
+        </div>
         {/* Botones volver e ingresar */}
         <div className='flex font-texto text-3xl mt-4'>
           <Link href='/initialS' className='relative'>
@@ -265,11 +269,6 @@ const Resgiter = () => {
           </Link>
           <button type='submit' className='relative'>
             <img src='icons/login/login_button.svg' alt='continuar button' />
-          </button>
-        </div>
-        <div className='relative grid justify-center w-full mt-6'>
-          <button className='relative mx-0 m-auto' type='button' onClick={handleGoogleLogin}>
-            <img src='icons/login/googleButton.png' alt='continuar button' />
           </button>
         </div>
       </form>
