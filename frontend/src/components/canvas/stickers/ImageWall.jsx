@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useContext } from 'react'
 import { DoubleSide, Vector3 } from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Text } from '@react-three/drei'

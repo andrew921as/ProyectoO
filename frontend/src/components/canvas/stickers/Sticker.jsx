@@ -1,9 +1,10 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import { DoubleSide, TextureLoader } from 'three'
 import { useLoader, useThree, useFrame } from '@react-three/fiber'
 import ImageWall from './ImageWall'
 import { Vector3 } from 'three'
+import { BookContext } from '@/context/BookProvider'
 
 export function ZeusWall(props) {
   const imgWallRef = useRef()
@@ -19,10 +20,11 @@ export function ZeusWall(props) {
   const [isImgVisible, setImgVisibility] = useState(true)
   const [text, setText] = useState('')
 
+  const { bookState, setBookState } = useContext(BookContext)
+
   const handleImage = (event) => {
     event.stopPropagation()
     if (isWallVisible == false) {
-      // setCurrentTexture(texture_flash);
       setWallVisibility(true)
       setImgVisibility(false)
       setText(lore)

@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useContext } from 'react'
 import { DoubleSide, Vector3, TextureLoader } from 'three'
 import { useFrame, useThree, useLoader } from '@react-three/fiber'
 import VideoWall from './VideoWall'
@@ -15,12 +15,15 @@ export function AphroditeWall(props) {
   const [isWallVisible, setWallVisibility] = useState(false)
   const [isImgVisible, setImgVisibility] = useState(true)
 
-  const handleImage = (event) => {
-    event.stopPropagation()
+
+  const handleImage = async (event) => {
+    console.log("CLICKKK")
     if (isWallVisible == false) {
-      setWallVisibility(true)
-      setImgVisibility(false)
+      setWallVisibility(false)
+      setImgVisibility(true)
+      props.setVisibleIndexB(false)
     }
+    // event.stopPropagation()
   }
 
   useEffect(() => {
@@ -66,6 +69,7 @@ export function AphroditeWall(props) {
         onContextMenu={() => {
           setWallVisibility(false)
           setImgVisibility(true)
+          props.setVisibleIndexB(true)
         }}
         url={videoUrl}
       />

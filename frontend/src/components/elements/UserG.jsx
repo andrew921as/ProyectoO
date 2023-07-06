@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Html } from '@react-three/drei'
 import { UserContext } from '@/context/UserProvider'
 
-export function IndexButton({ setBookPage, nextPage }) {
+export function UserG() {
 	const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
 	const [myDisplay, setMyDisplay] = useState(true)
 	const { user, setUser } = useContext(UserContext)
@@ -38,7 +38,7 @@ export function IndexButton({ setBookPage, nextPage }) {
 		<>
 			<Html position={[0, 0, 1.1]}
 				style={{
-					width: windowSize.width * 0.15 + 'px',
+					width: windowSize.width * 0.18 + 'px',
 					height: '100px',
 					overflow: 'auto',
 				}}

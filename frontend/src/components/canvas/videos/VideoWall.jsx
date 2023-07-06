@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import { DoubleSide, Vector3 } from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { VideoTexture } from 'three/src/textures/VideoTexture';

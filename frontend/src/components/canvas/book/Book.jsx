@@ -285,7 +285,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       {/* Mostrar videos */}
       {isVidOpen &&
         visibleVideos.map((video) => {
-          return <Video key={'video_' + video.videoId} {...video} />
+          return <Video key={'video_' + video.videoId} setVisibleIndexB={setVisibleIndexB} {...video} />
         })}
 
       <NextPage flagPageBookState={flagPageBookState} />
