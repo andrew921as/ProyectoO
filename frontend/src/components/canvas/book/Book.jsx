@@ -285,7 +285,14 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       {/* Mostrar videos */}
       {isVidOpen &&
         visibleVideos.map((video) => {
-          return <Video key={'video_' + video.videoId} setVisibleIndexB={setVisibleIndexB} {...video} />
+          return (
+            <Video
+              key={'video_' + video.videoId}
+              visibleIndexB={visibleIndexB}
+              setVisibleIndexB={setVisibleIndexB}
+              {...video}
+            />
+          )
         })}
 
       <NextPage flagPageBookState={flagPageBookState} />
@@ -317,8 +324,8 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
                   </>
                 )
               })}
-            
-            {(visibleIndexB && bookPage != 0)? <IndexButton setBookPage={setBookPage} nextPage={nextPageIndex} /> : null}
+
+            {visibleIndexB && bookPage != 0 ? <IndexButton setBookPage={setBookPage} nextPage={nextPageIndex} /> : null}
 
             {/* Pistas */}
             {bookPage == 0 && !bookState.hint && (

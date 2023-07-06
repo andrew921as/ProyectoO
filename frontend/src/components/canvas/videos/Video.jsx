@@ -15,16 +15,24 @@ export function AphroditeWall(props) {
   const [isWallVisible, setWallVisibility] = useState(false)
   const [isImgVisible, setImgVisibility] = useState(true)
 
-
   const handleImage = async (event) => {
-    console.log("CLICKKK")
+    event.stopPropagation()
+    console.log('CLICKKK')
     if (isWallVisible == false) {
-      setWallVisibility(false)
-      setImgVisibility(true)
+      setWallVisibility(true)
+      setImgVisibility(false)
       props.setVisibleIndexB(false)
     }
     // event.stopPropagation()
   }
+
+  useEffect(() => {
+    if (!props.visibleIndexB && !isWallVisible && isImgVisible) {
+      setWallVisibility(true)
+      setImgVisibility(false)
+    }
+    console.log('VISIBLEINDEXB:', props.visibleIndexB)
+  }, [props.visibleIndexB, props.setVisibleIndexB])
 
   useEffect(() => {
     videoRef.current.rotation.x -= Math.PI / 2
