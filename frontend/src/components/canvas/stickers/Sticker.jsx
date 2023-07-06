@@ -20,14 +20,14 @@ export function ZeusWall(props) {
   const [isImgVisible, setImgVisibility] = useState(true)
   const [text, setText] = useState('')
 
-  const { bookState, setBookState } = useContext(BookContext)
 
   const handleImage = (event) => {
-    event.stopPropagation()
+    event?.stopPropagation()
     if (isWallVisible == false) {
       setWallVisibility(true)
       setImgVisibility(false)
       setText(lore)
+      props.setVisibleIndexB(false)
     }
   }
 
@@ -75,11 +75,12 @@ export function ZeusWall(props) {
         visible={isWallVisible}
         onClick={(event) => {
           if (isWallVisible == true) {
-            event.stopPropagation()
+            event?.stopPropagation()
           }
           setWallVisibility(false)
           setText('')
           setImgVisibility(true)
+          props.setVisibleIndexB(true)
         }}
         texture={currentTexture}
         text={text}

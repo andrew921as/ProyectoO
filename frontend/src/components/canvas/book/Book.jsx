@@ -279,7 +279,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       {/* Mostrar stickers */}
       {isImgOpen &&
         visibleStickers.map((sticker) => {
-          return <Sticker key={'sticker_' + sticker.stickerId} {...sticker} />
+          return <Sticker key={'sticker_' + sticker.stickerId} setVisibleIndexB={setVisibleIndexB} {...sticker} />
         })}
 
       {/* Mostrar videos */}

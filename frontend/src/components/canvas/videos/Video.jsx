@@ -26,13 +26,13 @@ export function AphroditeWall(props) {
     // event.stopPropagation()
   }
 
-  useEffect(() => {
-    if (!props.visibleIndexB && !isWallVisible && isImgVisible) {
-      setWallVisibility(true)
-      setImgVisibility(false)
-    }
-    console.log('VISIBLEINDEXB:', props.visibleIndexB)
-  }, [props.visibleIndexB, props.setVisibleIndexB])
+  // useEffect(() => {
+  //   if (!props.visibleIndexB && !isWallVisible && isImgVisible) {
+  //     setWallVisibility(true)
+  //     setImgVisibility(false)
+  //   }
+  //   console.log('VISIBLEINDEXB:', props.visibleIndexB)
+  // }, [props.visibleIndexB, props.setVisibleIndexB])
 
   useEffect(() => {
     videoRef.current.rotation.x -= Math.PI / 2

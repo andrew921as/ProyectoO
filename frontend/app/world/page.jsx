@@ -248,7 +248,7 @@ export default function Page() {
       )}
 
       {/* Help */}
-      <div className='absolute z-20 left-0 top-0'>
+      <div className='absolute z-20 left-0 top-0 w-screen h-screen'>
         <Help />
       </div>
 

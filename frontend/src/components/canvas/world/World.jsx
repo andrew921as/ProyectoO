@@ -1,11 +1,14 @@
 'use client'
 
-import React, { useRef, Suspense, useEffect, useState } from 'react'
+import React, { useRef, Suspense, useEffect, useState, useContext } from 'react'
 import { useFrame, useLoader, useThree } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useGLTF, Html, Loader, Sky } from '@react-three/drei'
 import Water from './Water'
 import * as THREE from 'three'
+
+// Contextos
+import { BookContext } from '@/context/BookProvider'
 
 export function ModelWorld(props) {
   const { nodes, materials } = useGLTF('/models/world/world.glb')
@@ -17,6 +20,9 @@ export function ModelWorld(props) {
 
   // Estados
   const [selectedLabel, setSelectedLabel] = useState(null)
+
+  // Contextos
+  const { bookState, setBookState } = useContext(BookContext)
 
   // Referencias
   const labelModalRef = useRef()
@@ -56,7 +62,7 @@ export function ModelWorld(props) {
   return (
     <Suspense fallback={<Loader />}>
       {/* Etiquetas del mundo */}
-      {!props.isBookOpen && !props.isChangeAvatarOpen && (
+      {!props.isBookOpen && !props.isChangeAvatarOpen && !bookState.isHelpOpen && (
         <>
           {props.labels.map((label, index) => {
             if (selectedLabel?.id != label.id) {
