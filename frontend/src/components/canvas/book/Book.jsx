@@ -279,13 +279,20 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       {/* Mostrar stickers */}
       {isImgOpen &&
         visibleStickers.map((sticker) => {
-          return <Sticker key={'sticker_' + sticker.stickerId} {...sticker} />
+          return <Sticker key={'sticker_' + sticker.stickerId} setVisibleIndexB={setVisibleIndexB} {...sticker} />
         })}
 
       {/* Mostrar videos */}
       {isVidOpen &&
         visibleVideos.map((video) => {
-          return <Video key={'video_' + video.videoId} {...video} />
+          return (
+            <Video
+              key={'video_' + video.videoId}
+              visibleIndexB={visibleIndexB}
+              setVisibleIndexB={setVisibleIndexB}
+              {...video}
+            />
+          )
         })}
 
       <NextPage flagPageBookState={flagPageBookState} />
@@ -317,8 +324,8 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
                   </>
                 )
               })}
-            
-            {(visibleIndexB && bookPage != 0)? <IndexButton setBookPage={setBookPage} nextPage={nextPageIndex} /> : null}
+
+            {visibleIndexB && bookPage != 0 ? <IndexButton setBookPage={setBookPage} nextPage={nextPageIndex} /> : null}
 
             {/* Pistas */}
             {bookPage == 0 && !bookState.hint && (

@@ -1,8 +1,8 @@
 'use client'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useContext } from 'react'
 import { DoubleSide, Vector3 } from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
-import { Text } from '@react-three/drei'
+import { Text, Html } from '@react-three/drei'
 
 export default function ImageWall({ visible, onClick, texture, text, textColor }) {
   const imgWallRef = useRef()
@@ -30,6 +30,12 @@ export default function ImageWall({ visible, onClick, texture, text, textColor }
       <mesh ref={imgWallRef} receiveShadow dispose={null} visible={visible} onClick={onClick}>
         <planeGeometry args={[5.5, 3.5]} />
         <meshStandardMaterial map={texture} color='white' side={DoubleSide} />
+        {visible && <Text onClick={() => onClick()} font='/fonts/caligo.ttf' fontSize={0.1} color="Black" maxWidth={2.5} textAlign='center' position={[0.48,0.26,2]} outlineWidth={0.005} outlineColor='White' >
+            X
+        </Text>}
+        {/* <Html position={[0.5,0.3,2]}>
+               {visible && <button onClick={() => onClick()} className='text-amarillito text-6xl font-texto cursor-pointer'>X</button> } 
+          </Html> */}
       </mesh>
       {/* <mesh position-y={18} position-x={318} position-z={-4.9} visible={visible} onClick={onClick}>
             <Text font="/fonts/jeju.ttf" fontSize={3} color="White" maxWidth={25} textAlign="center">

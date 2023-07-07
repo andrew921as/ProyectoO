@@ -1,5 +1,13 @@
 const labels = [
   {
+    id: 0,
+    position: [-52.0, 10, -50],
+    rotation: [0, 0, 0],
+    text: '¡Hola viajero!, presiona la tecla Esc y haz click aquí.',
+    description:
+      '¡Bienvenido a Olimpocraft! Explora la antigua Grecia en busca de llaves dispersas por todo el mundo. Tu misión es encontrarlas mientras aprendes sobre esta fascinante época. Responde quizzes para desbloquear nuevas secciones de conocimiento. ¡No olvides consultar la guía de controles pulsando el símbolo de ayuda en la esquina superior izquierda! ¡Buena suerte en tu aventura!',
+  },
+  {
     id: 1,
     position: [-52.0, 10, -38],
     rotation: [0, 0, 0],

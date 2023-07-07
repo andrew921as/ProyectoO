@@ -13,6 +13,7 @@ const initialBookState = {
   quiz: null,
   quizzes: questions,
   hint: false,
+  isHelpOpen: false,
 }
 
 export const BookProvider = ({ children }) => {
