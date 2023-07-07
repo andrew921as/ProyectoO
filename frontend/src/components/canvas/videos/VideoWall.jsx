@@ -55,7 +55,7 @@ export default function VideoWall({ visible, onContextMenu, url }) {
 
     const handleContextMenu = (event) => {
         if (visible == true) {
-            event?.stopPropagation()
+            event.stopPropagation()
             onContextMenu(event);
             stopvid(event);
         }
@@ -83,7 +83,7 @@ export default function VideoWall({ visible, onContextMenu, url }) {
             {/* <Html position={[0.45,0.33,2]}>
                {visible && <button onClick={() => handleContextMenu()} className='text-amarillito text-6xl font-texto cursor-pointer'>X</button> } 
             </Html> */}
-            {visible && <Text onClick={() => handleContextMenu()} font='/fonts/caligo.ttf' fontSize={0.1} color="Black" maxWidth={2.5} textAlign='center' position={[0.48,0.26,2]} outlineWidth={0.005} outlineColor='White' >
+            {visible && <Text onClick={handleContextMenu} font='/fonts/caligo.ttf' fontSize={0.1} color="Black" maxWidth={2.5} textAlign='center' position={[0.48,0.26,2]} outlineWidth={0.005} outlineColor='White' >
             X
             </Text>}
            
