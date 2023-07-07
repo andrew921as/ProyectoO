@@ -62,7 +62,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
 
   // Estados del libro
   const [sectionsUnlocked, setSectionsUnlocked] = useState(0)
-  const [bookPage, setBookPage] = useState(0)
+  const [bookPage, setBookPage] = useState(-1)
   const [isImgOpen, setIsImgOpen] = useState(false)
   const [isVidOpen, setIsVidOpen] = useState(false)
   const [visibleStickers, setVisibleStickers] = useState([])
@@ -202,9 +202,29 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
       setAnimationPage(false)
     }, 1000)
   }
+    const previousPageIndex = () => {
+    if (bookPage == sections[sectionsUnlocked - 1].end) return
+    setAnimationPage(true)
+    // console.log("AAA", isReproduceAnimation);
+    actions['NextPage'].repetitions = 1 // Repetir animación una vez
+    actions['NextPage'].reset() // Detener la animación en el último frame
+    actions['NextPage'].timeScale = -1 // No poner la animación en reversa
+    actions['NextPage'].play() // Reproducir animación si hay una definida en el modelo
+
+    // Ocultar el sticker y el video
+    setIsImgOpen(false)
+    setIsVidOpen(false)
+
+    // Mostrar el sticker y el video
+    setTimeout(() => {
+      setIsImgOpen(true)
+      setIsVidOpen(true)
+      setAnimationPage(false)
+    }, 1000)
+  }
 
   const previousPage = () => {
-    if (bookPage == 0) return
+    if (bookPage == -1) return
     setAnimationPage(true)
     // console.log("AAA", isReproduceAnimation);
     actions['NextPage'].repetitions = 1 // Repetir animación una vez
@@ -325,22 +345,22 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
                 )
               })}
 
-            {visibleIndexB && bookPage != 0 && !bookState.isQuizOpen ? <IndexButton setBookPage={setBookPage} nextPage={nextPageIndex} /> : null}
+            {visibleIndexB && bookPage != -1 && !bookState.isQuizOpen ? <IndexButton setBookPage={setBookPage} nextPage={previousPageIndex} /> : null}
 
             {/* Pistas */}
-            {bookPage == 0 && !bookState.hint && (
+            {bookPage == -1 && !bookState.hint && (
               <>
                 <Hints />
               </>
             )}
 
             {/* Página de índice */}
-            {bookPage == 0 && !bookState.hint && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} />}
+            {bookPage == -1 && !bookState.hint && <IndexB setBookPage={setBookPage} nextPage={nextPageIndex} nextPageIndex/>}
 
             {/* Mensajes de introducción a cada sección del libro*/}
 
             {sections.map((section, index) => {
-              if (bookPage == section.start && !bookState.isQuizOpen && index !== 0) {
+              if (bookPage == section.start && !bookState.isQuizOpen && index !== -1) {
                 return (
                   <Html key={`section_${index}`} position={[0.2, 0.5, -0.5]}>
                     <div className=' w-[200px] h-40'>

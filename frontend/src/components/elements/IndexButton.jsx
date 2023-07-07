@@ -31,7 +31,10 @@ export function IndexButton({ setBookPage, nextPage }) {
 
 	const handleClick = async() => {
 			nextPage()
-      setBookPage(0)
+			setTimeout(() => {
+      setBookPage(-1)
+    }, 1000)
+      
 	
 	}
 	return (

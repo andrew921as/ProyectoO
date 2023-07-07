@@ -68,7 +68,7 @@ export function IndexBook({ setBookPage, nextPage }) {
         position={[0.2, 0, -1.2]}
         style={{
           width: windowSize.width * 0.18 + 'px',
-          height: '400px',
+          height: '250px',
           overflow: 'auto',
         }}
       >
@@ -80,7 +80,7 @@ export function IndexBook({ setBookPage, nextPage }) {
           className={`text-xl md:text-2xl xl:text-xl font-bold mb-3 xl:mb-3 text-left font-texto hover:cursor-pointer ${
             user.progress < 20 ? 'text-gray-500' : 'text-caca_clara'
           }`}
-          onClick={() => handleClick(1, 20)}
+          onClick={() => handleClick(0, 20)}
         >
           1. Mitologia
         </h3>
