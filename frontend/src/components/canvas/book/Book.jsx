@@ -325,7 +325,7 @@ export function Book({ isBookOpen, setAnimationPage, animationPage }) {
                 )
               })}
 
-            {visibleIndexB && bookPage != 0 ? <IndexButton setBookPage={setBookPage} nextPage={nextPageIndex} /> : null}
+            {visibleIndexB && bookPage != 0 && !bookState.isQuizOpen ? <IndexButton setBookPage={setBookPage} nextPage={nextPageIndex} /> : null}
 
             {/* Pistas */}
             {bookPage == 0 && !bookState.hint && (

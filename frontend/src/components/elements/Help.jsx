@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -13,6 +13,7 @@ export const Help = ({ onClick }) => {
 
   // Estados
   const [showMessage, setShowMessage] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
 
   // Contextos
   const { bookState, setBookState } = useContext(BookContext);
@@ -26,22 +27,42 @@ export const Help = ({ onClick }) => {
     setShowMessage(false);
     setBookState({ ...bookState, isHelpOpen: false })
   };
-  
 
-  if (showMessage){
+  //Obtener el tamaño de la ventana
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+
+    // Agregar un listener para actualizar el tamaño de la ventana
+    if (typeof window !== 'undefined') {
+      handleResize() // Obtener el tamaño de la ventana inicial
+      window.addEventListener('resize', handleResize) // Actualizar el tamaño de la ventana al cambiar su tamaño
+    }
+
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', handleResize) // Eliminar el evento de cambio de tamaño al desmontar el componente
+      }
+    }
+  }, [])
+
+
+  if (showMessage) {
     return (
-      <div className="relative flex items-center justify-center w-full h-full bg-sin_derechos bg-opacity-80 z-50">
+      <div className="relative flex items-center justify-center w-screen h-screen bg-sin_derechos bg-opacity-80 z-50">
 
         {/* Botón de cerrar */}
-        <div className="absolute font-texto text-6xl text-amarillito top-20 right-20 cursor-pointer" onClick={() => handleOnClose()}>X</div>
+        <div className="absolute font-texto text-6xl text-amarillito top-[40px] right-[230px] cursor-pointer" onClick={() => handleOnClose()}>X</div>
 
-        <div className="w-10/12 h-10/12 z-60">
-          <img src='/img/world/guia.png'alt="Guía de usuario" />
-        </div>
+        <img style={{ height: windowSize.height * 0.95 }} src='/img/world/guia.png' alt="Guía de usuario" />
       </div>
     )
   }
-  
+
 
 
   return (

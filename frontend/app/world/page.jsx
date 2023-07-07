@@ -248,27 +248,28 @@ export default function Page() {
       )}
 
       {/* Help */}
-      <div className='absolute z-20 left-0 top-0 w-screen h-screen'>
+      <div className='absolute z-20 left-0 top-0'>
         <Help />
       </div>
 
       {/* Music */}
       <div className='absolute z-20 left-0 bottom-0'>
-        <Music onClick={handleMusicToggle}/>
+        {!bookState?.isHelpOpen && <Music onClick={handleMusicToggle}/>}
       </div>
 
       {/* Book */}
       <div className='absolute z-20 bottom-0 right-0'>
-        <Book
+        {!bookState?.isHelpOpen && (<Book
           onClick={() => {
             // handleshowImg()
             setIsBookOpen(!isBookOpen)
           }}
-        />
+        />)}
+        
       </div>
 
       {/* Quiz interface */}
-      {bookState.isQuizOpen && (
+      {bookState?.isQuizOpen && (
         <div
           style={{
             width: windowSize.width * 0.8 + 'px',
