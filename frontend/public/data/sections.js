@@ -28,6 +28,6 @@ export const sections = [
     title: 'Sección 5, recomendaciones',
     description: 'En esta sección encontrarás recomendaciones de libros, peliculas y juegos relacionados con la antigua grecia',
     start: 14,
-    end: 20,
+    end: 16,
   },
 ]
